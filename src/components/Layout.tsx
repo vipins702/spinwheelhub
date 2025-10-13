@@ -32,7 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   SpinWheelHub
                 </span>
-                <div className="text-xs text-gray-500">Free Random Spinner</div>
+                <div className="text-xs text-gray-500">Free Spin Wheel Generator</div>
               </div>
             </Link>
             

@@ -91,7 +91,7 @@ const ContactPage: React.FC = () => {
             Get in <span className="text-gradient">Touch</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Have questions, suggestions, or need help? We'd love to hear from you! 
+            Have questions, suggestions, or need help with our spin wheel platform? We'd love to hear from you! 
             Our team is here to make your SpinWheelHub experience amazing.
           </p>
         </motion.div>
@@ -296,14 +296,14 @@ const ContactPage: React.FC = () => {
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
             <p className="text-xl text-gray-600">
-              Quick answers to common questions about SpinWheelHub
+              Quick answers to common questions about our spin wheel platform
             </p>
           </motion.div>
 
           <div className="space-y-6">
             {[
               {
-                question: "How do I create a custom wheel?",
+                question: "How do I create a custom spin wheel?",
                 answer: "Simply click on any wheel category and use the customization options to add your own choices, adjust weights, and personalize colors."
               },
               {
@@ -311,8 +311,8 @@ const ContactPage: React.FC = () => {
                 answer: "Yes! SpinWheelHub is completely free to use. We offer premium features for users who want advanced customization and ad-free experience."
               },
               {
-                question: "Can I save my wheel configurations?",
-                answer: "Absolutely! Create an account to save your custom wheels, track your decision history, and access your favorites across devices."
+                question: "Can I save my spin wheel configurations?",
+                answer: "Absolutely! Create an account to save your custom spin wheels, track your decision history, and access your favorites across devices."
               },
               {
                 question: "How do the weighted options work?",

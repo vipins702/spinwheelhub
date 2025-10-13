@@ -153,26 +153,26 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 text-white overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 text-white overflow-hidden">
         {/* Background Animation */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white opacity-5 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-white opacity-5 rounded-full animate-pulse delay-1000"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-white opacity-5 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 bg-white opacity-5 rounded-full animate-pulse delay-1000"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                Wheel of Names
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
+                Spin Wheel Generator
                 <span className="block text-yellow-300">Free & Easy Spinner</span>
               </h1>
-              <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
-                Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.
+              <p className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
+                Enter names, spin wheel to pick a random winner. Create custom spin wheels with ease. Customize look and feel, save and share wheels.
                 Perfect for classrooms, giveaways, presentations and standups.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -202,17 +202,17 @@ const HomePage: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex justify-center"
             >
-              <div className="relative">
+              <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg">
                 <ProfessionalCanvasWheel
                   options={heroWheelOptions}
-                  size={500}
+                  size={350}
                   onSpinComplete={(result) => {
                     console.log('Hero wheel result:', result)
                   }}
                   enableSound={true}
                   showControls={true}
                 />
-                <div className="absolute -top-4 -right-4 bg-yellow-400 text-purple-900 px-4 py-2 rounded-full font-bold text-sm animate-bounce">
+                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-yellow-400 text-purple-900 px-2 py-1 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm animate-bounce">
                   Try me! 🎯
                 </div>
               </div>
@@ -310,13 +310,13 @@ const HomePage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Random Name Picker for <span className="text-gradient">Every Occasion</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Spin Wheel Generator for <span className="text-gradient">Every Occasion</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Our spinning wheel is perfect for classrooms, raffles, presentations and giveaways. 
-              Teachers love our classroom name picker, while event organizers use our giveaway spinner 
-              to pick random winners. Completely free and ad-free!
+              Our spin wheel generator is perfect for classrooms, raffles, presentations and giveaways. 
+              Teachers love our classroom name picker, while event organizers use our spin wheel 
+              to pick random winners. Create custom spin wheels instantly. Completely free and ad-free!
             </p>
 
             {/* Search Bar */}
@@ -332,7 +332,7 @@ const HomePage: React.FC = () => {
             </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             {filteredCategories.map((category, index) => (
               <motion.div
                 key={category.id}

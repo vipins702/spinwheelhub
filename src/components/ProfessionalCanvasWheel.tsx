@@ -56,12 +56,13 @@ const ProfessionalCanvasWheel: React.FC<CanvasWheelProps> = ({
 
     // High DPI support
     const dpr = window.devicePixelRatio || 1
-    const rect = canvas.getBoundingClientRect()
     
     canvas.width = size * dpr
     canvas.height = size * dpr
     canvas.style.width = `${size}px`
     canvas.style.height = `${size}px`
+    canvas.style.maxWidth = '100%'
+    canvas.style.height = 'auto'
     
     ctx.scale(dpr, dpr)
     ctx.imageSmoothingEnabled = true
@@ -271,18 +272,20 @@ const ProfessionalCanvasWheel: React.FC<CanvasWheelProps> = ({
   }, [spinning, animate, animationId])
 
   return (
-    <div className="flex flex-col items-center space-y-6">
+    <div className="flex flex-col items-center space-y-4 sm:space-y-6 w-full">
       {/* Canvas Wheel */}
       <div 
-        className="relative"
-        style={{ width: size, height: size }}
+        className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg"
+        style={{ aspectRatio: '1/1' }}
       >
         <canvas
           ref={canvasRef}
-          className="rounded-full shadow-2xl cursor-pointer hover:shadow-3xl transition-shadow duration-300"
+          className="rounded-full shadow-2xl cursor-pointer hover:shadow-3xl transition-shadow duration-300 w-full h-full"
           onClick={spinWheel}
           style={{
             filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
+            maxWidth: '100%',
+            height: 'auto'
           }}
         />
         
@@ -298,17 +301,16 @@ const ProfessionalCanvasWheel: React.FC<CanvasWheelProps> = ({
 
       {/* Controls */}
       {showControls && (
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center space-y-4 w-full">
           <button
             onClick={spinWheel}
             disabled={isSpinning}
-            className={`px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform ${
+            className={`px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform w-full max-w-xs sm:max-w-sm ${
               isSpinning
                 ? 'bg-gray-400 cursor-not-allowed scale-95'
                 : 'bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white hover:scale-105 shadow-lg hover:shadow-xl animate-pulse'
             }`}
             style={{ 
-              minWidth: '200px',
               boxShadow: isSpinning ? 'none' : '0 8px 25px rgba(108, 92, 231, 0.3)'
             }}
           >
@@ -327,12 +329,12 @@ const ProfessionalCanvasWheel: React.FC<CanvasWheelProps> = ({
           </button>
 
           {result && !isSpinning && (
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg border-2 border-purple-200">
-              <h3 className="text-2xl font-bold text-purple-600 mb-2">🎉 Winner!</h3>
-              <p className="text-xl text-gray-800">{result.text}</p>
+            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg border-2 border-purple-200 w-full max-w-xs sm:max-w-sm">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-purple-600 mb-2">🎉 Winner!</h3>
+              <p className="text-base sm:text-lg md:text-xl text-gray-800 break-words">{result.text}</p>
               <button
                 onClick={() => setResult(null)}
-                className="mt-3 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-200"
+                className="mt-3 px-3 sm:px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-200 text-sm sm:text-base"
               >
                 Clear Result
               </button>

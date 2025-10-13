@@ -21,7 +21,7 @@ const CustomWheelOfNames: React.FC = () => {
   const [spinHistory, setSpinHistory] = useState<WheelOption[]>([])
   const [excludeAfterSpin, setExcludeAfterSpin] = useState(false)
   const [showManualEntry, setShowManualEntry] = useState(true)
-  const [wheelTitle, setWheelTitle] = useState('Custom Wheel of Names')
+  const [wheelTitle, setWheelTitle] = useState('Custom Spin Wheel')
   const [showTitleEditor, setShowTitleEditor] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -203,7 +203,7 @@ const CustomWheelOfNames: React.FC = () => {
     setSpinHistory([])
     setLastResult(null)
     setManualEntries([''])
-    setWheelTitle('Custom Wheel of Names')
+    setWheelTitle('Custom Spin Wheel')
   }
 
   const handleSpinComplete = (result: WheelOption) => {
@@ -219,23 +219,23 @@ const CustomWheelOfNames: React.FC = () => {
     <>
       {/* Enhanced SEO Head */}
       <Helmet>
-        <title>Custom Wheel of Names | Free Random Name Picker & Decision Maker | SpinWheelHub</title>
-        <meta name="description" content="Create your custom wheel of names for any purpose! Free random picker for decisions, team selection, name drawing, and more. Fully customizable with import/export features." />
-        <meta name="keywords" content="wheel of names, custom wheel, random picker, decision maker, name picker, team selector, random generator, spinning wheel, choice maker, custom spinner, random name picker, decision wheel, name selector, team picker, random chooser" />
+        <title>Custom Spin Wheel | Free Random Name Picker & Decision Maker | SpinWheelHub</title>
+        <meta name="description" content="Create your custom spin wheel for any purpose! Free random picker for decisions, team selection, name drawing, and more. Fully customizable with import/export features." />
+        <meta name="keywords" content="spin wheel, wheel of names, custom wheel, random picker, decision maker, name picker, team selector, random generator, spinning wheel, choice maker, custom spinner, random name picker, decision wheel, name selector, team picker, random chooser" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
         <link rel="canonical" href="https://spinwheelhub.com/custom-wheel-of-names" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Custom Wheel of Names | Free Random Picker | SpinWheelHub" />
-        <meta property="og:description" content="Create your personalized wheel of names! Perfect for team selection, decision making, name drawing, and any random picking needs." />
+        <meta property="og:title" content="Custom Spin Wheel | Free Random Picker | SpinWheelHub" />
+        <meta property="og:description" content="Create your personalized spin wheel! Perfect for team selection, decision making, name drawing, and any random picking needs." />
         <meta property="og:url" content="https://spinwheelhub.com/custom-wheel-of-names" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Custom Wheel of Names | SpinWheelHub" />
+        <meta name="twitter:title" content="Custom Spin Wheel | SpinWheelHub" />
         <meta name="twitter:description" content="Build your own custom spinning wheel for any decision or name picking need. Free and fully customizable!" />
         <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
         

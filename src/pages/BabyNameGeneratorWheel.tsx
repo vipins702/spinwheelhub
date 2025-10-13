@@ -403,15 +403,15 @@ const BabyNameGeneratorWheel: React.FC = () => {
     <>
       {/* Enhanced SEO Head */}
       <Helmet>
-        <title>WheelofNames | Random Name Picker | SpinWheelHub</title>
-        <meta name="description" content="Spin the wheel to pick random names! Features popular names including Emma, Liam, Olivia, Noah and more. Free name generator and decision maker wheel." />
-        <meta name="keywords" content="wheel of names, random name picker, name wheel, name spinner, decision maker, random picker, name generator tool" />
+        <title>Baby Name Spin Wheel | Random Name Picker | SpinWheelHub</title>
+        <meta name="description" content="Spin wheel to pick random baby names! Features popular names including Emma, Liam, Olivia, Noah and more. Free name generator and decision maker spin wheel." />
+        <meta name="keywords" content="spin wheel, wheel of names, random name picker, name wheel, name spinner, decision maker, random picker, name generator tool" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
         <link rel="canonical" href="https://spinwheelhub.com/wheel-of-names" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Baby Name Generator Wheel | Random Baby Name Picker" />
+        <meta property="og:title" content="Baby Name Spin Wheel | Random Baby Name Picker" />
         <meta property="og:description" content="Spin the wheel to pick the perfect baby name! Popular names with SpinWheelHub's easy-to-use baby name generator." />
         <meta property="og:url" content="https://spinwheelhub.com/wheel-of-names" />
         <meta property="og:type" content="website" />
@@ -419,7 +419,7 @@ const BabyNameGeneratorWheel: React.FC = () => {
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Baby Name Generator Wheel | SpinWheelHub" />
+        <meta name="twitter:title" content="Baby Name Spin Wheel | SpinWheelHub" />
         <meta name="twitter:description" content="Find the perfect baby name with our spinning wheel generator!" />
         <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
         
@@ -428,8 +428,8 @@ const BabyNameGeneratorWheel: React.FC = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Baby Name Generator Wheel - SpinWheelHub",
-            "description": "Free baby name picker wheel with popular baby names for expecting parents",
+            "name": "Baby Name Spin Wheel - SpinWheelHub",
+            "description": "Free baby name spin wheel with popular baby names for expecting parents",
             "url": "https://spinwheelhub.com/wheel-of-names",
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
@@ -438,7 +438,7 @@ const BabyNameGeneratorWheel: React.FC = () => {
               "price": "0",
               "priceCurrency": "USD"
             },
-            "featureList": ["baby name picker", "random baby name generator", "baby name wheel", "pregnancy naming tool"]
+            "featureList": ["baby name picker", "random baby name generator", "baby name spin wheel", "pregnancy naming tool"]
           })}
         </script>
       </Helmet>

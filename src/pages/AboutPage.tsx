@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
             About <span className="text-gradient">SpinWheelHub</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            We believe that making decisions shouldn't be stressful. Our platform combines the fun of spinning wheels 
+            We believe that making decisions shouldn't be stressful. Our spin wheel platform combines the fun of spinning wheels 
             with intelligent algorithms to help you make choices with confidence and joy.
           </p>
           <div className="flex flex-wrap justify-center gap-8 text-center">
@@ -105,7 +105,7 @@ const AboutPage: React.FC = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               To transform decision-making from a source of stress into a moment of clarity and excitement. 
-              We're building tools that make choices feel effortless, whether you're picking what to eat 
+              We're building spin wheel tools that make choices feel effortless, whether you're picking what to eat 
               for lunch or making life-changing decisions.
             </p>
           </motion.div>
@@ -155,10 +155,10 @@ const AboutPage: React.FC = () => {
             </p>
             <p className="text-lg leading-relaxed mb-6">
               The idea struck during a particularly indecisive moment at a restaurant. "What if there was a fun, 
-              interactive way to make decisions?" Alex thought. That evening, the first prototype of SpinWheelHub was born.
+              interactive spin wheel to make decisions?" Alex thought. That evening, the first prototype of SpinWheelHub was born.
             </p>
             <p className="text-lg leading-relaxed mb-6">
-              What started as a simple spinning wheel has evolved into a comprehensive decision-making platform. 
+              What started as a simple spin wheel has evolved into a comprehensive decision-making platform. 
               We've helped millions of people choose everything from baby names to travel destinations, 
               making the process enjoyable rather than overwhelming.
             </p>
