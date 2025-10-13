@@ -1,0 +1,65 @@
+
+{
+  "name": "wheel_options",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["optionId", "categoryId", "label", "weight", "createdAt"],
+        "properties": {
+          "optionId": {
+            "bsonType": "string",
+            "description": "Unique option identifier"
+          },
+          "categoryId": {
+            "bsonType": "string",
+            "description": "Reference to wheel category"
+          },
+          "label": {
+            "bsonType": "string",
+            "description": "Display label for the option"
+          },
+          "description": {
+            "bsonType": "string",
+            "description": "Detailed description of the option"
+          },
+          "weight": {
+            "bsonType": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Probability weight (1-10)"
+          },
+          "metadata": {
+            "bsonType": "object",
+            "description": "Additional option-specific data"
+          },
+          "affiliateUrl": {
+            "bsonType": "string",
+            "description": "Affiliate link for monetization"
+          },
+          "color": {
+            "bsonType": "string",
+            "description": "Color for wheel segment"
+          },
+          "isActive": {
+            "bsonType": "bool",
+            "description": "Whether option is active"
+          },
+          "createdAt": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Last update timestamp"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}

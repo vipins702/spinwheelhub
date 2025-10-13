@@ -1,0 +1,60 @@
+
+{
+  "name": "user_decisions",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["decisionId", "userId", "categoryId", "selectedOption", "spinTimestamp"],
+        "properties": {
+          "decisionId": {
+            "bsonType": "string",
+            "description": "Unique decision identifier"
+          },
+          "userId": {
+            "bsonType": "string",
+            "description": "User ID from authentication system"
+          },
+          "categoryId": {
+            "bsonType": "string",
+            "description": "Reference to wheel category"
+          },
+          "selectedOption": {
+            "bsonType": "string",
+            "description": "The option that was selected"
+          },
+          "allOptions": {
+            "bsonType": "array",
+            "description": "All options that were on the wheel"
+          },
+          "userFilters": {
+            "bsonType": "object",
+            "description": "Filters applied by user before spinning"
+          },
+          "spinTimestamp": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "When the decision was made"
+          },
+          "userRating": {
+            "bsonType": "number",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "User satisfaction rating (1-5)"
+          },
+          "notes": {
+            "bsonType": "string",
+            "description": "User notes about the decision"
+          },
+          "isBookmarked": {
+            "bsonType": "bool",
+            "description": "Whether user bookmarked this decision"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}

@@ -1,0 +1,63 @@
+
+{
+  "name": "wheel_categories",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["categoryId", "name", "description", "icon", "isActive", "createdAt"],
+        "properties": {
+          "categoryId": {
+            "bsonType": "string",
+            "description": "Unique category identifier"
+          },
+          "name": {
+            "bsonType": "string",
+            "description": "Category display name"
+          },
+          "description": {
+            "bsonType": "string",
+            "description": "Category description"
+          },
+          "icon": {
+            "bsonType": "string",
+            "description": "Icon identifier for the category"
+          },
+          "bgColor": {
+            "bsonType": "string",
+            "description": "Background color for the category"
+          },
+          "textColor": {
+            "bsonType": "string",
+            "description": "Text color for the category"
+          },
+          "isActive": {
+            "bsonType": "bool",
+            "description": "Whether category is active"
+          },
+          "isPremium": {
+            "bsonType": "bool",
+            "description": "Whether category requires premium subscription"
+          },
+          "affiliateLinks": {
+            "bsonType": "array",
+            "description": "Array of affiliate partner links"
+          },
+          "createdAt": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Last update timestamp"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}
