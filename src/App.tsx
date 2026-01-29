@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import WheelPage from './pages/WheelPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import BlogPage from './pages/BlogPage'
 import BabyNameGeneratorWheel from './pages/BabyNameGeneratorWheel'
 import CustomWheelOfNames from './pages/CustomWheelOfNames'
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/custom-wheel-of-names" element={<CustomWheelOfNames />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
     </Layout>
   )

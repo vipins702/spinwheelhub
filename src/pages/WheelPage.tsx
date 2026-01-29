@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import {ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3} from 'lucide-react'
+import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SpinningWheel from '../components/SpinningWheel'
 
@@ -30,9 +30,9 @@ const WheelPage: React.FC = () => {
   ]
 
   // Enhanced category data with SEO optimization
-  const categoryData: Record<string, { 
-    title: string; 
-    options: string[]; 
+  const categoryData: Record<string, {
+    title: string;
+    options: string[];
     colors: string[];
     description: string;
     keywords: string;
@@ -178,22 +178,22 @@ const WheelPage: React.FC = () => {
     if (e.key === 'Enter') {
       e.preventDefault()
       const currentValue = manualEntries[index].trim()
-      
+
       if (currentValue) {
         const newId = (options.length + 1).toString()
         const newColor = magicalColors[options.length % magicalColors.length]
-        
+
         setOptions(prev => [...prev, {
           id: newId,
           text: currentValue,
           color: newColor
         }])
       }
-      
+
       if (index === manualEntries.length - 1) {
         setManualEntries(prev => [...prev, ''])
       }
-      
+
       setTimeout(() => {
         const nextInput = document.querySelector(`input[data-index="${index + 1}"]`) as HTMLInputElement
         if (nextInput) {
@@ -206,13 +206,13 @@ const WheelPage: React.FC = () => {
   // Add all manual entries to wheel
   const addAllManualEntries = () => {
     const validEntries = manualEntries.filter(entry => entry.trim())
-    
+
     const newOptions = validEntries.map((entry, index) => ({
       id: `${options.length + index + 1}`,
       text: entry.trim(),
       color: magicalColors[(options.length + index) % magicalColors.length]
     }))
-    
+
     setOptions(prev => [...prev, ...newOptions])
     setManualEntries([''])
   }
@@ -246,13 +246,13 @@ const WheelPage: React.FC = () => {
       try {
         const content = e.target?.result as string
         const lines = content.split('\n').filter(line => line.trim())
-        
+
         const importedOptions = lines.map((line, index) => ({
           id: `imported-${index + 1}`,
           text: line.trim(),
           color: magicalColors[index % magicalColors.length]
         }))
-        
+
         setOptions(importedOptions)
       } catch (error) {
         alert('Error reading file. Please make sure it\'s a valid text file.')
@@ -266,7 +266,7 @@ const WheelPage: React.FC = () => {
     const content = options.map(option => option.text).join('\n')
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
-    
+
     const a = document.createElement('a')
     a.href = url
     a.download = `${currentCategory.title.toLowerCase().replace(/\s+/g, '-')}-options.txt`
@@ -307,20 +307,20 @@ const WheelPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
         <link rel="canonical" href={`https://spinwheelhub.com/wheel/${category}`} />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content={currentCategory.seoTitle} />
         <meta property="og:description" content={currentCategory.description} />
         <meta property="og:url" content={`https://spinwheelhub.com/wheel/${category}`} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={currentCategory.seoTitle} />
         <meta name="twitter:description" content={currentCategory.description} />
         <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -345,15 +345,15 @@ const WheelPage: React.FC = () => {
         <div className="w-full max-w-none px-2 md:px-4 py-3 md:py-6 overflow-x-auto">
           {/* Optimized Header for 100% zoom */}
           <div className="flex items-center justify-between mb-4 md:mb-6 max-w-7xl mx-auto">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-flex items-center px-3 md:px-4 py-2 bg-white text-gray-700 hover:text-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium text-sm"
             >
               <ArrowLeft className="w-4 h-4 mr-1 md:mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </Link>
-            
+
             <div className="flex items-center space-x-2 md:space-x-3">
               {/* Exclude Toggle */}
               <div className="flex items-center space-x-1 md:space-x-2 bg-white px-2 md:px-4 py-2 rounded-lg shadow-md">
@@ -370,7 +370,7 @@ const WheelPage: React.FC = () => {
                   )}
                 </button>
               </div>
-              
+
               {/* Wheel Size Control */}
               <div className="flex items-center space-x-1 md:space-x-2 bg-white px-2 md:px-4 py-2 rounded-lg shadow-md">
                 <Settings className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
@@ -420,7 +420,7 @@ const WheelPage: React.FC = () => {
                     {showManualEntry ? 'Hide' : 'Show'}
                   </button>
                 </div>
-                
+
                 {showManualEntry && (
                   <div className="space-y-3">
                     <div className="max-h-40 md:max-h-48 overflow-y-auto space-y-2 custom-scrollbar">
@@ -438,7 +438,7 @@ const WheelPage: React.FC = () => {
                         />
                       ))}
                     </div>
-                    
+
                     <div className="flex space-x-2">
                       <button
                         onClick={addAllManualEntries}
@@ -453,7 +453,7 @@ const WheelPage: React.FC = () => {
                         Clear
                       </button>
                     </div>
-                    
+
                     <p className="text-xs text-gray-500 text-center">
                       Press Enter after each name
                     </p>
@@ -482,7 +482,7 @@ const WheelPage: React.FC = () => {
                     <Upload className="w-3 h-3" />
                     <span>Import File</span>
                   </button>
-                  
+
                   <button
                     onClick={exportOptions}
                     disabled={options.length === 0}
@@ -508,7 +508,7 @@ const WheelPage: React.FC = () => {
                     <Shuffle className="w-3 h-3" />
                     <span>Reset Defaults</span>
                   </button>
-                  
+
                   <button
                     onClick={clearAllOptions}
                     className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-2 md:px-3 py-2 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 flex items-center justify-center space-x-1 md:space-x-2 font-medium text-xs shadow-md"
@@ -637,6 +637,40 @@ const WheelPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+
+        {/* Related Wheels - Internal Linking for SEO */}
+        <section className="py-8 md:py-12 bg-white mt-8 border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+              Explore More Wheels
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+              {Object.entries(categoryData)
+                .filter(([key]) => key !== category)
+                .slice(0, 6)
+                .map(([key, data]) => (
+                  <Link
+                    key={key}
+                    to={`/wheel/${key}`}
+                    className="flex flex-col items-center p-3 rounded-xl bg-gray-50 hover:bg-purple-50 hover:shadow-md transition-all duration-200 text-center group"
+                  >
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-lg md:text-xl">🎡</span>
+                    </div>
+                    <span className="text-xs md:text-sm font-medium text-gray-700 group-hover:text-purple-700">
+                      {data.title}
+                    </span>
+                  </Link>
+                ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link to="/" className="text-purple-600 hover:text-purple-700 font-semibold text-sm">
+                View All Categories &rarr;
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* Custom scrollbar styles */}
         <style dangerouslySetInnerHTML={{
