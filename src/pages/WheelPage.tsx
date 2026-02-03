@@ -36,8 +36,10 @@ const WheelPage: React.FC = () => {
 
   const currentCategory = template || {
     title: 'Custom Wheel',
+    h1: 'Create Your Own Custom Wheel',
     seoTitle: 'Custom Decision Wheel | SpinWheelHub',
     description: 'Create your own custom spinning wheel for any decision! Add your own options and spin to make choices.',
+    definition: 'The Custom Wheel allows you to create a personalized random decision generator by adding your own options and labels.',
     keywords: 'custom wheel, decision maker, choice picker, spinning wheel',
     options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
     colors: magicalColors
