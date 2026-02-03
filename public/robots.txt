@@ -1,3 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /_next/
+Disallow: /api/
+
+# The trick: Explicitly allow the googlebot-image to find your wheels
+User-agent: Googlebot-Image
+Allow: /
+
 Sitemap: https://spinwheelhub.vercel.app/sitemap.xml
+Host: https://spinwheelhub.vercel.app
