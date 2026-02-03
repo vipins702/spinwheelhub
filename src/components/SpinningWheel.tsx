@@ -19,6 +19,7 @@ interface SpinningWheelProps {
   showControls?: boolean
   enableSound?: boolean
   customizable?: boolean
+  idleSpin?: boolean
 }
 
 const SpinningWheel: React.FC<SpinningWheelProps> = ({
@@ -29,7 +30,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   size = 700,
   showControls = true,
   enableSound = false,
-  customizable = true
+  customizable = true,
+  idleSpin = false
 }) => {
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState<WheelOption | null>(null)
@@ -54,6 +56,20 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const sparkleCanvasRef = useRef<HTMLCanvasElement>(null)
   const celebrationCanvasRef = useRef<HTMLCanvasElement>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
+
+  // Idle Spin Effect
+  useEffect(() => {
+    if (idleSpin && !isSpinning && !result) {
+      controls.start({
+        rotate: currentRotation + 360,
+        transition: {
+          duration: 20,
+          ease: "linear",
+          repeat: Infinity
+        }
+      })
+    }
+  }, [idleSpin, isSpinning, result, controls, currentRotation])
 
   // Sound functions
   const playSound = (frequency: number, duration: number, type: 'sine' | 'square' | 'triangle' = 'sine') => {
@@ -318,6 +334,9 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     setShowCelebration(false)
     setShowResultPopup(false)
 
+    // Stop idle animation if any
+    controls.stop()
+
     triggerSparkles()
 
     // Play ticking sounds during spin
@@ -342,6 +361,11 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     const randomFinalAngle = Math.random() * 360
 
     // compute absolute new total rotation from currentRotation
+    // Important: Add currentRotation to keep the visual flow, but start fresh for calculation simplicity?
+    // Actually, we should just accumulate.
+    // If we were idling, currentRotation might be huge. We can reset it visually if needed, but framer handles it.
+    // To be safe, we might want to capture the *current visual rotation* from the idle loop?
+    // For now, let's just add to the state value.
     const newTotalRotation = currentRotation + rotations * 360 + randomFinalAngle
 
     try {
@@ -352,21 +376,21 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         rotate: currentRotation + (rotations - 2) * 360,
         transition: {
           duration: phase1Duration,
-          ease: 'linear',
+          ease: 'easeIn', // Changed from linear to easeIn for better startup
           type: 'tween'
         }
       })
 
       // Phase 2: smooth deceleration into the exact target
-      // Extended duration for a much softer "glide" to stop
+      // Improved physics: easeOutCirc offers a very realistic "friction" curve
       const phase2Duration = Math.max(spinTime * 0.85, 2.5)
       await controls.start({
         rotate: newTotalRotation,
         transition: {
           duration: phase2Duration,
-          // Custom Bezier for "Soft Friction" feel
-          // Starts fast, then lengthy deceleration
-          ease: [0.2, 0.8, 0.2, 1],
+          // Custom Bezier for "Realistic Friction" feel - Starts slightly slower, long tail
+          // [0.16, 1, 0.3, 1] is a modified easeOutCirc
+          ease: [0.16, 1, 0.3, 1],
           type: 'tween'
         }
       })

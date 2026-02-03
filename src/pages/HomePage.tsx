@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, Star, ArrowRight, Play, Settings} from 'lucide-react'
-import ProfessionalCanvasWheel from '../components/ProfessionalCanvasWheel'
+import { Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, Star, ArrowRight, Play, Settings } from 'lucide-react'
+import SpinningWheel from '../components/SpinningWheel'
 
 const HomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -203,14 +203,15 @@ const HomePage: React.FC = () => {
               className="flex justify-center"
             >
               <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <ProfessionalCanvasWheel
+                <SpinningWheel
                   options={heroWheelOptions}
                   size={350}
                   onSpinComplete={(result) => {
                     console.log('Hero wheel result:', result)
                   }}
                   enableSound={true}
-                  showControls={true}
+                  showControls={false}
+                  idleSpin={true}
                 />
                 <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-yellow-400 text-purple-900 px-2 py-1 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm animate-bounce">
                   Try me! 🎯
@@ -272,7 +273,7 @@ const HomePage: React.FC = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Classroom Name Picker</h3>
               <p className="text-gray-600">Teachers use our random name picker to fairly select students for activities, questions, and participation.</p>
             </div>
-            
+
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
                 <span className="text-2xl">🎁</span>
@@ -280,7 +281,7 @@ const HomePage: React.FC = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Giveaway Spinner</h3>
               <p className="text-gray-600">Perfect for social media giveaways, contests, and raffles. Pick random winners fairly and transparently.</p>
             </div>
-            
+
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
                 <span className="text-2xl">📊</span>
@@ -288,7 +289,7 @@ const HomePage: React.FC = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Presentation Tool</h3>
               <p className="text-gray-600">Engage your audience during presentations and meetings with interactive decision-making.</p>
             </div>
-            
+
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
                 <span className="text-2xl">👥</span>
@@ -314,8 +315,8 @@ const HomePage: React.FC = () => {
               Spin Wheel Generator for <span className="text-gradient">Every Occasion</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Our spin wheel generator is perfect for classrooms, raffles, presentations and giveaways. 
-              Teachers love our classroom name picker, while event organizers use our spin wheel 
+              Our spin wheel generator is perfect for classrooms, raffles, presentations and giveaways.
+              Teachers love our classroom name picker, while event organizers use our spin wheel
               to pick random winners. Create custom spin wheels instantly. Completely free and ad-free!
             </p>
 
@@ -342,20 +343,20 @@ const HomePage: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <Link to={
-                  category.id === 'custom' ? '/custom-wheel-of-names' : 
-                  category.id === 'baby-names' ? '/wheel-of-names' : 
-                  `/wheel/${category.id}`
+                  category.id === 'custom' ? '/custom-wheel-of-names' :
+                    category.id === 'baby-names' ? '/wheel-of-names' :
+                      `/wheel/${category.id}`
                 }>
                   <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full">
                     <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       {category.icon}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-gray-900 mb-3">{category.title}</h3>
                     <p className="text-gray-600 mb-4 leading-relaxed">{category.description}</p>
-                    
+
                     <div className="text-sm text-purple-600 font-semibold mb-4">{category.count}</div>
-                    
+
                     <div className="space-y-2">
                       {category.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center text-sm text-gray-500">
@@ -457,7 +458,7 @@ const HomePage: React.FC = () => {
             Ready to Make Better Decisions?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join millions of users who have discovered the joy of decision-making with SpinWheelHub. 
+            Join millions of users who have discovered the joy of decision-making with SpinWheelHub.
             Start your journey to better choices today!
           </p>
           <motion.button
