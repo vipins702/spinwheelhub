@@ -33,60 +33,7 @@ const WheelPage: React.FC = () => {
 
   // ... (rest of code) ...
 
-  // Inside return JSX:
-  {/* Optimized Main Grid for 100% zoom - Mobile Friendly Reordering */ }
-  <div className="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-1 gap-4 md:gap-6 max-w-[1500px] mx-auto">
 
-    {/* Left Panel - Manual Entry & Options Management (2nd on Mobile, 1st on Desktop) */}
-    <div className="xl:col-span-1 lg:col-span-1 space-y-3 md:space-y-4 min-w-[260px] order-2 lg:order-1">
-      {/* Manual Entry Section */}
-      <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm md:text-base font-bold text-gray-900 flex items-center">
-            <Edit3 className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 text-purple-600" />
-            Manual Entry
-          </h3>
-          {/* ... content ... */}
-        </div>
-        {/* ... content ... */}
-      </div>
-
-      {/* Import/Export Section */}
-      <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
-        {/* ... content ... */}
-      </div>
-
-      {/* Quick Actions */}
-      <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
-        {/* ... content ... */}
-      </div>
-
-      {/* Current Options */}
-      <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
-        {/* ... content ... */}
-      </div>
-    </div>
-
-    {/* Center Panel - Spinning Wheel (1st on Mobile, 2nd on Desktop) */}
-    <div className="xl:col-span-3 lg:col-span-1 flex flex-col items-center justify-start space-y-1 md:space-y-2 min-h-[300px] md:min-h-[350px] order-1 lg:order-2">
-      <div className="bg-white rounded-xl p-1 md:p-2 shadow-xl border border-gray-100">
-        <SpinningWheel
-          options={options}
-          size={Math.min(wheelSize, window.innerWidth - 32)}
-          excludeAfterSpin={excludeAfterSpin}
-          onSpinComplete={handleSpinComplete}
-          onOptionExcluded={handleOptionExcluded}
-        />
-      </div>
-
-      {/* Result now shows in interactive popup instead of here */}
-    </div>
-
-    {/* Right Panel - History & Stats (3rd on Mobile & Desktop) */}
-    <div className="xl:col-span-1 lg:col-span-1 space-y-3 md:space-y-4 min-w-[260px] order-3">
-      {/* ... content ... */}
-    </div>
-  </div>
   const [lastResult, setLastResult] = useState<WheelOption | null>(null)
   const [spinHistory, setSpinHistory] = useState<WheelOption[]>([])
   const [excludeAfterSpin, setExcludeAfterSpin] = useState(false)
@@ -412,7 +359,7 @@ const WheelPage: React.FC = () => {
                           onChange={(e) => handleManualEntryChange(index, e.target.value)}
                           onKeyPress={(e) => handleManualEntryKeyPress(index, e)}
                           placeholder={`Enter name ${index + 1}...`}
-                          className="w-full px-2 md:px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-xs md:text-sm"
+                          className="w-full px-2 md:px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-xs md:text-sm text-gray-900 bg-white placeholder-gray-400"
                           maxLength={25}
                           data-index={index}
                         />
