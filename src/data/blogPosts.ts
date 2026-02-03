@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "name finder, random name picker, pick a name, random name generator, name selector, spin wheel name, wheel of names",
     excerpt: "Stop arguing over who goes first. Use our ultimate Name Finder wheel to make fair, instant decisions for anything from classroom activities to raffle winners.",
     category: "Tools",
-    author: "SpinWheelHub Team",
+    author: "Vipin S.",
     date: "Jan 28, 2024",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/3602256/pexels-photo-3602256.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -71,7 +71,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "classroom name picker, teacher tools, student selector, random student generator, education tools, fair participation",
     excerpt: "Transform your classroom dynamics! Discover 5 creative ways to use a random name picker to boost engagement and ensure fair participation.",
     category: "Education",
-    author: "Sarah Johnson",
+    author: "Vipin S.",
     date: "Jan 25, 2024",
     readTime: "4 min read",
     image: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -88,7 +88,7 @@ export const blogPosts: BlogPost[] = [
       <p>Stop friends from always partnering up. Use the wheel to assign students to Group A, B, C, etc. It encourages social mixing and better collaboration.</p>
 
       <h3>3. Reward Distributor</h3>
-      <p>Don't just use it for questions! Use a <a href="/wheel/challenges" class="text-purple-600 font-bold hover:underline">Challenges or Rewards Wheel</a>. Fill it with prizes like "5 mins extra recess" or "Homework Pass".</p>
+      <p>Don't just use it for questions! Use a <a href="/custom-wheel-of-names?title=Rewards%20Wheel&options=Extra%20Recess,No%20Homework,Sit%20with%20Friend,DJ%20for%205%20mins" class="text-purple-600 font-bold hover:underline">Rewards Wheel</a>. Fill it with prizes like "5 mins extra recess" or "Homework Pass".</p>
 
       <h3>Why Digital is Better than Popsicle Sticks</h3>
       <p>Popsicle sticks get lost. Our <a href="/" class="text-purple-600 font-bold hover:underline">online spinner</a> is always ready, visually exciting, and adds a tech-savvy element to your lessons. Plus, the sound effects build real anticipation!</p>
@@ -103,7 +103,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "giveaway picker, contest winner, raffle wheel, random winner generator, viral contest, instagram giveaway picker",
     excerpt: "Want to blow up your social media? A live spin wheel giveaway is the secret weapon. Learn how to host a contest that people can't ignore.",
     category: "Marketing",
-    author: "Mike Chen",
+    author: "Vipin S.",
     date: "Jan 20, 2024",
     readTime: "6 min read",
     image: "https://images.pexels.com/photos/194009/pexels-photo-194009.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -121,7 +121,7 @@ export const blogPosts: BlogPost[] = [
         <li><strong>Spin & Celebrate:</strong> Spin the wheel! The visual excitement validates the result and proves you aren't cheating.</li>
       </ol>
 
-      <p>This method builds massive trust with your audience. They see the <strong>random winner</strong> selected right before their eyes. Use our <a href="/wheel/company-names" class="text-purple-600 font-bold hover:underline">Company Name</a> wheel if you need inspiration for your next brand event!</p>
+      <p>This method builds massive trust with your audience. They see the <strong>random winner</strong> selected right before their eyes. Use our <a href="/custom-wheel-of-names?title=Company%20Name%20Generator" class="text-purple-600 font-bold hover:underline">Company Name</a> wheel if you need inspiration for your next brand event!</p>
     `
   },
   {
@@ -133,7 +133,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "instagram giveaway picker, instagram contest, random comment picker, social media contest, viral giveaway",
     excerpt: "Instagram giveaways are the fastest way to grow. But how do you pick a winner fairly? Here is the ultimate guide to hosting a transparent contest.",
     category: "Social Media",
-    author: "Alex Johnson",
+    author: "Vipin S.",
     date: "Feb 01, 2024",
     readTime: "7 min read",
     image: "https://images.pexels.com/photos/174938/pexels-photo-174938.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -163,7 +163,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "decision fatigue, psychology of choice, random decision maker, dinner picker, mental load",
     excerpt: "Do you spend more time scrolling Netflix than watching? You are suffering from decision fatigue. Here is the science-backed way to fix it instantly.",
     category: "Wellness",
-    author: "Sarah Chen",
+    author: "Vipin S.",
     date: "Feb 02, 2024",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -187,7 +187,7 @@ export const blogPosts: BlogPost[] = [
     keywords: "student engagement, classroom activities, esl games, teacher resources, active learning, spin wheel games",
     excerpt: "Bored students don't learn. Here are 10 zero-prep activities using a spin wheel that will wake up your class and get everyone participating.",
     category: "Education",
-    author: "Michael Rodriguez",
+    author: "Vipin S.",
     date: "Feb 03, 2024",
     readTime: "8 min read",
     image: "https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1200",

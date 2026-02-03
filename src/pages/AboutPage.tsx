@@ -36,32 +36,14 @@ const AboutPage: React.FC = () => {
     }
   ]
 
-  const team = [
-    {
-      name: "Alex Johnson",
-      role: "Founder & CEO",
-      bio: "Passionate about helping people make better decisions through technology.",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop"
-    },
-    {
-      name: "Sarah Chen",
-      role: "Head of Product",
-      bio: "UX expert focused on creating intuitive and delightful user experiences.",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop"
-    },
-    {
-      name: "Michael Rodriguez",
-      role: "Lead Developer",
-      bio: "Full-stack engineer building the future of decision-making platforms.",
-      image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop"
-    }
-  ]
+  // Removed unused team array to avoid confusion
+  // const team = [...] 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
       <Helmet>
         <title>About Us | SpinWheelHub Team</title>
-        <meta name="description" content="Meet the team behind SpinWheelHub. We are dedicated to making decision-making fun, fair, and free for everyone." />
+        <meta name="description" content="Meet Vipin S., the creator behind SpinWheelHub. Dedicated to making decision-making fun, fair, and free for everyone." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -72,8 +54,9 @@ const AboutPage: React.FC = () => {
             "founder": {
               "@type": "Person",
               "name": "Vipin S.",
-              "jobTitle": "Associate Manager at MNC",
-              "url": "https://www.linkedin.com/in/vipin-s-1132182b"
+              "jobTitle": "Manager at MNC & Technologist",
+              "url": "https://www.linkedin.com/in/vipin-s-1132182b",
+              "sameAs": ["https://www.linkedin.com/in/vipin-s-1132182b"]
             },
             "contactPoint": {
               "@type": "ContactPoint",
@@ -218,7 +201,7 @@ const AboutPage: React.FC = () => {
 
             <div className="space-y-4 text-gray-600 leading-relaxed mb-8">
               <p>
-                Associate Manager at a leading MNC with over 10+ years of experience in technology,
+                Manager at a leading MNC with over 10+ years of experience in technology,
                 enterprise systems, and digital risk mitigation.
               </p>
               <p>
