@@ -93,10 +93,12 @@ const BlogPostPage: React.FC = () => {
                         <h3 className="text-2xl font-bold text-gray-900 mb-3">Ready to give it a spin?</h3>
                         <p className="text-gray-600 mb-6">Try our custom name picker wheel now!</p>
                         <Link
-                            to="/custom-wheel-of-names"
+                            to={post.relatedWheelOptions ?
+                                `/custom-wheel-of-names?title=${encodeURIComponent(post.relatedWheelTitle || 'Blog Wheel')}&options=${encodeURIComponent(post.relatedWheelOptions.join(','))}`
+                                : "/custom-wheel-of-names"}
                             className="inline-block bg-purple-600 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-purple-700 transition-transform hover:scale-105 shadow-lg"
                         >
-                            Start Spinning Now
+                            Try {post.relatedWheelTitle || 'Custom Wheel'}
                         </Link>
                     </div>
                 </article>

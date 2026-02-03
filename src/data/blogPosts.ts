@@ -12,6 +12,8 @@ export interface BlogPost {
   keywords: string;
   seoTitle: string;
   seoDescription: string;
+  relatedWheelTitle?: string;
+  relatedWheelOptions?: string[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -28,6 +30,8 @@ export const blogPosts: BlogPost[] = [
     date: "Jan 28, 2024",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/3602256/pexels-photo-3602256.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Name Picker Demo",
+    relatedWheelOptions: ["Alex", "Jordan", "Taylor", "Casey", "Riley", "Morgan", "Quinn", "Avery", "Peyton", "Sage"],
     content: `
       <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-6 rounded-r-lg">
         <h3 class="font-bold text-purple-700 m-0">⚡ Key Takeaways</h3>
@@ -71,6 +75,8 @@ export const blogPosts: BlogPost[] = [
     date: "Jan 25, 2024",
     readTime: "4 min read",
     image: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Classroom Tasks",
+    relatedWheelOptions: ["Answer Question", "Read Aloud", "Board Work", "Group Leader", "Pass to Friend", "Pop Quiz", "Explain Concept", "Draw Diagram", "Summarize", "Ask Question"],
     content: `
       <h2>Fairness in the Classroom Matters</h2>
       <p>Every teacher knows the struggle: the same three hands shoot up for every question, while the rest of the class hopes to be invisible. A <strong>random name picker</strong> changes the game instantly. It keeps students on their toes in a fun, low-pressure way.</p>
@@ -101,6 +107,8 @@ export const blogPosts: BlogPost[] = [
     date: "Jan 20, 2024",
     readTime: "6 min read",
     image: "https://images.pexels.com/photos/194009/pexels-photo-194009.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Giveaway Winner",
+    relatedWheelOptions: ["Entry #1", "Entry #2", "Entry #3", "Entry #4", "Entry #5", "Entry #6", "Entry #7", "Entry #8", "Entry #9", "Entry #10"],
     content: `
       <h2>The Psychology of the Spin</h2>
       <p>Why do thousands of people watch a wheel spin live? <strong>Anticipation.</strong> Typing "Winner is John" in a text post is boring. Watching a wheel slow down, tick... tick... tick... past your name? That is adrenaline.</p>
@@ -129,6 +137,8 @@ export const blogPosts: BlogPost[] = [
     date: "Feb 01, 2024",
     readTime: "7 min read",
     image: "https://images.pexels.com/photos/174938/pexels-photo-174938.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Instagram Contest",
+    relatedWheelOptions: ["@follower_1", "@follower_2", "@follower_3", "@follower_4", "@follower_5", "@follower_6", "@follower_7", "@follower_8", "@follower_9", "@follower_10"],
     content: `
       <h2>Why Instagram Games Go Viral</h2>
       <p>The algorithm loves engagement. Comments, saves, and shares are the currency of Instagram. A "Tag a Friend to Win" contest generates all three. But if your audience thinks you just picked your best friend as the winner, you lose all credibility.</p>
@@ -157,6 +167,8 @@ export const blogPosts: BlogPost[] = [
     date: "Feb 02, 2024",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Dinner Decision",
+    relatedWheelOptions: ["Pizza", "Burgers", "Sushi", "Salad", "Tacos", "Pasta", "Thai Curry", "Sandwich", "Soup", "Stir Fry"],
     content: `
       <h2>The Paradox of Choice</h2>
       <p>Psychologists have found that having <strong>too many options</strong> actually makes us unhappy. It's called the Paradox of Choice. When you have 50 restaurants to choose from, you fear making the "wrong" choice.</p>
@@ -179,6 +191,8 @@ export const blogPosts: BlogPost[] = [
     date: "Feb 03, 2024",
     readTime: "8 min read",
     image: "https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    relatedWheelTitle: "Class Activity",
+    relatedWheelOptions: ["Vocab Quiz", "Rapid Fire", "Group Debate", "Think-Pair-Share", "Video Clip", "Silent Reading", "Exit Ticket", "Story Chain", "Sketch It", "Pictionary"],
     content: `
       <h2>Gamify Your Lesson Plan</h2>
       <p>Gamification isn't just a buzzword; it's a brain hack. Dopamine is released when there is an element of chance.</p>

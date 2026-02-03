@@ -55,7 +55,29 @@ const CustomWheelOfNames: React.FC = () => {
   }
 
   useEffect(() => {
-    // Load initial default options
+    // Check for URL parameters first
+    const searchParams = new URLSearchParams(window.location.search)
+    const urlOptions = searchParams.get('options')
+    const urlTitle = searchParams.get('title')
+
+    if (urlOptions) {
+      // Decode and split options
+      const items = urlOptions.split(',').filter(item => item.trim())
+      const customOptions = items.slice(0, 50).map((option, index) => ({
+        id: `${index + 1}`,
+        text: decodeURIComponent(option.trim()),
+        color: magicalColors[index % magicalColors.length]
+      }))
+
+      if (customOptions.length > 0) {
+        setOptions(customOptions)
+        setManualEntries([''])
+        if (urlTitle) setWheelTitle(decodeURIComponent(urlTitle))
+        return // Skip default initialization
+      }
+    }
+
+    // Load initial default options if no URL params
     const initialOptions = starterTemplates['General Decision'].slice(0, 8).map((option, index) => ({
       id: `${index + 1}`,
       text: option,
@@ -76,22 +98,22 @@ const CustomWheelOfNames: React.FC = () => {
     if (e.key === 'Enter') {
       e.preventDefault()
       const currentValue = manualEntries[index].trim()
-      
+
       if (currentValue) {
         const newId = (options.length + 1).toString()
         const newColor = magicalColors[options.length % magicalColors.length]
-        
+
         setOptions(prev => [...prev, {
           id: newId,
           text: currentValue,
           color: newColor
         }])
       }
-      
+
       if (index === manualEntries.length - 1) {
         setManualEntries(prev => [...prev, ''])
       }
-      
+
       setTimeout(() => {
         const nextInput = document.querySelector(`input[data-index="${index + 1}"]`) as HTMLInputElement
         if (nextInput) {
@@ -104,13 +126,13 @@ const CustomWheelOfNames: React.FC = () => {
   // Add all manual entries to wheel
   const addAllManualEntries = () => {
     const validEntries = manualEntries.filter(entry => entry.trim())
-    
+
     const newOptions = validEntries.map((entry, index) => ({
       id: `${options.length + index + 1}`,
       text: entry.trim(),
       color: magicalColors[(options.length + index) % magicalColors.length]
     }))
-    
+
     setOptions(prev => [...prev, ...newOptions])
     setManualEntries([''])
   }
@@ -161,13 +183,13 @@ const CustomWheelOfNames: React.FC = () => {
       try {
         const content = e.target?.result as string
         const lines = content.split('\n').filter(line => line.trim())
-        
+
         const importedOptions = lines.map((line, index) => ({
           id: `imported-${index + 1}`,
           text: line.trim(),
           color: magicalColors[index % magicalColors.length]
         }))
-        
+
         setOptions(importedOptions)
         setSpinHistory([])
         setLastResult(null)
@@ -183,7 +205,7 @@ const CustomWheelOfNames: React.FC = () => {
     const content = options.map(option => option.text).join('\n')
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
-    
+
     const a = document.createElement('a')
     a.href = url
     a.download = `${wheelTitle.toLowerCase().replace(/\s+/g, '-')}-options.txt`
@@ -225,20 +247,20 @@ const CustomWheelOfNames: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
         <link rel="canonical" href="https://spinwheelhub.com/custom-wheel-of-names" />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content="Custom Spin Wheel | Free Random Picker | SpinWheelHub" />
         <meta property="og:description" content="Create your personalized spin wheel! Perfect for team selection, decision making, name drawing, and any random picking needs." />
         <meta property="og:url" content="https://spinwheelhub.com/custom-wheel-of-names" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Custom Spin Wheel | SpinWheelHub" />
         <meta name="twitter:description" content="Build your own custom spinning wheel for any decision or name picking need. Free and fully customizable!" />
         <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -263,15 +285,15 @@ const CustomWheelOfNames: React.FC = () => {
         <div className="w-full max-w-none px-2 md:px-4 py-3 md:py-6 overflow-x-auto">
           {/* Optimized Header for 100% zoom */}
           <div className="flex items-center justify-between mb-1 md:mb-2 max-w-7xl mx-auto">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-flex items-center px-3 md:px-4 py-2 bg-white text-gray-700 hover:text-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium text-sm"
             >
               <ArrowLeft className="w-4 h-4 mr-1 md:mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </Link>
-            
+
             <div className="flex items-center space-x-2 md:space-x-3">
               {/* Template Selection */}
               <div className="flex items-center space-x-1 md:space-x-2 bg-white px-2 md:px-3 py-2 rounded-lg shadow-md">
@@ -287,7 +309,7 @@ const CustomWheelOfNames: React.FC = () => {
                   ))}
                 </select>
               </div>
-              
+
               {/* Exclude Toggle */}
               <div className="flex items-center space-x-1 md:space-x-2 bg-white px-2 md:px-4 py-2 rounded-lg shadow-md">
                 <span className="text-xs font-medium text-gray-700 hidden md:inline">Exclude:</span>
@@ -302,7 +324,7 @@ const CustomWheelOfNames: React.FC = () => {
                   )}
                 </button>
               </div>
-              
+
               {/* Wheel Size Control */}
               <div className="flex items-center space-x-1 md:space-x-2 bg-white px-2 md:px-4 py-2 rounded-lg shadow-md">
                 <Settings className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
@@ -333,7 +355,7 @@ const CustomWheelOfNames: React.FC = () => {
                   autoFocus
                 />
               ) : (
-                <h1 
+                <h1
                   className="text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent cursor-pointer hover:opacity-80"
                   onClick={() => setShowTitleEditor(true)}
                 >
@@ -371,7 +393,7 @@ const CustomWheelOfNames: React.FC = () => {
                     {showManualEntry ? 'Hide' : 'Show'}
                   </button>
                 </div>
-                
+
                 {showManualEntry && (
                   <div className="space-y-3">
                     <div className="max-h-40 md:max-h-48 overflow-y-auto space-y-2 custom-scrollbar">
@@ -389,7 +411,7 @@ const CustomWheelOfNames: React.FC = () => {
                         />
                       ))}
                     </div>
-                    
+
                     <div className="flex space-x-2">
                       <button
                         onClick={addAllManualEntries}
@@ -404,7 +426,7 @@ const CustomWheelOfNames: React.FC = () => {
                         Clear
                       </button>
                     </div>
-                    
+
                     <p className="text-xs text-gray-500 text-center">
                       Press Enter after each option
                     </p>
@@ -433,7 +455,7 @@ const CustomWheelOfNames: React.FC = () => {
                     <Upload className="w-3 h-3" />
                     <span>Import Options</span>
                   </button>
-                  
+
                   <button
                     onClick={exportOptions}
                     disabled={options.length === 0}
@@ -459,7 +481,7 @@ const CustomWheelOfNames: React.FC = () => {
                     <Shuffle className="w-3 h-3" />
                     <span>Reset to Default</span>
                   </button>
-                  
+
                   <button
                     onClick={clearAllOptions}
                     className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-2 md:px-3 py-2 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 flex items-center justify-center space-x-1 md:space-x-2 font-medium text-xs shadow-md"
