@@ -21,8 +21,8 @@ interface SpinningWheelProps {
   customizable?: boolean
 }
 
-const SpinningWheel: React.FC<SpinningWheelProps> = ({ 
-  options = [], 
+const SpinningWheel: React.FC<SpinningWheelProps> = ({
+  options = [],
   onSpinComplete,
   excludeAfterSpin = false,
   onOptionExcluded,
@@ -36,7 +36,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const [showCelebration, setShowCelebration] = useState(false)
   const [currentRotation, setCurrentRotation] = useState(0)
   const [showSettings, setShowSettings] = useState(false)
-  
+
   // Settings state
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [soundType, setSoundType] = useState('Ticking sound')
@@ -48,7 +48,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const [spinTime, setSpinTime] = useState(20)
   const [maxVisibleNames, setMaxVisibleNames] = useState(1000)
   const [showResultPopup, setShowResultPopup] = useState(false)
-  
+
   const controls = useAnimation()
   const wheelRef = useRef<HTMLDivElement>(null)
   const sparkleCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -58,26 +58,26 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   // Sound functions
   const playSound = (frequency: number, duration: number, type: 'sine' | 'square' | 'triangle' = 'sine') => {
     if (!soundEnabled) return
-    
+
     try {
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
       }
-      
+
       const ctx = audioContextRef.current
       const oscillator = ctx.createOscillator()
       const gainNode = ctx.createGain()
-      
+
       oscillator.connect(gainNode)
       gainNode.connect(ctx.destination)
-      
+
       oscillator.frequency.setValueAtTime(frequency, ctx.currentTime)
       oscillator.type = type
-      
+
       gainNode.gain.setValueAtTime(0, ctx.currentTime)
       gainNode.gain.linearRampToValueAtTime(volume / 100 * 0.1, ctx.currentTime + 0.01)
       gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
-      
+
       oscillator.start(ctx.currentTime)
       oscillator.stop(ctx.currentTime + duration)
     } catch (error) {
@@ -157,7 +157,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     let animationId: number
     const animate = () => {
       ctx.clearRect(0, 0, size, size)
-      
+
       particles.forEach((particle, index) => {
         particle.x += particle.vx
         particle.y += particle.vy
@@ -170,7 +170,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         ctx.globalAlpha = particle.life
         ctx.translate(particle.x, particle.y)
         ctx.rotate(particle.rotation)
-        
+
         ctx.fillStyle = particle.color
         ctx.shadowColor = particle.color
         ctx.shadowBlur = 6
@@ -180,7 +180,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           ctx.arc(0, 0, particle.size, 0, Math.PI * 2)
           ctx.fill()
         } else if (particle.shape === 'square') {
-          ctx.fillRect(-particle.size/2, -particle.size/2, particle.size, particle.size)
+          ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size)
         } else if (particle.shape === 'triangle') {
           ctx.beginPath()
           ctx.moveTo(0, -particle.size)
@@ -196,7 +196,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
             const y = Math.sin(angle) * particle.size
             if (i === 0) ctx.moveTo(x, y)
             else ctx.lineTo(x, y)
-            
+
             const innerAngle = ((i + 0.5) * Math.PI * 2) / 5
             const innerX = Math.cos(innerAngle) * particle.size * 0.4
             const innerY = Math.sin(innerAngle) * particle.size * 0.4
@@ -205,7 +205,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           ctx.closePath()
           ctx.fill()
         }
-        
+
         ctx.restore()
 
         if (particle.life <= 0) {
@@ -263,7 +263,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     let animationId: number
     const animate = () => {
       ctx.clearRect(0, 0, size, size)
-      
+
       sparkles.forEach((sparkle, index) => {
         sparkle.x += sparkle.vx
         sparkle.y += sparkle.vy
@@ -274,11 +274,11 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         ctx.globalAlpha = sparkle.life
         ctx.translate(sparkle.x, sparkle.y)
         ctx.rotate(sparkle.rotation)
-        
+
         ctx.fillStyle = sparkle.color
         ctx.shadowColor = sparkle.color
         ctx.shadowBlur = 8
-        
+
         ctx.beginPath()
         for (let i = 0; i < 5; i++) {
           const angle = (i * Math.PI * 2) / 5
@@ -286,7 +286,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           const y = Math.sin(angle) * sparkle.size
           if (i === 0) ctx.moveTo(x, y)
           else ctx.lineTo(x, y)
-          
+
           const innerAngle = ((i + 0.5) * Math.PI * 2) / 5
           const innerX = Math.cos(innerAngle) * sparkle.size * 0.4
           const innerY = Math.sin(innerAngle) * sparkle.size * 0.4
@@ -294,7 +294,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         }
         ctx.closePath()
         ctx.fill()
-        
+
         ctx.restore()
 
         if (sparkle.life <= 0) {
@@ -337,7 +337,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     const minRotations = baseRotations + (spinTime - 4) // spinTime ranges 1-60 seconds
     const maxRotations = minRotations + 6
     const rotations = minRotations + Math.random() * (maxRotations - minRotations)
-    
+
     // Random final position (0-360 degrees)
     const randomFinalAngle = Math.random() * 360
 
@@ -346,9 +346,10 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
 
     try {
       // Phase 1: fast linear spin (build momentum)
-      const phase1Duration = Math.max(spinTime * 0.2, 0.8)
+      // Reduced duration slightly to get to deceleration faster
+      const phase1Duration = Math.max(spinTime * 0.15, 0.5)
       await controls.start({
-        rotate: currentRotation + (rotations - 1.5) * 360, // spin most of the rotations quickly
+        rotate: currentRotation + (rotations - 2) * 360,
         transition: {
           duration: phase1Duration,
           ease: 'linear',
@@ -357,13 +358,15 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
       })
 
       // Phase 2: smooth deceleration into the exact target
-      const phase2Duration = Math.max(spinTime * 0.6, 2.0)
+      // Extended duration for a much softer "glide" to stop
+      const phase2Duration = Math.max(spinTime * 0.85, 2.5)
       await controls.start({
         rotate: newTotalRotation,
         transition: {
-          duration: phase2Duration, // Based on spinTime setting
-          // a smooth ease-out curve (feel free to experiment)
-          ease: [0.12, 0.6, 0.24, 0.98],
+          duration: phase2Duration,
+          // Custom Bezier for "Soft Friction" feel
+          // Starts fast, then lengthy deceleration
+          ease: [0.2, 0.8, 0.2, 1],
           type: 'tween'
         }
       })
@@ -381,7 +384,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
       // finalize - calculate which segment the pointer lands on
       const finalModulo360 = newTotalRotation % 360
       setCurrentRotation(newTotalRotation) // Keep full rotation for next spin
-      
+
       // Calculate which segment the pointer (at top, 0 degrees) is pointing to
       // Since wheel rotates clockwise, we need to find which segment is at the top
       // Pointer is at 0 degrees (top), so we need to find which segment contains 0 degrees
@@ -389,7 +392,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
       const pointerAngle = (360 - finalModulo360) % 360
       const segmentIndex = Math.floor(pointerAngle / segmentAngle) % segmentCount
       const chosenOption = visibleOptions[segmentIndex]
-      
+
       setResult(chosenOption)
 
       // Play clapping sound and show popup
@@ -398,7 +401,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         triggerCelebration()
         setShowResultPopup(true)
       }, 300)
-      
+
       onSpinComplete?.(chosenOption)
 
       if (excludeAfterSpin && onOptionExcluded) {
@@ -437,17 +440,17 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   return (
     <div className="flex flex-col items-center space-y-1 md:space-y-2 relative">
       {/* Wheel Container */}
-      <div 
-        className="relative flex-shrink-0" 
-        style={{ 
-          width: size, 
+      <div
+        className="relative flex-shrink-0"
+        style={{
+          width: size,
           height: size,
           minWidth: Math.min(size, 320), // Mobile minimum
           minHeight: Math.min(size, 320)
         }}
       >
         {/* Magical glow background */}
-        <div 
+        <div
           className="absolute inset-0 rounded-full opacity-20 md:opacity-30 animate-pulse"
           style={{
             background: `conic-gradient(from 0deg, ${magicalColors.join(', ')})`,
@@ -470,13 +473,13 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         />
 
         {/* Enhanced Pointer */}
-        <div 
+        <div
           className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20"
           style={{ top: '-6px' }}
         >
-          <div 
+          <div
             className="relative"
-            style={{ 
+            style={{
               width: Math.max(size * 0.045, 20),
               height: Math.max(size * 0.08, 32),
               filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.5))'
@@ -504,8 +507,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           animate={controls}
           onClick={spinWheel}
           className="relative rounded-full shadow-xl overflow-hidden bg-white cursor-pointer"
-          style={{ 
-            width: size, 
+          style={{
+            width: size,
             height: size,
             border: `${Math.max(size * 0.006, 2)}px solid #333`,
             filter: 'drop-shadow(0 8px 25px rgba(0,0,0,0.25))',
@@ -524,7 +527,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
               const angle = (360 / visibleCount) * index
               const nextAngle = (360 / visibleCount) * (index + 1)
               const color = option.color || magicalColors[index % magicalColors.length]
-              
+
               const centerX = size / 2
               const centerY = size / 2
               const radius = size / 2 - Math.max(size * 0.006, 2)
@@ -532,14 +535,14 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
               // Calculate path for pie slice
               const startAngleRad = (angle - 90) * (Math.PI / 180)
               const endAngleRad = (nextAngle - 90) * (Math.PI / 180)
-              
+
               const x1 = centerX + radius * Math.cos(startAngleRad)
               const y1 = centerY + radius * Math.sin(startAngleRad)
               const x2 = centerX + radius * Math.cos(endAngleRad)
               const y2 = centerY + radius * Math.sin(endAngleRad)
-              
+
               const largeArcFlag = (nextAngle - angle) > 180 ? 1 : 0
-              
+
               const pathData = [
                 `M ${centerX} ${centerY}`,
                 `L ${x1} ${y1}`,
@@ -553,7 +556,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
               const textRadius = getTextRadius()
               const textX = centerX + textRadius * Math.cos(textAngleRad)
               const textY = centerY + textRadius * Math.sin(textAngleRad)
-              
+
               // Calculate rotation for tangential text (perpendicular to radial, parallel to segment edges)
               // Add 90 degrees to make text parallel to the triangle edges
               const textRotation = textAngle + 90
@@ -569,7 +572,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                       filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
                     }}
                   />
-                  
+
                   {/* Tangential Text (parallel to segment edges like in SS image) */}
                   <text
                     x={textX}
@@ -593,16 +596,16 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           </svg>
 
           {/* Enhanced Center Circle */}
-          <div 
+          <div
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center shadow-lg"
-            style={{ 
-              width: Math.max(size * 0.1, 40), 
+            style={{
+              width: Math.max(size * 0.1, 40),
               height: Math.max(size * 0.1, 40),
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               border: `${Math.max(size * 0.003, 2)}px solid #fff`
             }}
           >
-            <div 
+            <div
               className="text-white font-bold"
               style={{ fontSize: Math.max(size * 0.03, 16) }}
             >
@@ -625,12 +628,12 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
+
             <div className="p-4 space-y-6">
               {/* During Spin Tab */}
               <div>
                 <h4 className="font-semibold text-gray-800 mb-4 pb-2 border-b">During spin</h4>
-                
+
                 {/* Sound Settings */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -654,7 +657,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                       </button>
                     </div>
                   </div>
-                  
+
                   {/* Volume Slider */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -702,7 +705,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                     />
                     <span className="text-sm">Display duplicates</span>
                   </label>
-                  
+
                   <label className="flex items-center space-x-3">
                     <input
                       type="checkbox"
@@ -712,7 +715,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                     />
                     <span className="text-sm">Spin slowly</span>
                   </label>
-                  
+
                   <label className="flex items-center space-x-3">
                     <input
                       type="checkbox"
@@ -722,7 +725,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                     />
                     <span className="text-sm">Show title</span>
                   </label>
-                  
+
                   <label className="flex items-center space-x-3">
                     <input
                       type="checkbox"
@@ -868,12 +871,11 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
         <button
           onClick={spinWheel}
           disabled={isSpinning}
-          className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white text-base md:text-lg transition-all duration-300 transform ${
-            isSpinning
+          className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white text-base md:text-lg transition-all duration-300 transform ${isSpinning
               ? 'bg-gray-400 cursor-not-allowed scale-95'
               : 'bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 hover:scale-105 shadow-lg hover:shadow-xl'
-          }`}
-          style={{ 
+            }`}
+          style={{
             minWidth: '200px',
             boxShadow: isSpinning ? 'none' : '0 8px 25px rgba(147, 51, 234, 0.3)'
           }}
