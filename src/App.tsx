@@ -13,6 +13,7 @@ import CustomWheelOfNames from './pages/CustomWheelOfNames'
 import HubPage from './pages/HubPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/wheels" element={<HubPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   )

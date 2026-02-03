@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Home, Shuffle, Info, Mail, Menu, X } from 'lucide-react'
+import { Home, Shuffle, Info, Mail, Menu, X, Grid, BookOpen } from 'lucide-react'
 import { useState } from 'react'
 
 interface LayoutProps {
@@ -14,6 +14,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
+    { name: 'All Wheels', href: '/hub', icon: Grid },
+    { name: 'Blog', href: '/blog', icon: BookOpen },
     { name: 'About', href: '/about', icon: Info },
     { name: 'Contact', href: '/contact', icon: Mail },
   ]

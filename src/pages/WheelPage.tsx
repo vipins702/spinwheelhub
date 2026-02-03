@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
-import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3 } from 'lucide-react'
+// Helmet removed in favor of SEOHead
+import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3, Shield, Users, Zap } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SpinningWheel from '../components/SpinningWheel'
+import SEOHead from '../components/SEOHead'
 
 interface WheelOption {
   id: string
@@ -186,47 +186,27 @@ const WheelPage: React.FC = () => {
 
   return (
     <>
-      {/* Enhanced SEO Head */}
-      <Helmet>
-        <title>{currentCategory.seoTitle}</title>
-        <meta name="description" content={currentCategory.description} />
-        <meta name="keywords" content={currentCategory.keywords} />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="SpinWheelHub" />
-        <link rel="canonical" href={`https://spinwheelhub.com/wheel/${category}`} />
-
-        {/* Open Graph */}
-        <meta property="og:title" content={currentCategory.seoTitle} />
-        <meta property="og:description" content={currentCategory.description} />
-        <meta property="og:url" content={`https://spinwheelhub.com/wheel/${category}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={currentCategory.seoTitle} />
-        <meta name="twitter:description" content={currentCategory.description} />
-        <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": currentCategory.title + " Wheel - SpinWheelHub",
-            "description": currentCategory.description,
-            "url": `https://spinwheelhub.com/wheel/${category}`,
-            "applicationCategory": "UtilityApplication",
-            "operatingSystem": "Any",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": currentCategory.keywords.split(', ')
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title={currentCategory.seoTitle}
+        description={currentCategory.description}
+        keywords={currentCategory.keywords}
+        image="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": currentCategory.title + " Wheel - SpinWheelHub",
+          "description": currentCategory.description,
+          "url": `https://spinwheelhub.com/wheel/${category}`,
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "Any",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": currentCategory.keywords.split(', ')
+        }}
+      />
 
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
         <div className="w-full max-w-none px-2 md:px-4 py-3 md:py-6 overflow-x-auto">
@@ -284,6 +264,14 @@ const WheelPage: React.FC = () => {
               </h1>
               <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-pink-600" />
             </div>
+
+            {/* Trust Badges - NEW */}
+            <div className="flex justify-center items-center space-x-4 mb-3 text-xs md:text-sm text-gray-500 font-medium">
+              <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Shield className="w-3 h-3 mr-1 text-green-500" /> 100% Free</span>
+              <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Users className="w-3 h-3 mr-1 text-blue-500" /> No Login</span>
+              <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Zap className="w-3 h-3 mr-1 text-yellow-500" /> Instant Spin</span>
+            </div>
+
             <p className="text-sm md:text-lg text-gray-600 leading-relaxed px-2">
               Spin the magical wheel to make your choice! Add manual entries, import options, or use our curated list.
             </p>
