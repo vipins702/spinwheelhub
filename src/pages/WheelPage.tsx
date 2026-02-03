@@ -191,21 +191,44 @@ const WheelPage: React.FC = () => {
         description={currentCategory.description}
         keywords={currentCategory.keywords}
         image="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": currentCategory.title + " Wheel - SpinWheelHub",
-          "description": currentCategory.description,
-          "url": `https://spinwheelhub.com/wheel/${category}`,
-          "applicationCategory": "UtilityApplication",
-          "operatingSystem": "Any",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": currentCategory.title + " Wheel",
+            "description": currentCategory.description,
+            "url": `https://spinwheelhub.com/wheel/${category}`,
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
           },
-          "featureList": currentCategory.keywords.split(', ')
-        }}
+          {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": `How to use the ${currentCategory.title} Wheel`,
+            "step": [
+              {
+                "@type": "HowToStep",
+                "name": "Enter Options",
+                "text": "Add your list of choices to the wheel or use our preset options."
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Spin the Wheel",
+                "text": "Click the 'Spin' button to start the random selection process."
+              },
+              {
+                "@type": "HowToStep",
+                "name": "View Result",
+                "text": "Wait for the wheel to stop and reveal your random winner."
+              }
+            ]
+          }
+        ]}
       />
 
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
@@ -257,23 +280,34 @@ const WheelPage: React.FC = () => {
 
           {/* Optimized Title for 100% zoom */}
           <div className="text-center mb-2 md:mb-8 max-w-5xl mx-auto px-2">
-            <div className="flex items-center justify-center space-x-2 mb-1 md:mb-3">
-              <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
-              <h1 className="text-xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
-                {currentCategory.title} Wheel
-              </h1>
-              <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-pink-600" />
+            <div className="flex flex-col items-center justify-center mb-1 md:mb-3">
+              <div className="flex items-center space-x-2">
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
+                <h1 className="text-xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
+                  {currentCategory.h1 || `${currentCategory.title} Wheel`}
+                </h1>
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-pink-600" />
+              </div>
+
+              {/* GEO / LLM Definition Snippet */}
+              {currentCategory.definition && (
+                <div className="mt-2 max-w-2xl mx-auto">
+                  <p className="text-sm md:text-base text-gray-700 font-medium bg-white/60 px-4 py-1 rounded-full border border-purple-100 inline-block shadow-sm">
+                    {currentCategory.definition}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Trust Badges - NEW */}
-            <div className="flex justify-center items-center space-x-4 mb-2 md:mb-3 text-xs md:text-sm text-gray-500 font-medium">
+            <div className="flex justify-center items-center space-x-4 mb-2 md:mb-3 text-xs md:text-sm text-gray-500 font-medium mt-2">
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Shield className="w-3 h-3 mr-1 text-green-500" /> 100% Free</span>
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Users className="w-3 h-3 mr-1 text-blue-500" /> No Login</span>
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Zap className="w-3 h-3 mr-1 text-yellow-500" /> Instant Spin</span>
             </div>
 
-            <p className="text-xs md:text-lg text-gray-600 leading-relaxed px-2 hidden md:block">
-              Spin the magical wheel to make your choice! Add manual entries, import options, or use our curated list.
+            <p className="text-xs md:text-lg text-gray-600 leading-relaxed px-2 hidden md:block mt-2">
+              {currentCategory.description}
             </p>
           </div>
 
