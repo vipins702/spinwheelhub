@@ -422,19 +422,19 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     controls.set({ rotate: 0 })
   }
 
-  // Responsive text size calculation - Much larger text for better readability
+  // Responsive text size calculation - Balanced for visibility vs space
   const getTextSize = () => {
-    const baseSize = Math.max(size / 20, 16) // Increased base size significantly
+    const baseSize = Math.max(size / 24, 12) // Slightly reduced base size
     const optionCount = validOptions.length
-    if (optionCount > 15) return Math.max(baseSize * 0.8, 14)
-    if (optionCount > 10) return Math.max(baseSize * 0.9, 16)
-    if (optionCount > 6) return Math.max(baseSize * 1.0, 18)
-    return Math.max(baseSize * 1.1, 20)
+    if (optionCount > 20) return Math.max(baseSize * 0.7, 10)
+    if (optionCount > 12) return Math.max(baseSize * 0.8, 12)
+    if (optionCount > 6) return Math.max(baseSize * 0.9, 14)
+    return Math.max(baseSize * 1.0, 16)
   }
 
   // Calculate text radius for curved text
   const getTextRadius = () => {
-    return (size / 2) * 0.7 // 70% of wheel radius for optimal text placement
+    return (size / 2) * 0.65 // Slightly closer to center
   }
 
   return (
@@ -550,16 +550,37 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                 'Z'
               ].join(' ')
 
-              // Calculate text positioning for TANGENTIAL text (parallel to triangle/segment edges)
-              const textAngle = angle + (nextAngle - angle) / 2
-              const textAngleRad = (textAngle - 90) * (Math.PI / 180)
-              const textRadius = getTextRadius()
-              const textX = centerX + textRadius * Math.cos(textAngleRad)
-              const textY = centerY + textRadius * Math.sin(textAngleRad)
+              // Smart Text Positioning
+              // > 10 options: Radial (from center out)
+              // <= 10 options: Tangential (perpendicular to radius)
+              const isRadial = visibleCount > 10
+              const midAngle = angle + (nextAngle - angle) / 2
+              const midAngleRad = (midAngle - 90) * (Math.PI / 180)
 
-              // Calculate rotation for tangential text (perpendicular to radial, parallel to segment edges)
-              // Add 90 degrees to make text parallel to the triangle edges
-              const textRotation = textAngle + 90
+              // Radial settings
+              const radialRadius = radius * 0.65
+              const radialX = centerX + radialRadius * Math.cos(midAngleRad)
+              const radialY = centerY + radialRadius * Math.sin(midAngleRad)
+              // Flip text on left side so it's readable
+              const isLeftSide = midAngle > 90 && midAngle < 270
+              const radialRotation = midAngle + (isLeftSide ? 180 : 0)
+
+              // Tangential settings
+              const tangentRadius = radius * 0.65
+              const tangentX = centerX + tangentRadius * Math.cos(midAngleRad)
+              const tangentY = centerY + tangentRadius * Math.sin(midAngleRad)
+              const tangentRotation = midAngle + 90
+
+              // Final values
+              const textX = isRadial ? radialX : tangentX
+              const textY = isRadial ? radialY : tangentY
+              const rotation = isRadial ? radialRotation : tangentRotation
+
+              // Truncate based on mode
+              const maxChars = isRadial ? 18 : 14
+              const displayText = option.text.length > maxChars
+                ? option.text.substring(0, maxChars) + '...'
+                : option.text
 
               return (
                 <g key={option.id}>
@@ -573,22 +594,25 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                     }}
                   />
 
-                  {/* Tangential Text (parallel to segment edges like in SS image) */}
+                  {/* Text with high-contrast Stroke */}
                   <text
                     x={textX}
                     y={textY}
                     fill="white"
+                    stroke="rgba(0,0,0,0.6)"
+                    strokeWidth="3"
+                    paintOrder="stroke"
                     fontSize={getTextSize()}
-                    fontWeight="700"
+                    fontWeight="800"
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    transform={`rotate(${textRotation}, ${textX}, ${textY})`}
+                    transform={`rotate(${rotation}, ${textX}, ${textY})`}
                     style={{
-                      filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))',
+                      filter: 'drop-shadow(0px 2px 2px rgba(0,0,0,0.5))',
                       fontFamily: 'system-ui, -apple-system, sans-serif'
                     }}
                   >
-                    {option.text.length > 12 ? option.text.substring(0, 12) + '...' : option.text}
+                    {displayText}
                   </text>
                 </g>
               )
@@ -872,8 +896,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           onClick={spinWheel}
           disabled={isSpinning}
           className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white text-base md:text-lg transition-all duration-300 transform ${isSpinning
-              ? 'bg-gray-400 cursor-not-allowed scale-95'
-              : 'bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 hover:scale-105 shadow-lg hover:shadow-xl'
+            ? 'bg-gray-400 cursor-not-allowed scale-95'
+            : 'bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 hover:scale-105 shadow-lg hover:shadow-xl'
             }`}
           style={{
             minWidth: '200px',
