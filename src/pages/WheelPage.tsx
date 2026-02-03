@@ -209,9 +209,9 @@ const WheelPage: React.FC = () => {
       />
 
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
-        <div className="w-full max-w-none px-2 md:px-4 py-3 md:py-6 overflow-x-auto">
+        <div className="w-full max-w-none px-2 md:px-4 py-1 md:py-6 overflow-x-auto">
           {/* Optimized Header for 100% zoom */}
-          <div className="flex items-center justify-between mb-4 md:mb-6 max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-2 md:mb-6 max-w-7xl mx-auto">
             <Link
               to="/"
               className="inline-flex items-center px-3 md:px-4 py-2 bg-white text-gray-700 hover:text-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium text-sm"
@@ -256,23 +256,23 @@ const WheelPage: React.FC = () => {
           </div>
 
           {/* Optimized Title for 100% zoom */}
-          <div className="text-center mb-6 md:mb-8 max-w-5xl mx-auto px-2">
-            <div className="flex items-center justify-center space-x-2 mb-2 md:mb-3">
+          <div className="text-center mb-2 md:mb-8 max-w-5xl mx-auto px-2">
+            <div className="flex items-center justify-center space-x-2 mb-1 md:mb-3">
               <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
                 {currentCategory.title} Wheel
               </h1>
               <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-pink-600" />
             </div>
 
             {/* Trust Badges - NEW */}
-            <div className="flex justify-center items-center space-x-4 mb-3 text-xs md:text-sm text-gray-500 font-medium">
+            <div className="flex justify-center items-center space-x-4 mb-2 md:mb-3 text-xs md:text-sm text-gray-500 font-medium">
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Shield className="w-3 h-3 mr-1 text-green-500" /> 100% Free</span>
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Users className="w-3 h-3 mr-1 text-blue-500" /> No Login</span>
               <span className="flex items-center bg-white/50 px-2 py-1 rounded-full border border-purple-100"><Zap className="w-3 h-3 mr-1 text-yellow-500" /> Instant Spin</span>
             </div>
 
-            <p className="text-sm md:text-lg text-gray-600 leading-relaxed px-2">
+            <p className="text-xs md:text-lg text-gray-600 leading-relaxed px-2 hidden md:block">
               Spin the magical wheel to make your choice! Add manual entries, import options, or use our curated list.
             </p>
           </div>
@@ -513,6 +513,58 @@ const WheelPage: React.FC = () => {
           </div>
         </div>
 
+
+
+        {/* How to Use Section - NEW */}
+        <section className="py-12 px-4 bg-gradient-to-br from-white to-purple-50 border-t border-purple-100">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 gradient-text">
+              How to Use {currentCategory.title} Wheel
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <span className="bg-purple-100 text-purple-600 rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">1</span>
+                  Customize Your Wheel
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Add your own options using the <strong>Manual Entry</strong> box on the left (or bottom on mobile). You can also <strong>Import</strong> a text file listing your choices.
+                </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <span className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">2</span>
+                  Spin & Reveal
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Click the center of the wheel or the <strong>Spin</strong> button. Our advanced physics engine ensures a truly random and fair result every time.
+                </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <span className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">3</span>
+                  Fairness Guaranteed
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  This tool helps eliminate bias. Use the <strong>Exclude after spin</strong> toggle to remove winners so everyone gets a turn.
+                </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <span className="bg-orange-100 text-orange-600 rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">4</span>
+                  About the Creator
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  SpinWheelHub is designed and maintained by <Link to="/about" className="text-purple-600 font-bold hover:underline">Vipin S.</Link>, a technology expert with 10+ years of experience, ensuring a safe and reliable experience.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Related Wheels - Internal Linking for SEO */}
         <section className="py-8 md:py-12 bg-white mt-8 border-t border-gray-100">
