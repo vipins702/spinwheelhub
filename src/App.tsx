@@ -7,8 +7,12 @@ import WheelPage from './pages/WheelPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import BlogPage from './pages/BlogPage'
+import BlogPostPage from './pages/BlogPostPage'
 import BabyNameGeneratorWheel from './pages/BabyNameGeneratorWheel'
 import CustomWheelOfNames from './pages/CustomWheelOfNames'
+import HubPage from './pages/HubPage'
+import PrivacyPage from './pages/PrivacyPage'
+import TermsPage from './pages/TermsPage'
 
 function App() {
   return (
@@ -21,6 +25,11 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/hub" element={<HubPage />} />
+        <Route path="/wheels" element={<HubPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Routes>
     </Layout>
   )

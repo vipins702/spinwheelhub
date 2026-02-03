@@ -3,61 +3,15 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Calendar, User, ArrowRight, Play, Tag } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { blogPosts } from '../data/blogPosts'
 
 const BlogPage: React.FC = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "How to Use a Random Name Picker in the Classroom",
-      excerpt: "Discover creative ways to use spin wheels for student engagement, fair participation, and classroom management strategies.",
-      category: "Education",
-      author: "Sarah Johnson",
-      date: "Oct 15, 2023",
-      readTime: "5 min read",
-      image: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=800",
-      slug: "random-name-picker-classroom"
-    },
-    {
-      id: 2,
-      title: "Top 10 Fun Games to Play with a Spin Wheel",
-      excerpt: "From truth or dare to drinking games (for adults), here are the most entertaining games you can play using our custom spin wheel generator.",
-      category: "Entertainment",
-      author: "Mike Chen",
-      date: "Oct 22, 2023",
-      readTime: "4 min read",
-      image: "https://images.pexels.com/photos/194009/pexels-photo-194009.jpeg?auto=compress&cs=tinysrgb&w=800",
-      slug: "fun-games-spin-wheel"
-    },
-    {
-      id: 3,
-      title: "The Science of Decision Making: Why We Struggle to Choose",
-      excerpt: "Psychological insights into why making decisions is hard and how randomizing choices can actually lead to better satisfaction.",
-      category: "Psychology",
-      author: "Dr. Emily Rodriguez",
-      date: "Nov 05, 2023",
-      readTime: "7 min read",
-      image: "https://images.pexels.com/photos/3758105/pexels-photo-3758105.jpeg?auto=compress&cs=tinysrgb&w=800",
-      slug: "science-of-decision-making"
-    },
-    {
-      id: 4,
-      title: "Best Travel Destinations for 2024 (Ranked by Wheel Spins)",
-      excerpt: "We analyzed thousands of spins on our Travel Wheel to see where everyone is planning to go next year. The results might surprise you!",
-      category: "Travel",
-      author: "SpinWheelHub Team",
-      date: "Nov 12, 2023",
-      readTime: "6 min read",
-      image: "https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=800",
-      slug: "best-travel-destinations-2024"
-    }
-  ]
-
   return (
     <>
       <Helmet>
-        <title>Blog & Vlog - SpinWheelHub | Tips, Tricks & Updates</title>
-        <meta name="description" content="Read the latest articles about decision making, classroom activities, party games, and updates from SpinWheelHub. Improve your spinning experience!" />
-        <meta name="keywords" content="spin wheel blog, random picker tips, classroom games, decision making articles, spinwheelhub blog" />
+        <title>Blog & Vlog - SpinWheelHub | Name Finder Tips & Tricks</title>
+        <meta name="description" content="Read the latest articles about name finders, classroom activities, party games, and updates from SpinWheelHub. Improve your spinning experience!" />
+        <meta name="keywords" content="spin wheel blog, name finder tips, random picker guide, classroom games, decision making articles" />
         <link rel="canonical" href="https://spinwheelhub.com/blog" />
       </Helmet>
 
@@ -68,14 +22,14 @@ const BlogPage: React.FC = () => {
               SpinWheelHub <span className="text-purple-600">Blog & Vlog</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Tips, tricks, and inspiration for making the most of your spin wheels. 
+              Tips, tricks, and inspiration for finding the perfect name.
               From classroom management to party planning.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post, index) => (
-              <motion.article 
+              <motion.article
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -83,18 +37,18 @@ const BlogPage: React.FC = () => {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
               >
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden group">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-purple-600 uppercase tracking-wide flex items-center">
                     <Tag className="w-3 h-3 mr-1" />
                     {post.category}
                   </div>
-                </div>
-                
+                </Link>
+
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex items-center text-sm text-gray-500 mb-4 space-x-4">
                     <div className="flex items-center">
@@ -106,20 +60,22 @@ const BlogPage: React.FC = () => {
                       {post.author}
                     </div>
                   </div>
-                  
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-purple-600 transition-colors cursor-pointer">
-                    {post.title}
-                  </h2>
-                  
-                  <p className="text-gray-600 mb-6 flex-1">
+
+                  <Link to={`/blog/${post.slug}`} className="block">
+                    <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-purple-600 transition-colors cursor-pointer line-clamp-2">
+                      {post.title}
+                    </h2>
+                  </Link>
+
+                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  
+
                   <div className="mt-auto">
-                    <button className="text-purple-600 font-semibold inline-flex items-center group hover:text-purple-700 transition-colors">
-                      Read Article 
+                    <Link to={`/blog/${post.slug}`} className="text-purple-600 font-semibold inline-flex items-center group hover:text-purple-700 transition-colors">
+                      Read Article
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </motion.article>
@@ -132,7 +88,7 @@ const BlogPage: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-900">Latest Vlogs</h2>
               <button className="text-purple-600 font-semibold hover:text-purple-700">View All Videos</button>
             </div>
-            
+
             <div className="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-3xl overflow-hidden shadow-2xl">
               <div className="grid lg:grid-cols-2 gap-0">
                 <div className="p-8 md:p-12 flex flex-col justify-center">
@@ -151,9 +107,9 @@ const BlogPage: React.FC = () => {
                   </button>
                 </div>
                 <div className="relative h-64 lg:h-auto bg-gray-800">
-                  <img 
-                    src="https://images.pexels.com/photos/8471799/pexels-photo-8471799.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                    alt="Video Thumbnail" 
+                  <img
+                    src="https://images.pexels.com/photos/8471799/pexels-photo-8471799.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Video Thumbnail"
                     className="w-full h-full object-cover opacity-80"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">

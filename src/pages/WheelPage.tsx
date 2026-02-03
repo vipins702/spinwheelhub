@@ -12,6 +12,8 @@ interface WheelOption {
   color?: string
 }
 
+import { getWheelTemplate, getRelatedWheels, WheelTemplate } from '../data/wheelTemplates'
+
 const WheelPage: React.FC = () => {
   const { category } = useParams<{ category: string }>()
   const [options, setOptions] = useState<WheelOption[]>([])
@@ -29,125 +31,10 @@ const WheelPage: React.FC = () => {
     '#FF2D92', '#5AC8FA', '#FFCC02', '#30D158', '#BF5AF2', '#FF6482'
   ]
 
-  // Enhanced category data with SEO optimization
-  const categoryData: Record<string, {
-    title: string;
-    options: string[];
-    colors: string[];
-    description: string;
-    keywords: string;
-    seoTitle: string;
-  }> = {
-    'baby-names': {
-      title: 'Baby Names',
-      seoTitle: 'Baby Name Generator Wheel | Random Baby Name Picker | SpinWheelHub',
-      description: 'Spin our magical baby name wheel to find the perfect name for your little one! Over 45 popular baby names including Emma, Liam, Olivia, Noah and more. Free random baby name generator.',
-      keywords: 'baby names, baby name generator, random baby name picker, baby name wheel, name generator, baby naming, pregnancy names, newborn names, popular baby names, unique baby names',
-      options: [
-        'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Sophia', 'Mason',
-        'Isabella', 'William', 'Mia', 'James', 'Charlotte', 'Benjamin', 'Amelia',
-        'Lucas', 'Harper', 'Henry', 'Evelyn', 'Alexander', 'Abigail', 'Sebastian',
-        'Emily', 'Jack', 'Elizabeth', 'Owen', 'Mila', 'Theodore', 'Ella', 'Jacob',
-        'Grace', 'Michael', 'Aria', 'Daniel', 'Scarlett', 'Matthew', 'Chloe', 'Aiden',
-        'Luna', 'David', 'Lily', 'Joseph', 'Zoe', 'Samuel', 'Nora', 'Carter'
-      ],
-      colors: magicalColors
-    },
-    'travel': {
-      title: 'Travel Destinations',
-      seoTitle: 'Travel Destination Picker Wheel | Random Travel Generator | SpinWheelHub',
-      description: 'Spin the wheel to discover your next travel adventure! 40+ amazing destinations including Paris, Tokyo, Bali, Iceland and more. Perfect for planning your next vacation or trip.',
-      keywords: 'travel destinations, travel picker, vacation planner, random travel generator, travel wheel, destination picker, travel ideas, vacation destinations, travel planning, wanderlust',
-      options: [
-        'Paris', 'Tokyo', 'New York', 'London', 'Sydney', 'Rome', 'Barcelona', 'Amsterdam',
-        'Bali', 'Dubai', 'Santorini', 'Iceland', 'Maldives', 'Thailand', 'Morocco', 'Egypt',
-        'Peru', 'Costa Rica', 'Switzerland', 'Norway', 'New Zealand', 'Canada', 'Australia',
-        'Greece', 'Turkey', 'Portugal', 'Croatia', 'Vietnam', 'India', 'Brazil', 'Argentina',
-        'Chile', 'South Africa', 'Kenya', 'Madagascar', 'Fiji', 'Hawaii', 'Alaska', 'Patagonia'
-      ],
-      colors: magicalColors
-    },
-    'company-names': {
-      title: 'Company Names',
-      seoTitle: 'Company Name Generator Wheel | Business Name Picker | SpinWheelHub',
-      description: 'Generate creative company names with our spinning wheel! Perfect for startups, businesses, and entrepreneurs. Includes tech, innovative, and professional business name ideas.',
-      keywords: 'company names, business name generator, startup names, business name picker, company name ideas, brand names, business naming, entrepreneur tools, startup generator',
-      options: [
-        'InnovateTech', 'NextGen Solutions', 'Quantum Dynamics', 'Stellar Ventures', 'Apex Digital',
-        'Fusion Labs', 'Velocity Systems', 'Pinnacle Group', 'Catalyst Corp', 'Nexus Innovations',
-        'Zenith Technologies', 'Prism Solutions', 'Vortex Enterprises', 'Summit Strategies', 'Eclipse Ventures',
-        'Phoenix Industries', 'Titan Dynamics', 'Nova Systems', 'Infinity Labs', 'Horizon Tech'
-      ],
-      colors: magicalColors
-    },
-    'life-decisions': {
-      title: 'Life Decisions',
-      seoTitle: 'Life Decision Maker Wheel | Random Life Choice Generator | SpinWheelHub',
-      description: 'Need help making important life decisions? Spin our wheel for guidance on career changes, lifestyle choices, personal growth, and major life decisions.',
-      keywords: 'life decisions, decision maker, life choices, personal decisions, life advice, decision wheel, life guidance, major decisions, life planning, decision help',
-      options: [
-        'Change Career', 'Move to New City', 'Start a Business', 'Go Back to School', 'Travel the World',
-        'Learn New Skill', 'Buy a House', 'Adopt a Pet', 'Join a Gym', 'Start Dating',
-        'Write a Book', 'Learn an Instrument', 'Volunteer', 'Take a Break', 'Pursue Hobby',
-        'Get Married', 'Have Children', 'Change Lifestyle', 'Move Abroad', 'Start Investing'
-      ],
-      colors: magicalColors
-    },
-    'food-recipes': {
-      title: 'Food & Recipes',
-      seoTitle: 'Food Recipe Picker Wheel | Random Meal Generator | SpinWheelHub',
-      description: 'Can\'t decide what to cook? Spin our food wheel for delicious recipe ideas! International cuisine options including Italian, Asian, Mexican, and American dishes.',
-      keywords: 'food picker, recipe generator, meal planner, cooking ideas, random recipes, food wheel, dinner ideas, meal generator, cooking inspiration, recipe picker',
-      options: [
-        'Pizza Margherita', 'Chicken Curry', 'Beef Tacos', 'Sushi Rolls', 'Pasta Carbonara',
-        'Thai Pad Thai', 'Indian Biryani', 'Mexican Quesadilla', 'Italian Risotto', 'Chinese Fried Rice',
-        'Greek Salad', 'French Ratatouille', 'Spanish Paella', 'Japanese Ramen', 'Korean BBQ',
-        'American Burger', 'Fish and Chips', 'Chicken Tikka', 'Beef Stir Fry', 'Vegetable Curry'
-      ],
-      colors: magicalColors
-    },
-    'entertainment': {
-      title: 'Entertainment',
-      seoTitle: 'Entertainment Activity Picker | Random Fun Ideas Generator | SpinWheelHub',
-      description: 'Bored and need entertainment ideas? Spin our wheel for fun activities including movies, games, music, sports, and creative pursuits. Never be bored again!',
-      keywords: 'entertainment ideas, fun activities, boredom buster, activity picker, entertainment wheel, fun generator, leisure activities, hobby ideas, entertainment options',
-      options: [
-        'Watch Netflix', 'Play Video Games', 'Read a Book', 'Listen to Music', 'Watch YouTube',
-        'Go to Movies', 'Play Board Games', 'Watch Sports', 'Listen to Podcast', 'Binge TV Series',
-        'Play Mobile Games', 'Watch Documentary', 'Listen to Audiobook', 'Stream Live', 'Browse Social Media',
-        'Play Guitar', 'Draw/Paint', 'Dance', 'Sing Karaoke', 'Write Stories'
-      ],
-      colors: magicalColors
-    },
-    'astrology': {
-      title: 'Astrology Fortune',
-      seoTitle: 'Astrology Fortune Wheel | Daily Fortune Picker | SpinWheelHub',
-      description: 'Discover your cosmic fortune with our magical astrology wheel! Get positive predictions, spiritual guidance, and daily fortune readings for luck and inspiration.',
-      keywords: 'astrology fortune, daily fortune, cosmic predictions, spiritual guidance, fortune wheel, astrology readings, daily horoscope, spiritual wheel, fortune teller, cosmic guidance',
-      options: [
-        'Great Fortune Ahead', 'Love is Coming', 'Career Success', 'Financial Gain', 'New Friendship',
-        'Travel Opportunity', 'Creative Breakthrough', 'Health Improvement', 'Family Joy', 'Personal Growth',
-        'Lucky Day Today', 'Unexpected Gift', 'Dream Come True', 'New Adventure', 'Positive Change',
-        'Spiritual Awakening', 'Inner Peace', 'Abundance Flow', 'Divine Protection', 'Cosmic Alignment'
-      ],
-      colors: magicalColors
-    },
-    'challenges': {
-      title: 'Random Challenges',
-      seoTitle: 'Random Challenge Generator Wheel | Personal Challenge Picker | SpinWheelHub',
-      description: 'Ready for a challenge? Spin our wheel for personal growth challenges, fitness goals, skill development, and life improvement activities. Transform your routine!',
-      keywords: 'random challenges, personal challenges, self improvement, fitness challenges, skill development, personal growth, challenge generator, life challenges, habit building',
-      options: [
-        '30-Day Fitness', 'Learn New Language', 'Read 10 Books', 'No Social Media Week', 'Cook Every Day',
-        'Walk 10k Steps Daily', 'Meditation Challenge', 'Photography Project', 'Write Daily Journal', 'Learn to Code',
-        'Art Challenge', 'Music Practice', 'Volunteer Work', 'Skill Development', 'Creativity Boost',
-        'Cold Shower Challenge', 'Early Rising', 'Gratitude Practice', 'Random Acts of Kindness', 'Digital Detox'
-      ],
-      colors: magicalColors
-    }
-  }
+  // Get template from centralized database
+  const template = category ? getWheelTemplate(category) : undefined
 
-  const currentCategory = categoryData[category || ''] || {
+  const currentCategory = template || {
     title: 'Custom Wheel',
     seoTitle: 'Custom Decision Wheel | SpinWheelHub',
     description: 'Create your own custom spinning wheel for any decision! Add your own options and spin to make choices.',
@@ -158,13 +45,13 @@ const WheelPage: React.FC = () => {
 
   useEffect(() => {
     // Load initial options for the category
-    const initialOptions = currentCategory.options.slice(0, 8).map((option, index) => ({
+    const initialOptions = currentCategory.options.slice(0, 50).map((option, index) => ({
       id: `${index + 1}`,
       text: option,
       color: magicalColors[index % magicalColors.length]
     }))
     setOptions(initialOptions)
-  }, [category])
+  }, [category, currentCategory.options])
 
   // Handle manual entry input changes
   const handleManualEntryChange = (index: number, value: string) => {
@@ -646,29 +533,59 @@ const WheelPage: React.FC = () => {
               Explore More Wheels
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-              {Object.entries(categoryData)
-                .filter(([key]) => key !== category)
-                .slice(0, 6)
-                .map(([key, data]) => (
-                  <Link
-                    key={key}
-                    to={`/wheel/${key}`}
-                    className="flex flex-col items-center p-3 rounded-xl bg-gray-50 hover:bg-purple-50 hover:shadow-md transition-all duration-200 text-center group"
-                  >
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <span className="text-lg md:text-xl">🎡</span>
-                    </div>
-                    <span className="text-xs md:text-sm font-medium text-gray-700 group-hover:text-purple-700">
-                      {data.title}
-                    </span>
-                  </Link>
-                ))}
+              {getRelatedWheels(category || '').map((wheel) => (
+                <Link
+                  key={wheel.id}
+                  to={`/wheel/${wheel.id}`}
+                  className="flex flex-col items-center p-3 rounded-xl bg-gray-50 hover:bg-purple-50 hover:shadow-md transition-all duration-200 text-center group"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                    <span className="text-lg md:text-xl">🎡</span>
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-700 group-hover:text-purple-700">
+                    {wheel.title}
+                  </span>
+                </Link>
+              ))}
             </div>
             <div className="text-center mt-6">
               <Link to="/" className="text-purple-600 hover:text-purple-700 font-semibold text-sm">
                 View All Categories &rarr;
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section with Schema */}
+        <section className="bg-obsidian-800/50 py-12 px-4 border-t border-white/5">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-8 gradient-text">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {[
+                { q: `How do I use the ${currentCategory.title} Wheel?`, a: "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." },
+                { q: "Is this spin wheel truly random?", a: "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." },
+                { q: "Can I save my custom wheel?", a: "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" },
+                { q: "Is this tool free?", a: "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." }
+              ].map((faq, i) => (
+                <div key={i} className="glass-card p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-neon-blue mb-2">{faq.q}</h3>
+                  <p className="text-gray-300">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  { "@type": "Question", "name": `How do I use the ${currentCategory.title} Wheel?`, "acceptedAnswer": { "@type": "Answer", "text": "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." } },
+                  { "@type": "Question", "name": "Is this spin wheel truly random?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." } },
+                  { "@type": "Question", "name": "Can I save my custom wheel?", "acceptedAnswer": { "@type": "Answer", "text": "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" } },
+                  { "@type": "Question", "name": "Is this tool free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." } }
+                ]
+              })}
+            </script>
           </div>
         </section>
 

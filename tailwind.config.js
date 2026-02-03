@@ -14,6 +14,20 @@ export default {
           600: '#2563eb',
           700: '#1d4ed8',
         },
+        obsidian: {
+          950: '#050507',
+          900: '#0a0a0f',
+          800: '#12121a',
+          700: '#1c1c2e',
+          600: '#2a2a40',
+        },
+        neon: {
+          purple: '#a855f7',
+          blue: '#3b82f6',
+          pink: '#ec4899',
+          cyan: '#06b6d4',
+          gold: '#fbbf24',
+        },
         wheel: {
           red: '#ef4444',
           orange: '#f97316',
