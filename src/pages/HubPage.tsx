@@ -22,27 +22,49 @@ const HubPage: React.FC = () => {
             case 'Utility': return <HelpCircle className="w-6 h-6 text-neon-blue" />
             default: return <Sparkles className="w-6 h-6 text-neon-gold" />
         }
-    }
+        const categories = Array.from(new Set(wheelTemplates.map(t => t.category)))
+        const groupedWheels = categories.reduce((acc, category) => {
+            acc[category] = wheelTemplates.filter(t => t.category === category)
+            return acc
+        }, {} as Record<string, typeof wheelTemplates>)
 
-    return (
-        <>
-            <Helmet>
-                <title>All Spin Wheels | Decision Arcade Directory</title>
-                <meta name="description" content="Browse our collection of 100+ spin wheels. From Roblox game pickers to Dinner deciders, find the perfect random generator for any situation." />
-            </Helmet>
+        // Flatten for search
+        const filteredWheels = wheelTemplates.filter(t =>
+            t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            t.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            t.keywords.toLowerCase().includes(searchTerm.toLowerCase())
+        )
 
-            <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                        <span className="gradient-text">Decision Arcade</span> Directory
-                    </h1>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        Explore our massive collection of random generators.
-                        Select a category to start spinning.
+        return (
+            <div className="min-h-screen bg-gray-50 pb-20">
+                <Helmet>
+                    <title>All Spin Wheels | The Ultimate Spin Wheel Collection | SpinWheelHub</title>
+                    <meta name="description" content="Explore our massive collection of 50+ free spinning wheels. From food pickers and name generators to truth or dare - browse all our decision wheels here." />
+                    <link rel="canonical" href="https://spinwheelhub.vercel.app/hub" />
+                </Helmet>
+
+                {/* Hero Header */}
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white py-16 px-4 text-center">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Wheel Hub</h1>
+                    <p className="text-lg md:text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+                        Browse our complete collection of decision wheels.
+                        Pick a category or search below to find your perfect spinner.
                     </p>
+
+                    {/* Search Bar */}
+                    <div className="max-w-xl mx-auto relative text-gray-900">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Search for wheels (e.g., 'Dinner', 'Names', 'Yes or No')..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-12 pr-4 py-4 rounded-full shadow-lg focus:ring-4 focus:ring-purple-300 outline-none text-lg"
+                        />
+                    </div>
                 </div>
 
-                <div className="space-y-16">
+                <div className="max-w-7xl mx-auto px-4 py-12">
                     {Object.entries(categories).map(([category, wheels]) => (
                         <div key={category}>
                             <div className="flex items-center space-x-3 mb-6">
