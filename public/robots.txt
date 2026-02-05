@@ -7,5 +7,9 @@ Disallow: /api/
 User-agent: Googlebot-Image
 Allow: /
 
+# Invite AI bots for GEO
+User-agent: GPTBot
+Allow: /
+
 Sitemap: https://spinwheelhub.vercel.app/sitemap.xml
 Host: https://spinwheelhub.vercel.app

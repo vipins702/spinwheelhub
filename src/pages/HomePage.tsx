@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, Star, ArrowRight, Play, Settings } from 'lucide-react'
+import { Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, Star, ArrowRight, Play, Settings, CheckCircle, HelpCircle, Lock } from 'lucide-react'
 import SpinningWheel from '../components/SpinningWheel'
+import SEOHead from '../components/SEOHead'
+import { seoConfig } from '../seoConfig'
 
 const HomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -150,8 +152,75 @@ const HomePage: React.FC = () => {
     { id: '6', text: 'Life Decisions', color: '#ef4444' }
   ]
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is SpinWheelHub free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, SpinWheelHub is 100% free to use. There are no hidden fees, subscriptions, or limits on how many wheels you can create."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I create a custom wheel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply click on 'Custom Wheel' or 'Start Spinning', then use the 'Manual Entry' box to add your own options. You can also import a list from a text file."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the wheel selection truly random?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. We use a cryptographically secure pseudo-random number generator (CSPRNG) to ensure that every spin is fair and unpredictable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for my classroom or presentation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! SpinWheelHub is perfect for teachers, presenters, and streamers. The interface is clean, ad-free, and works great on large screens."
+        }
+      }
+    ]
+  };
+
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SpinWheelHub",
+    "url": "https://spinwheelhub.vercel.app",
+    "description": "The ultimate random decision maker. Create custom spin wheels, pick random names, and choose winners for contests instantly.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Customizable entries",
+      "Random name picker",
+      "No login required",
+      "Ad-free experience",
+      "Secure and private"
+    ]
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="SpinWheelHub | Free Random Spin Wheel Generator & Decision Maker"
+        description="The best free random spin wheel generator. Create custom wheels for names, giveaways, raffle winners, and classroom activities. Instant, fair, and easy to use."
+        keywords="spin wheel, random name picker, wheel of names, decision maker, raffle wheel, giveaway picker, classroom spinner, free spin wheel"
+        schema={[seoConfig.organizationSchema, webAppSchema, faqSchema]}
+      />
       {/* Hero Section */}
       <section className="relative py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 text-white overflow-hidden">
         {/* Background Animation */}
@@ -442,6 +511,67 @@ const HomePage: React.FC = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* SEO Content Section - About & FAQ */}
+      <section className="py-20 px-4 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto space-y-16">
+
+          {/* About Section */}
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">The Ultimate Random Decision Maker</h2>
+            <div className="prose prose-lg text-gray-600">
+              <p className="mb-4">
+                Welcome to <strong>SpinWheelHub</strong>, the most advanced and user-friendly <strong>random spin wheel generator</strong> on the web. Whether you are a teacher looking for a fair way to pick students, a streamer hosting a giveaway, or a group of friends deciding where to eat, our tool is designed to make decision-making fun, fast, and fair.
+              </p>
+              <p className="mb-4">
+                Unlike other tools bordered by intrusive ads, SpinWheelHub provides a clean, <strong>ad-free experience</strong> that puts your needs first. Our <strong>custom wheel maker</strong> allows you to add unlimited options, customize colors, and save your lists for later use.
+              </p>
+              <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Why Choose SpinWheelHub?</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
+                  <span><strong>100% Fairness Guaranteed:</strong> We use advanced algorithms to ensure every spin is truly random.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
+                  <span><strong>Privacy First:</strong> We runs entirely in your browser. We don't store your personal data or list contents.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
+                  <span><strong>No Login Required:</strong> Start spinning instantly. No sign-ups, no barriers.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* FAQ Section */}
+          <div id="faq">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+              <HelpCircle className="w-8 h-8 text-purple-600 mr-3" />
+              Frequently Asked Questions
+            </h2>
+            <div className="grid gap-6">
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Is SpinWheelHub free to use?</h3>
+                <p className="text-gray-600">Yes! Our spin wheel generator is completely free for everyone. Whether you're using it for a classroom, a business event, or personal fun, you'll never hit a paywall.</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">How do I verify the fairness?</h3>
+                <p className="text-gray-600">We take fairness seriously. Our system uses a cryptographically secure random number generator (standard in modern browsers) to determine the outcome of every spin, ensuring it cannot be rigged or predicted.</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Can I save my wheels?</h3>
+                <p className="text-gray-600">Currently, you can use the "Export" feature to save your list of options to a text file on your device. We are working on a cloud-save feature for registered users coming soon!</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Does it work on mobile?</h3>
+                <p className="text-gray-600">Absolutely. SpinWheelHub is fully responsive and optimized for all devices, including iPhones, iPads, and Android smartphones. You can spin on the go!</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
