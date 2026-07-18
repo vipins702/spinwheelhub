@@ -61,8 +61,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const [clappingSound, setClappingSound] = useState(true)
   const [displayDuplicates, setDisplayDuplicates] = useState(true)
   const [spinSlowly, setSpinSlowly] = useState(false)
-  const [showTitle, setShowTitle] = useState(true)
-  const [spinTime, setSpinTime] = useState(20)
+  const [spinTime, setSpinTime] = useState(8)
   const [maxVisibleNames, setMaxVisibleNames] = useState(1000)
   const [showResultPopup, setShowResultPopup] = useState(false)
 
@@ -137,12 +136,21 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   }
 
   // Ensure we have valid options
-  const validOptions = options.length > 0 ? options : [
+  const baseOptions = options.length > 0 ? options : [
     { id: '1', text: 'Option 1', color: '#FF3B30' },
     { id: '2', text: 'Option 2', color: '#34C759' },
     { id: '3', text: 'Option 3', color: '#007AFF' },
     { id: '4', text: 'Option 4', color: '#FFD60A' }
   ]
+
+  // When "Display duplicates" is off, collapse repeated entries so each unique
+  // name appears once on the wheel (and gets one equal slice / one chance).
+  const validOptions = displayDuplicates
+    ? baseOptions
+    : baseOptions.filter(
+      (opt, i, arr) =>
+        arr.findIndex(o => o.text.trim().toLowerCase() === opt.text.trim().toLowerCase()) === i
+    )
 
   // Enhanced vibrant flat colors
   const magicalColors = [
@@ -384,41 +392,19 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     const newTotalRotation = currentRotation + rotations * 360 + randomFinalAngle
 
     try {
-      // Phase 1: fast linear spin (build momentum)
-      // Reduced duration slightly to get to deceleration faster
-      const phase1Duration = Math.max(spinTime * 0.15, 0.5)
-      await controls.start({
-        rotate: currentRotation + (rotations - 2) * 360,
-        transition: {
-          duration: phase1Duration,
-          ease: 'easeIn', // Changed from linear to easeIn for better startup
-          type: 'tween'
-        }
-      })
-
-      // Phase 2: smooth deceleration into the exact target
-      // Improved physics: easeOutCirc offers a very realistic "friction" curve
-      const phase2Duration = Math.max(spinTime * 0.85, 2.5)
+      // Single smooth spin: quick wind-up into one long friction-style
+      // deceleration. Doing it in one tween avoids the velocity "cliff" you
+      // get when a fast phase hands off to a slow phase at mismatched speeds.
+      // easeOutQuint [0.22, 1, 0.36, 1] starts fast and has a long gentle tail,
+      // which reads like a real flicked wheel coasting to a stop.
       await controls.start({
         rotate: newTotalRotation,
         transition: {
-          duration: phase2Duration,
-          // Custom Bezier for "Realistic Friction" feel - Starts slightly slower, long tail
-          // [0.16, 1, 0.3, 1] is a modified easeOutCirc
-          ease: [0.16, 1, 0.3, 1],
+          duration: spinTime,
+          ease: [0.22, 1, 0.36, 1],
           type: 'tween'
         }
       })
-
-      // Optional micro-settle (very subtle bounce) — enable if you want more realism
-      // await controls.start({
-      //   rotate: newTotalRotation - 6,
-      //   transition: { duration: 0.12, ease: 'easeOut' }
-      // });
-      // await controls.start({
-      //   rotate: newTotalRotation,
-      //   transition: { duration: 0.08, ease: 'easeInOut' }
-      // });
 
       // finalize - calculate which segment the pointer lands on
       const finalModulo360 = newTotalRotation % 360
@@ -841,16 +827,6 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                       className="w-4 h-4 text-blue-600 rounded"
                     />
                     <span className="text-sm">Spin slowly</span>
-                  </label>
-
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      checked={showTitle}
-                      onChange={(e) => setShowTitle(e.target.checked)}
-                      className="w-4 h-4 text-blue-600 rounded"
-                    />
-                    <span className="text-sm">Show title</span>
                   </label>
 
                   <label className="flex items-center space-x-3">
