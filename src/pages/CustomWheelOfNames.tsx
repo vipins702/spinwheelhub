@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3, Circle } from 'lucide-react'
+import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles, Trash2, ToggleLeft, ToggleRight, Edit3, Circle, Share2 } from 'lucide-react'
+import toast from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SpinningWheel from '../components/SpinningWheel'
@@ -31,6 +32,31 @@ const CustomWheelOfNames: React.FC = () => {
     '#FF2D92', '#5AC8FA', '#FFCC02', '#30D158', '#BF5AF2', '#FF6482',
     '#32D74B', '#5E5CE6', '#FF453A', '#FF9F0A', '#BF5AF2', '#AC8E68'
   ]
+
+  // Color theme palettes for the wheel
+  const wheelThemes: Record<string, string[]> = {
+    Vibrant: magicalColors,
+    Pastel: ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#E3BAFF', '#FFC9DE', '#C9FFF4'],
+    Neon: ['#FF10F0', '#00FFF0', '#CCFF00', '#00FF66', '#FF6700', '#7DF9FF', '#FF3131', '#9D00FF'],
+    Casino: ['#C8102E', '#1C1C1C', '#FFD700', '#C8102E', '#1C1C1C', '#FFD700', '#C8102E', '#1C1C1C'],
+    Ocean: ['#023E8A', '#0077B6', '#0096C7', '#00B4D8', '#48CAE4', '#90E0EF', '#036666', '#14746F'],
+    Sunset: ['#F94144', '#F3722C', '#F8961E', '#F9844A', '#F9C74F', '#D62873', '#B5179E', '#7209B7']
+  }
+  const [activeTheme, setActiveTheme] = useState('Vibrant')
+
+  const applyTheme = (name: string) => {
+    const palette = wheelThemes[name]
+    if (!palette) return
+    setActiveTheme(name)
+    setOptions(prev => prev.map((option, index) => ({
+      ...option,
+      color: palette[index % palette.length]
+    })))
+  }
+
+  const updateOptionColor = (id: string, color: string) => {
+    setOptions(prev => prev.map(option => option.id === id ? { ...option, color } : option))
+  }
 
   // Default starter options for different categories
   const starterTemplates = {
@@ -215,6 +241,35 @@ const CustomWheelOfNames: React.FC = () => {
     URL.revokeObjectURL(url)
   }
 
+  // Save wheel to the server and copy a shareable /w/:id link
+  const [isSharing, setIsSharing] = useState(false)
+  const shareWheel = async () => {
+    if (options.length < 2) {
+      toast.error('Add at least 2 options before sharing')
+      return
+    }
+    setIsSharing(true)
+    try {
+      const res = await fetch('/api/wheels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: wheelTitle,
+          entries: options.map(o => ({ text: o.text, color: o.color }))
+        })
+      })
+      if (!res.ok) throw new Error((await res.json()).error || 'Failed to save wheel')
+      const { url } = await res.json()
+      const fullUrl = `${window.location.origin}${url}`
+      await navigator.clipboard.writeText(fullUrl)
+      toast.success('Wheel saved! Share link copied to clipboard')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not share wheel')
+    } finally {
+      setIsSharing(false)
+    }
+  }
+
   const resetToDefaults = () => {
     const defaultOptions = starterTemplates['General Decision'].slice(0, 8).map((option, index) => ({
       id: `${index + 1}`,
@@ -241,17 +296,17 @@ const CustomWheelOfNames: React.FC = () => {
     <>
       {/* Enhanced SEO Head */}
       <Helmet>
-        <title>Custom Spin Wheel | Free Random Name Picker & Decision Maker | SpinWheelHub</title>
-        <meta name="description" content="Create your custom spin wheel for any purpose! Free random picker for decisions, team selection, name drawing, and more. Fully customizable with import/export features." />
+        <title>Custom Spin Wheel — Make Your Own Customizable Wheel Spinner | SpinWheelHub</title>
+        <meta name="description" content="Make your own custom spin wheel in seconds. Add your entries, customize colors, and spin — a free customizable wheel spinner for teams, giveaways, classrooms and decisions." />
         <meta name="keywords" content="spin wheel, wheel of names, custom wheel, random picker, decision maker, name picker, team selector, random generator, spinning wheel, choice maker, custom spinner, random name picker, decision wheel, name selector, team picker, random chooser" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
-        <link rel="canonical" href="https://spinwheelhub.com/custom-wheel-of-names" />
+        <link rel="canonical" href="https://spinwheelhub.vercel.app/custom-wheel-of-names" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Custom Spin Wheel | Free Random Picker | SpinWheelHub" />
+        <meta property="og:title" content="Custom Spin Wheel — Make Your Own Customizable Wheel Spinner" />
         <meta property="og:description" content="Create your personalized spin wheel! Perfect for team selection, decision making, name drawing, and any random picking needs." />
-        <meta property="og:url" content="https://spinwheelhub.com/custom-wheel-of-names" />
+        <meta property="og:url" content="https://spinwheelhub.vercel.app/custom-wheel-of-names" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
 
@@ -268,7 +323,7 @@ const CustomWheelOfNames: React.FC = () => {
             "@type": "WebApplication",
             "name": "Custom Wheel of Names - SpinWheelHub",
             "description": "Create personalized spinning wheels for any purpose. Free random picker and decision maker with customizable options.",
-            "url": "https://spinwheelhub.com/custom-wheel-of-names",
+            "url": "https://spinwheelhub.vercel.app/custom-wheel-of-names",
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
             "offers": {
@@ -441,6 +496,14 @@ const CustomWheelOfNames: React.FC = () => {
                   Import/Export
                 </h3>
                 <div className="space-y-2">
+                  <button
+                    onClick={shareWheel}
+                    disabled={isSharing || options.length < 2}
+                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 md:px-3 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-1 md:space-x-2 font-medium text-xs shadow-md"
+                  >
+                    <Share2 className="w-3 h-3" />
+                    <span>{isSharing ? 'Saving…' : 'Save & Share Link'}</span>
+                  </button>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -492,6 +555,32 @@ const CustomWheelOfNames: React.FC = () => {
                 </div>
               </div>
 
+              {/* Wheel Color Themes */}
+              <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
+                <h3 className="text-sm md:text-base font-bold text-gray-900 mb-3 flex items-center">
+                  <Circle className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 text-purple-600" />
+                  Wheel Colors
+                </h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.entries(wheelThemes).map(([name, palette]) => (
+                    <button
+                      key={name}
+                      onClick={() => applyTheme(name)}
+                      className={`rounded-lg p-1.5 border-2 transition-all duration-200 ${activeTheme === name ? 'border-purple-500 shadow-md' : 'border-gray-200 hover:border-purple-300'}`}
+                      title={`Apply ${name} theme`}
+                    >
+                      <div className="flex h-3 rounded overflow-hidden mb-1">
+                        {palette.slice(0, 6).map((c, i) => (
+                          <div key={i} className="flex-1" style={{ backgroundColor: c }} />
+                        ))}
+                      </div>
+                      <span className="text-[10px] font-medium text-gray-700">{name}</span>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-[10px] text-gray-400 mt-2 text-center">Tip: click any color dot below to fine-tune a single slice</p>
+              </div>
+
               {/* Current Options */}
               <div className="bg-white rounded-xl p-3 md:p-4 shadow-lg border border-gray-100">
                 <h3 className="text-sm md:text-base font-bold text-gray-900 mb-3">
@@ -504,10 +593,18 @@ const CustomWheelOfNames: React.FC = () => {
                       className="flex items-center justify-between p-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg group hover:from-gray-100 hover:to-gray-200 transition-all duration-200"
                     >
                       <div className="flex items-center space-x-2 flex-1 min-w-0">
-                        <div
-                          className="w-3 h-3 rounded-full shadow-sm border border-white flex-shrink-0"
+                        <label
+                          className="w-4 h-4 rounded-full shadow-sm border border-white flex-shrink-0 cursor-pointer relative overflow-hidden"
                           style={{ backgroundColor: option.color }}
-                        />
+                          title="Change slice color"
+                        >
+                          <input
+                            type="color"
+                            value={option.color || '#FF3B30'}
+                            onChange={(e) => updateOptionColor(option.id, e.target.value)}
+                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                          />
+                        </label>
                         <span className="text-xs font-medium text-gray-900 truncate">
                           {option.text}
                         </span>

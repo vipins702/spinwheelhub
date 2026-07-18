@@ -214,7 +214,7 @@ const WheelPage: React.FC = () => {
             "@type": "WebApplication",
             "name": currentCategory.title + " Wheel",
             "description": currentCategory.description,
-            "url": `https://spinwheelhub.com/wheel/${category}`,
+            "url": `https://spinwheelhub.vercel.app/wheel/${category}`,
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
             "offers": {

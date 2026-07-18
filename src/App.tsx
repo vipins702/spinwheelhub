@@ -10,6 +10,7 @@ import BlogPage from './pages/BlogPage'
 import BlogPostPage from './pages/BlogPostPage'
 import BabyNameGeneratorWheel from './pages/BabyNameGeneratorWheel'
 import CustomWheelOfNames from './pages/CustomWheelOfNames'
+import SharedWheelPage from './pages/SharedWheelPage'
 import HubPage from './pages/HubPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
@@ -23,6 +24,7 @@ function App() {
         <Route path="/wheel/:category" element={<WheelPage />} />
         <Route path="/wheel-of-names" element={<BabyNameGeneratorWheel />} />
         <Route path="/custom-wheel-of-names" element={<CustomWheelOfNames />} />
+        <Route path="/w/:id" element={<SharedWheelPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />

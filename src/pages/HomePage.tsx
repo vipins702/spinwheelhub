@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, Star, ArrowRight, Play, Settings, CheckCircle, HelpCircle, Lock } from 'lucide-react'
+import { Baby, Plane, Building2, Heart, ChefHat, Stars, Gamepad2, Dumbbell, Search, Users, Zap, Shield, ArrowRight, Play, Settings, CheckCircle, HelpCircle, School, Gift, Presentation, ListPlus, MousePointerClick, PartyPopper } from 'lucide-react'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
 import { seoConfig } from '../seoConfig'
@@ -28,8 +28,8 @@ const HomePage: React.FC = () => {
       description: 'Find the perfect name for your little one',
       icon: <Baby className="h-8 w-8" />,
       color: 'from-pink-400 to-rose-500',
-      count: '50K+ names',
-      features: ['Popular names', 'Cultural origins', 'Name meanings']
+      count: 'Popular picks',
+      features: ['Boy & girl names', 'Spin to shortlist', 'Add your own']
     },
     {
       id: 'travel',
@@ -37,8 +37,8 @@ const HomePage: React.FC = () => {
       description: 'Discover your next adventure',
       icon: <Plane className="h-8 w-8" />,
       color: 'from-blue-400 to-cyan-500',
-      count: '1K+ destinations',
-      features: ['Budget-friendly', 'Visa info', 'Best seasons']
+      count: 'Ready-made list',
+      features: ['Popular destinations', 'Spin to decide', 'Add your own']
     },
     {
       id: 'company-names',
@@ -46,8 +46,8 @@ const HomePage: React.FC = () => {
       description: 'Generate unique business names',
       icon: <Building2 className="h-8 w-8" />,
       color: 'from-purple-400 to-indigo-500',
-      count: '100K+ ideas',
-      features: ['Domain check', 'Industry-specific', 'Logo suggestions']
+      count: 'Idea starter',
+      features: ['Name inspiration', 'Random picks', 'Add your own']
     },
     {
       id: 'life-decisions',
@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
       icon: <Heart className="h-8 w-8" />,
       color: 'from-red-400 to-pink-500',
       count: 'Unlimited',
-      features: ['Pro/con analysis', 'Decision tracking', 'Expert tips']
+      features: ['Yes/no & choices', 'Fair random spin', 'Add your own']
     },
     {
       id: 'food-recipes',
@@ -64,8 +64,8 @@ const HomePage: React.FC = () => {
       description: 'Decide what to cook or eat',
       icon: <ChefHat className="h-8 w-8" />,
       color: 'from-orange-400 to-red-500',
-      count: '10K+ recipes',
-      features: ['Dietary filters', 'Cook time', 'Shopping lists']
+      count: 'Dinner sorted',
+      features: ['Meal ideas', 'Takeout picks', 'Add your own']
     },
     {
       id: 'astrology',
@@ -73,8 +73,8 @@ const HomePage: React.FC = () => {
       description: 'Discover your cosmic guidance',
       icon: <Stars className="h-8 w-8" />,
       color: 'from-purple-500 to-pink-500',
-      count: 'Daily updates',
-      features: ['Horoscopes', 'Compatibility', 'Lucky numbers']
+      count: 'Just for fun',
+      features: ['Fortune spins', 'Lucky picks', 'Party game']
     },
     {
       id: 'entertainment',
@@ -82,8 +82,8 @@ const HomePage: React.FC = () => {
       description: 'Movies, books, games & more',
       icon: <Gamepad2 className="h-8 w-8" />,
       color: 'from-green-400 to-blue-500',
-      count: '50K+ options',
-      features: ['Streaming links', 'Reviews', 'Recommendations']
+      count: 'Movie night fix',
+      features: ['Movies & shows', 'Games & books', 'Add your own']
     },
     {
       id: 'challenges',
@@ -91,8 +91,8 @@ const HomePage: React.FC = () => {
       description: 'Fun challenges and activities',
       icon: <Dumbbell className="h-8 w-8" />,
       color: 'from-yellow-400 to-orange-500',
-      count: '1K+ challenges',
-      features: ['Fitness goals', 'Creative prompts', 'Skill building']
+      count: 'Party ready',
+      features: ['Fun dares', 'Group games', 'Add your own']
     }
   ]
 
@@ -101,35 +101,29 @@ const HomePage: React.FC = () => {
     category.description.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const testimonials = [
+  const howItWorks = [
     {
-      name: "Sarah Johnson",
-      role: "New Mom",
-      content: "SpinWheelHub helped us find the perfect name for our daughter! The cultural origins feature was amazing.",
-      rating: 5,
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+      icon: <ListPlus className="h-10 w-10" />,
+      title: "1. Add Your Entries",
+      description: "Type your names or choices, paste a list, or start from a ready-made template."
     },
     {
-      name: "Mike Chen",
-      role: "Travel Blogger",
-      content: "I've discovered so many hidden gems using the travel wheel. It's made my adventures more spontaneous and exciting!",
-      rating: 5,
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+      icon: <MousePointerClick className="h-10 w-10" />,
+      title: "2. Spin the Wheel",
+      description: "Click spin and let the wheel pick a truly random result — fair every time."
     },
     {
-      name: "Emily Rodriguez",
-      role: "Entrepreneur",
-      content: "The company name generator saved me weeks of brainstorming. Found the perfect name and domain in minutes!",
-      rating: 5,
-      image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+      icon: <PartyPopper className="h-10 w-10" />,
+      title: "3. Get Your Winner",
+      description: "See the result instantly. Save your wheel and share the link with anyone."
     }
   ]
 
   const features = [
     {
       icon: <Users className="h-12 w-12" />,
-      title: "10M+ Happy Users",
-      description: "Join millions who trust SpinWheelHub for their daily decisions"
+      title: "Free Forever",
+      description: "No signup, no paywall, no limits on wheels or entries"
     },
     {
       icon: <Zap className="h-12 w-12" />,
@@ -185,7 +179,7 @@ const HomePage: React.FC = () => {
         "name": "Can I use this for my classroom or presentation?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! SpinWheelHub is perfect for teachers, presenters, and streamers. The interface is clean, ad-free, and works great on large screens."
+          "text": "Yes! SpinWheelHub is perfect for teachers, presenters, and streamers. The interface is clean, fast, and works great on large screens."
         }
       }
     ]
@@ -208,7 +202,7 @@ const HomePage: React.FC = () => {
       "Customizable entries",
       "Random name picker",
       "No login required",
-      "Ad-free experience",
+      "Save and share wheels",
       "Secure and private"
     ]
   };
@@ -216,8 +210,8 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="SpinWheelHub | Free Random Spin Wheel Generator & Decision Maker"
-        description="The best free random spin wheel generator. Create custom wheels for names, giveaways, raffle winners, and classroom activities. Instant, fair, and easy to use."
+        title="Spin the Wheel — Free Online Wheel Spinner & Random Picker | SpinWheelHub"
+        description="Spin the wheel to make decisions instantly. Free online wheel spinner for picking names, winners and choices — perfect for classrooms, giveaways, games and presentations."
         keywords="spin wheel, random name picker, wheel of names, decision maker, raffle wheel, giveaway picker, classroom spinner, free spin wheel"
         schema={[seoConfig.organizationSchema, webAppSchema, faqSchema]}
       />
@@ -337,7 +331,7 @@ const HomePage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
-                <span className="text-2xl">🏫</span>
+                <School className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Classroom Name Picker</h3>
               <p className="text-gray-600">Teachers use our random name picker to fairly select students for activities, questions, and participation.</p>
@@ -345,7 +339,7 @@ const HomePage: React.FC = () => {
 
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
-                <span className="text-2xl">🎁</span>
+                <Gift className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Giveaway Spinner</h3>
               <p className="text-gray-600">Perfect for social media giveaways, contests, and raffles. Pick random winners fairly and transparently.</p>
@@ -353,7 +347,7 @@ const HomePage: React.FC = () => {
 
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
-                <span className="text-2xl">📊</span>
+                <Presentation className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Presentation Tool</h3>
               <p className="text-gray-600">Engage your audience during presentations and meetings with interactive decision-making.</p>
@@ -361,7 +355,7 @@ const HomePage: React.FC = () => {
 
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white mb-4 mx-auto">
-                <span className="text-2xl">👥</span>
+                <Users className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Standup Meetings</h3>
               <p className="text-gray-600">Use in daily standups and team meetings to randomly select who goes first or assigns tasks.</p>
@@ -386,7 +380,7 @@ const HomePage: React.FC = () => {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
               Our spin wheel generator is perfect for classrooms, raffles, presentations and giveaways.
               Teachers love our classroom name picker, while event organizers use our spin wheel
-              to pick random winners. Create custom spin wheels instantly. Completely free and ad-free!
+              to pick random winners. Create custom spin wheels instantly. Completely free — no signup required.
             </p>
 
             {/* Search Bar */}
@@ -463,7 +457,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* How It Works Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -474,40 +468,26 @@ const HomePage: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              What Our Users Say
+              How to Use the Wheel Spinner
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join millions of satisfied users who have transformed their decision-making with SpinWheelHub
+              Three steps from list to winner — no signup, nothing to install
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {howItWorks.map((step, index) => (
               <motion.div
-                key={testimonial.name}
+                key={step.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow duration-300"
+                className="bg-gray-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 leading-relaxed">"{testimonial.content}"</p>
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
-                </div>
+                <div className="text-purple-600 mb-4 flex justify-center">{step.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -526,7 +506,7 @@ const HomePage: React.FC = () => {
                 Welcome to <strong>SpinWheelHub</strong>, the most advanced and user-friendly <strong>random spin wheel generator</strong> on the web. Whether you are a teacher looking for a fair way to pick students, a streamer hosting a giveaway, or a group of friends deciding where to eat, our tool is designed to make decision-making fun, fast, and fair.
               </p>
               <p className="mb-4">
-                Unlike other tools bordered by intrusive ads, SpinWheelHub provides a clean, <strong>ad-free experience</strong> that puts your needs first. Our <strong>custom wheel maker</strong> allows you to add unlimited options, customize colors, and save your lists for later use.
+                SpinWheelHub keeps the focus on the wheel: a clean, fast interface with no signup and no paywall. Our <strong>custom wheel maker</strong> lets you add unlimited options, customize colors, save your lists, and share your wheel with a link.
               </p>
               <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Why Choose SpinWheelHub?</h3>
               <ul className="space-y-3">
@@ -536,7 +516,7 @@ const HomePage: React.FC = () => {
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span><strong>Privacy First:</strong> We runs entirely in your browser. We don't store your personal data or list contents.</span>
+                  <span><strong>Privacy First:</strong> Spinning runs entirely in your browser. Your lists are only stored if you choose to save and share a wheel.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
@@ -562,8 +542,8 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600">We take fairness seriously. Our system uses a cryptographically secure random number generator (standard in modern browsers) to determine the outcome of every spin, ensuring it cannot be rigged or predicted.</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Can I save my wheels?</h3>
-                <p className="text-gray-600">Currently, you can use the "Export" feature to save your list of options to a text file on your device. We are working on a cloud-save feature for registered users coming soon!</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Can I save and share my wheels?</h3>
+                <p className="text-gray-600">Yes! Use "Save & Share Link" on the custom wheel page to get a permanent link to your wheel that anyone can open and spin. You can also export your list of options to a text file.</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">Does it work on mobile?</h3>
@@ -588,8 +568,8 @@ const HomePage: React.FC = () => {
             Ready to Make Better Decisions?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join millions of users who have discovered the joy of decision-making with SpinWheelHub.
-            Start your journey to better choices today!
+            Free, fair, and instant — spin the wheel for your next decision,
+            giveaway winner, or classroom pick.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}

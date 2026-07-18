@@ -94,13 +94,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </header>
 
-      {/* Ad Banner */}
-      <div className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 border-b border-white/5 text-center py-2">
-        <div className="text-neon-gold text-sm font-medium animate-pulse">
-          📢 Premium features coming soon! Get early access with 50% off
-        </div>
-      </div>
-
       {/* Main Content */}
       <main className="flex-1">
         {children}

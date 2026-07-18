@@ -1,0 +1,3 @@
+# Place your Ezoic ads.txt content here
+# Go to Ezoic Dashboard -> Settings -> Ads.txt Setup to get the content
+google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0

@@ -12,7 +12,7 @@ const BlogPage: React.FC = () => {
         <title>Blog & Vlog - SpinWheelHub | Name Finder Tips & Tricks</title>
         <meta name="description" content="Read the latest articles about name finders, classroom activities, party games, and updates from SpinWheelHub. Improve your spinning experience!" />
         <meta name="keywords" content="spin wheel blog, name finder tips, random picker guide, classroom games, decision making articles" />
-        <link rel="canonical" href="https://spinwheelhub.com/blog" />
+        <link rel="canonical" href="https://spinwheelhub.vercel.app/blog" />
       </Helmet>
 
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

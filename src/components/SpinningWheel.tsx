@@ -10,6 +10,20 @@ interface WheelOption {
   color?: string
 }
 
+// Lighten (positive percent) or darken (negative) a hex color for 3D shading
+const shadeColor = (hex: string, percent: number): string => {
+  const match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})/i.exec(hex)
+  if (!match) return hex
+  const shade = (c: string) => {
+    const v = parseInt(c, 16)
+    const shaded = percent >= 0
+      ? Math.min(255, Math.round(v + (255 - v) * (percent / 100)))
+      : Math.max(0, Math.round(v * (1 + percent / 100)))
+    return shaded.toString(16).padStart(2, '0')
+  }
+  return `#${shade(match[1])}${shade(match[2])}${shade(match[3])}`
+}
+
 interface SpinningWheelProps {
   options: WheelOption[]
   onSpinComplete?: (result: WheelOption) => void
@@ -33,6 +47,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   customizable = true,
   idleSpin = false
 }) => {
+  const uid = React.useId().replace(/[^a-zA-Z0-9]/g, '')
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState<WheelOption | null>(null)
   const [showCelebration, setShowCelebration] = useState(false)
@@ -534,8 +549,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
           style={{
             width: size,
             height: size,
-            border: `${Math.max(size * 0.006, 2)}px solid #333`,
-            filter: 'drop-shadow(0 8px 25px rgba(0,0,0,0.25))',
+            border: `${Math.max(size * 0.006, 2)}px solid #2a1f0a`,
+            filter: 'drop-shadow(0 12px 30px rgba(0,0,0,0.35))',
             transformOrigin: '50% 50%',   // ensure center rotation
             willChange: 'transform'      // hint for smoother animation
           }}
@@ -546,6 +561,34 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
             className="absolute inset-0"
             style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.1))' }}
           >
+            <defs>
+              {validOptions.slice(0, maxVisibleNames).map((option, index) => {
+                const color = option.color || magicalColors[index % magicalColors.length]
+                return (
+                  <radialGradient key={option.id} id={`sg-${uid}-${index}`} cx="50%" cy="50%" r="65%">
+                    <stop offset="0%" stopColor={shadeColor(color, 30)} />
+                    <stop offset="55%" stopColor={color} />
+                    <stop offset="100%" stopColor={shadeColor(color, -22)} />
+                  </radialGradient>
+                )
+              })}
+              <radialGradient id={`vig-${uid}`} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(0,0,0,0)" />
+                <stop offset="80%" stopColor="rgba(0,0,0,0)" />
+                <stop offset="100%" stopColor="rgba(0,0,0,0.35)" />
+              </radialGradient>
+              <linearGradient id={`gloss-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="rgba(255,255,255,0.28)" />
+                <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+              </linearGradient>
+              <linearGradient id={`rim-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#f6e27a" />
+                <stop offset="25%" stopColor="#b8860b" />
+                <stop offset="50%" stopColor="#ffd700" />
+                <stop offset="75%" stopColor="#8b6914" />
+                <stop offset="100%" stopColor="#f6e27a" />
+              </linearGradient>
+            </defs>
             {validOptions.slice(0, maxVisibleNames).map((option, index) => {
               const visibleCount = Math.min(validOptions.length, maxVisibleNames)
               const angle = (360 / visibleCount) * index
@@ -610,8 +653,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                 <g key={option.id}>
                   <path
                     d={pathData}
-                    fill={color}
-                    stroke="#ffffff"
+                    fill={`url(#sg-${uid}-${index})`}
+                    stroke="rgba(255,255,255,0.85)"
                     strokeWidth={Math.max(size * 0.004, 1)}
                     style={{
                       filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
@@ -641,6 +684,41 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                 </g>
               )
             })}
+
+            {/* 3D depth: edge vignette, glossy highlight, metallic rim */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={size / 2 - Math.max(size * 0.006, 2)}
+              fill={`url(#vig-${uid})`}
+              pointerEvents="none"
+            />
+            <ellipse
+              cx={size / 2}
+              cy={size * 0.32}
+              rx={size * 0.38}
+              ry={size * 0.2}
+              fill={`url(#gloss-${uid})`}
+              pointerEvents="none"
+            />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={size / 2 - Math.max(size * 0.011, 4)}
+              fill="none"
+              stroke={`url(#rim-${uid})`}
+              strokeWidth={Math.max(size * 0.014, 5)}
+              pointerEvents="none"
+            />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={size / 2 - Math.max(size * 0.02, 8)}
+              fill="none"
+              stroke="rgba(255,255,255,0.4)"
+              strokeWidth={1.5}
+              pointerEvents="none"
+            />
           </svg>
 
           {/* Enhanced Center Circle */}
@@ -649,8 +727,9 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
             style={{
               width: Math.max(size * 0.1, 40),
               height: Math.max(size * 0.1, 40),
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              border: `${Math.max(size * 0.003, 2)}px solid #fff`
+              background: 'radial-gradient(circle at 35% 30%, #8b9cf7 0%, #667eea 45%, #4c3a8f 100%)',
+              border: `${Math.max(size * 0.003, 2)}px solid #ffd700`,
+              boxShadow: 'inset 0 -3px 8px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.4)'
             }}
           >
             <div

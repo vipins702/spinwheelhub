@@ -408,12 +408,12 @@ const BabyNameGeneratorWheel: React.FC = () => {
         <meta name="keywords" content="spin wheel, wheel of names, random name picker, name wheel, name spinner, decision maker, random picker, name generator tool" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
-        <link rel="canonical" href="https://spinwheelhub.com/wheel-of-names" />
+        <link rel="canonical" href="https://spinwheelhub.vercel.app/wheel-of-names" />
         
         {/* Open Graph */}
         <meta property="og:title" content="Baby Name Spin Wheel | Random Baby Name Picker" />
         <meta property="og:description" content="Spin the wheel to pick the perfect baby name! Popular names with SpinWheelHub's easy-to-use baby name generator." />
-        <meta property="og:url" content="https://spinwheelhub.com/wheel-of-names" />
+        <meta property="og:url" content="https://spinwheelhub.vercel.app/wheel-of-names" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
         
@@ -430,7 +430,7 @@ const BabyNameGeneratorWheel: React.FC = () => {
             "@type": "WebApplication",
             "name": "Baby Name Spin Wheel - SpinWheelHub",
             "description": "Free baby name spin wheel with popular baby names for expecting parents",
-            "url": "https://spinwheelhub.com/wheel-of-names",
+            "url": "https://spinwheelhub.vercel.app/wheel-of-names",
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
             "offers": {
