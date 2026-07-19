@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { Search, Grid, Tag, Sparkles, FolderOpen } from 'lucide-react'
+import { Search, Grid, Tag, Sparkles, FolderOpen, Play } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { wheelTemplates } from '../data/wheelTemplates'
+
+// Category color schemes for visual appeal
+const categoryColors: Record<string, { gradient: string; dots: string[] }> = {
+  Life: { gradient: 'from-pink-500 to-rose-500', dots: ['#ec4899', '#f43f5e', '#fb7185', '#fda4af'] },
+  Food: { gradient: 'from-orange-500 to-amber-500', dots: ['#f97316', '#fb923c', '#fbbf24', '#fcd34d'] },
+  Entertainment: { gradient: 'from-purple-500 to-indigo-500', dots: ['#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff'] },
+  Gaming: { gradient: 'from-blue-500 to-cyan-500', dots: ['#3b82f6', '#60a5fa', '#93c5fd', '#cffafe'] },
+  Utility: { gradient: 'from-green-500 to-emerald-500', dots: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0'] }
+}
 
 const HubPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('')
@@ -98,26 +108,73 @@ const HubPage: React.FC = () => {
 }
 
 // Internal Component for Wheel Cards
-const WheelCard: React.FC<{ wheel: any }> = ({ wheel }) => (
-    <Link to={`/wheel/${wheel.id}`} className="block group h-full">
-        <div className="bg-white rounded-xl shadow-sm hover:shadow-xl border border-gray-100 p-6 transition-all duration-300 transform group-hover:-translate-y-1 h-full flex flex-col">
-            <div className="mb-4">
-                <span className="text-xs font-bold tracking-wider text-purple-600 bg-purple-50 px-2 py-1 rounded-sm uppercase">
-                    {wheel.category}
-                </span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-                {wheel.title}
-            </h3>
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
-                {wheel.description}
-            </p>
-            <div className="flex items-center text-sm font-medium text-gray-500 group-hover:text-purple-600">
-                <Sparkles className="w-4 h-4 mr-1" />
-                {wheel.options.length} Options
-            </div>
-        </div>
-    </Link>
-)
+const WheelCard: React.FC<{ wheel: any }> = ({ wheel }) => {
+    const colors = categoryColors[wheel.category] || categoryColors.Utility
+    const wheelColors = wheel.colors || colors.dots
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="h-full"
+        >
+            <Link to={`/wheel/${wheel.id}`} className="block group h-full">
+                <div className={`bg-gradient-to-br ${colors.gradient} rounded-2xl shadow-lg hover:shadow-2xl p-0 overflow-hidden transition-all duration-300 transform group-hover:scale-105 h-full flex flex-col`}>
+                    {/* Color Preview Top */}
+                    <div className="h-24 bg-white bg-opacity-10 backdrop-blur-sm flex items-center justify-center gap-2 p-4">
+                        {wheelColors.slice(0, 5).map((color, i) => (
+                            <motion.div
+                                key={i}
+                                animate={{ y: [0, -4, 0] }}
+                                transition={{ duration: 2, delay: i * 0.1, repeat: Infinity }}
+                                className="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-lg border-2 border-white"
+                                style={{ backgroundColor: color }}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Content */}
+                    <div className="bg-white flex flex-col flex-grow p-5">
+                        <div className="mb-3">
+                            <span
+                                className="inline-block text-xs font-bold tracking-widest text-white px-2 py-1 rounded-sm uppercase"
+                                style={{
+                                    backgroundImage: `linear-gradient(135deg, ${wheelColors[0]}, ${wheelColors[1] || wheelColors[0]})`,
+                                }}
+                            >
+                                {wheel.category}
+                            </span>
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                            {wheel.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
+                            {wheel.description}
+                        </p>
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="flex items-center text-sm font-medium text-gray-600">
+                                <Sparkles className="w-4 h-4 mr-1" />
+                                {wheel.options.length} Options
+                            </span>
+                        </div>
+
+                        {/* Spin Now Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-full py-3 rounded-lg font-bold text-white flex items-center justify-center gap-2 transition-all duration-200 group-hover:shadow-lg"
+                            style={{ backgroundImage: `linear-gradient(135deg, ${wheelColors[0]}, ${wheelColors[2] || wheelColors[0]})` }}
+                        >
+                            <Play className="w-4 h-4" />
+                            Spin Now
+                        </motion.button>
+                    </div>
+                </div>
+            </Link>
+        </motion.div>
+    )
+}
 
 export default HubPage
