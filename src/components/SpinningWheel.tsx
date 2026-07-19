@@ -61,7 +61,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const [clappingSound, setClappingSound] = useState(true)
   const [displayDuplicates, setDisplayDuplicates] = useState(true)
   const [spinSlowly, setSpinSlowly] = useState(false)
-  const [spinTime, setSpinTime] = useState(8)
+  const [spinTime, setSpinTime] = useState(20)
   const [maxVisibleNames, setMaxVisibleNames] = useState(1000)
   const [showResultPopup, setShowResultPopup] = useState(false)
 
@@ -375,9 +375,9 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     const segmentAngle = 360 / segmentCount
 
     // 1) Generate random spin amount (rotations and final position)
-    const baseRotations = spinSlowly ? 3 : 6
+    const baseRotations = spinSlowly ? 3 : 8  // increased from 6 for more dramatic swing
     const minRotations = baseRotations + (spinTime - 4) // spinTime ranges 1-60 seconds
-    const maxRotations = minRotations + 6
+    const maxRotations = minRotations + 8  // increased from 6 for more variation
     const rotations = minRotations + Math.random() * (maxRotations - minRotations)
 
     // Random final position (0-360 degrees)
