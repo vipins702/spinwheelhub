@@ -16,3 +16,16 @@ await sql`
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM wheels`;
 console.log(`✅ wheels table ready (${count} rows)`);
+
+await sql`
+    CREATE TABLE IF NOT EXISTS giveaway_draws (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        winner TEXT NOT NULL,
+        entry_count INTEGER NOT NULL,
+        entries JSONB,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )`;
+
+const [{ gcount }] = await sql`SELECT count(*)::int AS gcount FROM giveaway_draws`;
+console.log(`✅ giveaway_draws table ready (${gcount} rows)`);

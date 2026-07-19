@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import { Settings, X, Play, Square, Volume2 } from 'lucide-react'
+import { Settings, X, Play, Square, Volume2, Maximize, Minimize } from 'lucide-react'
 
 interface WheelOption {
   id: string
@@ -67,6 +67,8 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
 
   const controls = useAnimation()
   const wheelRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const sparkleCanvasRef = useRef<HTMLCanvasElement>(null)
   const celebrationCanvasRef = useRef<HTMLCanvasElement>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
@@ -462,8 +464,32 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
     return (size / 2) * 0.65 // Slightly closer to center
   }
 
+  // Fullscreen mode (great for classrooms / projecting the wheel)
+  const toggleFullscreen = async () => {
+    const el = containerRef.current
+    if (!el) return
+    try {
+      if (!document.fullscreenElement) {
+        await el.requestFullscreen()
+      } else {
+        await document.exitFullscreen()
+      }
+    } catch (err) {
+      console.error('Fullscreen error', err)
+    }
+  }
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
   return (
-    <div className="flex flex-col items-center space-y-1 md:space-y-2 relative">
+    <div
+      ref={containerRef}
+      className={`flex flex-col items-center space-y-1 md:space-y-2 relative ${isFullscreen ? 'justify-center bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 w-screen h-screen p-6' : ''}`}
+    >
       {/* Wheel Container */}
       <div
         className="relative flex-shrink-0"
@@ -962,14 +988,24 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
 
       {/* Enhanced Controls */}
       <div className="flex flex-col items-center space-y-2 md:space-y-3 px-2">
-        {/* Settings Button */}
-        <button
-          onClick={() => setShowSettings(true)}
-          className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center space-x-2"
-        >
-          <Settings className="w-4 h-4" />
-          <span>Settings</span>
-        </button>
+        {/* Settings + Fullscreen Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowSettings(true)}
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center space-x-2"
+          >
+            <Settings className="w-4 h-4" />
+            <span>Settings</span>
+          </button>
+          <button
+            onClick={toggleFullscreen}
+            title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen (great for classrooms)'}
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center space-x-2"
+          >
+            {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+            <span>{isFullscreen ? 'Exit' : 'Fullscreen'}</span>
+          </button>
+        </div>
 
         <button
           onClick={spinWheel}

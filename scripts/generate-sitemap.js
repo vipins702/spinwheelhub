@@ -28,6 +28,8 @@ const links = [
     { url: '/blog', changefreq: 'daily', priority: 0.8 },
     { url: '/custom-wheel-of-names', changefreq: 'weekly', priority: 0.9 },
     { url: '/wheel-of-names', changefreq: 'weekly', priority: 0.9 },
+    { url: '/number-wheel', changefreq: 'weekly', priority: 0.9 },
+    { url: '/giveaway', changefreq: 'weekly', priority: 0.9 },
     { url: '/hub', changefreq: 'daily', priority: 1.0 },
 ];
 

@@ -11,6 +11,8 @@ import BlogPostPage from './pages/BlogPostPage'
 import BabyNameGeneratorWheel from './pages/BabyNameGeneratorWheel'
 import CustomWheelOfNames from './pages/CustomWheelOfNames'
 import SharedWheelPage from './pages/SharedWheelPage'
+import NumberWheelPage from './pages/NumberWheelPage'
+import GiveawayPage from './pages/GiveawayPage'
 import HubPage from './pages/HubPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
@@ -25,6 +27,9 @@ function App() {
         <Route path="/wheel-of-names" element={<BabyNameGeneratorWheel />} />
         <Route path="/custom-wheel-of-names" element={<CustomWheelOfNames />} />
         <Route path="/w/:id" element={<SharedWheelPage />} />
+        <Route path="/number-wheel" element={<NumberWheelPage />} />
+        <Route path="/giveaway" element={<GiveawayPage />} />
+        <Route path="/giveaway/:id" element={<GiveawayPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />

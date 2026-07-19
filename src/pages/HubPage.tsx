@@ -62,6 +62,24 @@ const HubPage: React.FC = () => {
 
             <div className="max-w-7xl mx-auto px-4 py-12">
 
+                {/* Featured Tools */}
+                {!searchTerm && (
+                    <div className="grid sm:grid-cols-3 gap-4 mb-12">
+                        <Link to="/custom-wheel-of-names" className="group bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1">🎡 Custom Wheel</h3>
+                            <p className="text-sm text-white/80">Build your own wheel and share it with a link.</p>
+                        </Link>
+                        <Link to="/number-wheel" className="group bg-gradient-to-br from-green-600 to-emerald-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1"># Number Wheel</h3>
+                            <p className="text-sm text-white/80">Pick a random number in any range (1–100 & custom).</p>
+                        </Link>
+                        <Link to="/giveaway" className="group bg-gradient-to-br from-pink-600 to-rose-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1">🎁 Giveaway Picker</h3>
+                            <p className="text-sm text-white/80">Pick a random winner with a verifiable proof link.</p>
+                        </Link>
+                    </div>
+                )}
+
                 {/* Search Results State */}
                 {searchTerm ? (
                     <div>
