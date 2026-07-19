@@ -29,3 +29,23 @@ await sql`
 
 const [{ gcount }] = await sql`SELECT count(*)::int AS gcount FROM giveaway_draws`;
 console.log(`✅ giveaway_draws table ready (${gcount} rows)`);
+
+// Visit analytics. Note: we deliberately do NOT store raw IP addresses
+// (personal data under GDPR). Only coarse location from Vercel geo headers.
+await sql`
+    CREATE TABLE IF NOT EXISTS visits (
+        id BIGSERIAL PRIMARY KEY,
+        path TEXT NOT NULL,
+        referrer TEXT,
+        country TEXT,
+        region TEXT,
+        city TEXT,
+        device TEXT,
+        duration_seconds INTEGER,
+        session_id TEXT,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )`;
+await sql`CREATE INDEX IF NOT EXISTS visits_created_at_idx ON visits (created_at)`;
+
+const [{ vcount }] = await sql`SELECT count(*)::int AS vcount FROM visits`;
+console.log(`✅ visits table ready (${vcount} rows)`);

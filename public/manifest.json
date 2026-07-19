@@ -1,0 +1,24 @@
+{
+  "name": "SpinWheelHub — Spin the Wheel",
+  "short_name": "SpinWheelHub",
+  "description": "Free online wheel spinner and random picker for names, numbers, giveaways and decisions.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#9333ea",
+  "icons": [
+    {
+      "src": "/wheel-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Custom Wheel", "url": "/custom-wheel-of-names" },
+    { "name": "Number Wheel", "url": "/number-wheel" },
+    { "name": "Giveaway Picker", "url": "/giveaway" }
+  ]
+}
