@@ -1,15 +1,7 @@
+# All crawlers (Google, Bing, image and AI bots) may index every page.
+# /api/ holds serverless endpoints, not pages.
 User-agent: *
 Allow: /
-Disallow: /_next/
 Disallow: /api/
 
-# The trick: Explicitly allow the googlebot-image to find your wheels
-User-agent: Googlebot-Image
-Allow: /
-
-# Invite AI bots for GEO
-User-agent: GPTBot
-Allow: /
-
 Sitemap: https://spinwheelhub.org/sitemap.xml
-Host: https://spinwheelhub.org
