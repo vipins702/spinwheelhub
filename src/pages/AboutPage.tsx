@@ -1,38 +1,44 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { Target, Users, Award, Heart, Zap, Shield } from 'lucide-react'
+import { wheelTemplates } from '../data/wheelTemplates'
+
+// Standalone tools outside the wheel templates (custom wheel, number wheel, giveaway, team, secret santa, RPS)
+const TOOL_COUNT = 6
+
 const AboutPage: React.FC = () => {
   const features = [
     {
       icon: <Target className="h-8 w-8" />,
-      title: "Smart Decision Making",
-      description: "Our advanced algorithms help you make better decisions with weighted options and intelligent suggestions."
+      title: "Fair Spins",
+      description: "Every slice on a wheel is the same size and the wheel stops at a random point, so every option has the same chance."
     },
     {
       icon: <Users className="h-8 w-8" />,
-      title: "Community Driven",
-      description: "Join millions of users who trust SpinWheelHub for their daily decisions, big and small."
+      title: "Made for Groups",
+      description: "Teachers, streamers, families and office teams use the wheels on a shared screen so everyone sees the result."
     },
     {
       icon: <Award className="h-8 w-8" />,
-      title: "Proven Results",
-      description: "Over 10 million decisions made and counting, with 95% user satisfaction rate."
+      title: "Free, No Account",
+      description: "Every wheel and tool is free. There is no sign-up, no paywall and no limit on how much you spin."
     },
     {
       icon: <Heart className="h-8 w-8" />,
-      title: "User Focused",
-      description: "Built with love and attention to user experience, making decision-making fun and engaging."
+      title: "Independent",
+      description: "SpinWheelHub is built and run by one person, not a big company. Suggestions from visitors shape what gets built next."
     },
     {
       icon: <Zap className="h-8 w-8" />,
-      title: "Lightning Fast",
-      description: "Instant results with smooth animations and responsive design across all devices."
+      title: "Works Anywhere",
+      description: "Phone, tablet, laptop or classroom projector. Open the page and spin, with nothing to install."
     },
     {
       icon: <Shield className="h-8 w-8" />,
-      title: "Privacy First",
-      description: "Your decisions are private and secure. We never share your personal choices."
+      title: "Private by Default",
+      description: "Spinning runs in your browser. Your lists are only stored if you choose to save and share a wheel."
     }
   ]
 
@@ -42,8 +48,9 @@ const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
       <Helmet>
-        <title>About Us | SpinWheelHub Team</title>
-        <meta name="description" content="Meet Vipin S., the creator behind SpinWheelHub. Dedicated to making decision-making fun, fair, and free for everyone." />
+        <title>About SpinWheelHub | Free Spin Wheel Tools</title>
+        <meta name="description" content="SpinWheelHub is a free collection of spin wheels and random pickers, built and run by Vipin S. Learn who makes it and how the wheels work." />
+        <link rel="canonical" href="https://spinwheelhub.org/about" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -78,21 +85,21 @@ const AboutPage: React.FC = () => {
             About <span className="text-gradient">SpinWheelHub</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            We believe that making decisions shouldn't be stressful. Our spin wheel platform combines the fun of spinning wheels
-            with intelligent algorithms to help you make choices with confidence and joy.
+            Small decisions shouldn't take twenty minutes. SpinWheelHub gives you a fair, quick way to pick a name,
+            a winner, a meal or a game, and makes it a bit of fun while you're at it.
           </p>
           <div className="flex flex-wrap justify-center gap-8 text-center">
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              <div className="text-3xl font-bold text-purple-600">10M+</div>
-              <div className="text-gray-600">Decisions Made</div>
+              <div className="text-3xl font-bold text-purple-600">{wheelTemplates.length}</div>
+              <div className="text-gray-600">Ready-made Wheels</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              <div className="text-3xl font-bold text-blue-600">500K+</div>
-              <div className="text-gray-600">Active Users</div>
+              <div className="text-3xl font-bold text-blue-600">{TOOL_COUNT}</div>
+              <div className="text-gray-600">Free Tools</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              <div className="text-3xl font-bold text-green-600">95%</div>
-              <div className="text-gray-600">Satisfaction Rate</div>
+              <div className="text-3xl font-bold text-green-600">0</div>
+              <div className="text-gray-600">Sign-ups Needed</div>
             </div>
           </div>
         </motion.div>
@@ -110,9 +117,8 @@ const AboutPage: React.FC = () => {
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              To transform decision-making from a source of stress into a moment of clarity and excitement.
-              We're building spin wheel tools that make choices feel effortless, whether you're picking what to eat
-              for lunch or making life-changing decisions.
+              To make the small, everyday choices quick and fair. Who goes first, what's for dinner,
+              which student answers next, who wins the giveaway. Spin, get an answer, move on.
             </p>
           </motion.div>
 
@@ -156,21 +162,17 @@ const AboutPage: React.FC = () => {
             className="prose prose-lg mx-auto text-gray-600"
           >
             <p className="text-lg leading-relaxed mb-6">
-              SpinWheelHub was born out of a simple frustration: the paralysis that comes with having too many options.
-              Our founder, Alex, spent 20 minutes every morning deciding what to wear, what to eat, and which route to take to work.
+              SpinWheelHub started as a single spinning wheel: type in some names, spin, get a winner.
+              It's built and run by Vipin S. as an independent project.
             </p>
             <p className="text-lg leading-relaxed mb-6">
-              The idea struck during a particularly indecisive moment at a restaurant. "What if there was a fun,
-              interactive spin wheel to make decisions?" Alex thought. That evening, the first prototype of SpinWheelHub was born.
-            </p>
-            <p className="text-lg leading-relaxed mb-6">
-              What started as a simple spin wheel has evolved into a comprehensive decision-making platform.
-              We've helped millions of people choose everything from baby names to travel destinations,
-              making the process enjoyable rather than overwhelming.
+              Since then it has grown into a set of free tools. There's a <Link to="/custom-wheel-of-names" className="text-purple-600 font-semibold hover:underline">custom wheel</Link> you can save and share,
+              a <Link to="/team-generator" className="text-purple-600 font-semibold hover:underline">random team generator</Link>, a <Link to="/secret-santa" className="text-purple-600 font-semibold hover:underline">Secret Santa generator</Link>,
+              a <Link to="/giveaway" className="text-purple-600 font-semibold hover:underline">giveaway picker</Link> with proof links, and ready-made wheels for classrooms, games and food.
             </p>
             <p className="text-lg leading-relaxed">
-              Today, we continue to innovate, adding new categories, improving our algorithms, and building features
-              that make decision-making not just easier, but genuinely fun.
+              New wheels get added based on what people actually search for and ask for. If there's a wheel you wish existed,
+              <Link to="/contact" className="text-purple-600 font-semibold hover:underline"> send a suggestion</Link>.
             </p>
           </motion.div>
         </div>
@@ -265,7 +267,7 @@ const AboutPage: React.FC = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Spin Your Way to Better Decisions?</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Join millions of users who have discovered the joy of decision-making with SpinWheelHub.
+            Pick a wheel and give it a spin. It's free, and you don't need an account.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}

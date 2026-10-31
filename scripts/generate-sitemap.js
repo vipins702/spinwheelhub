@@ -34,6 +34,8 @@ const links = [
     { url: '/rock-paper-scissors', changefreq: 'weekly', priority: 0.8 },
     { url: '/giveaway', changefreq: 'weekly', priority: 0.9 },
     { url: '/hub', changefreq: 'daily', priority: 1.0 },
+    { url: '/privacy', changefreq: 'yearly', priority: 0.3 },
+    { url: '/terms', changefreq: 'yearly', priority: 0.3 },
 ];
 
 // Read slugs straight from the TS data files so new wheels and posts are never missed.

@@ -5,6 +5,7 @@ import { ArrowLeft, Plus, X, Shuffle, Save, Download, Upload, Settings, Sparkles
 import { motion, AnimatePresence } from 'framer-motion'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
+import NotFoundPage from './NotFoundPage'
 
 interface WheelOption {
   id: string
@@ -13,6 +14,15 @@ interface WheelOption {
 }
 
 import { getWheelTemplate, getRelatedWheels, WheelTemplate } from '../data/wheelTemplates'
+
+// Turns "[text](/path)" in template copy into internal links; everything else stays plain text
+const renderWithLinks = (text: string) =>
+  text.split(/(\[[^\]]+\]\(\/[^)]*\))/g).map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\((\/[^)]*)\)$/)
+    return match
+      ? <Link key={i} to={match[2]} className="text-purple-600 font-semibold hover:underline">{match[1]}</Link>
+      : part
+  })
 
 const WheelPage: React.FC = () => {
   const { category } = useParams<{ category: string }>()
@@ -194,8 +204,8 @@ const WheelPage: React.FC = () => {
 
   const faqs = (template?.faqs && template.faqs.length > 0) ? template.faqs : [
     { q: `How do I use the ${currentCategory.title} Wheel?`, a: "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." },
-    { q: "Is this spin wheel truly random?", a: "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." },
-    { q: "Can I save my custom wheel?", a: "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" },
+    { q: "Is this spin wheel truly random?", a: "Yes. Every slice is the same size and the wheel stops at a random point picked by your browser's random number generator, so each option has the same chance." },
+    { q: "Can I save my custom wheel?", a: "Yes. Export your options to a text file and import them later, or use the custom wheel page to save your wheel and share it with a link." },
     { q: "Is this tool free?", a: "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." }
   ]
 
@@ -207,6 +217,9 @@ const WheelPage: React.FC = () => {
   const handleOptionExcluded = (optionId: string) => {
     setOptions(prev => prev.filter(option => option.id !== optionId))
   }
+
+  // Unknown slugs used to render a generic "Custom Wheel" with a 200, which Google indexed as duplicate pages
+  if (category && !template) return <NotFoundPage />
 
   return (
     <>
@@ -583,7 +596,7 @@ const WheelPage: React.FC = () => {
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{block.heading}</h2>
                   <div className="space-y-4">
                     {block.paragraphs.map((p, j) => (
-                      <p key={j} className="text-gray-700 leading-relaxed">{p}</p>
+                      <p key={j} className="text-gray-700 leading-relaxed">{renderWithLinks(p)}</p>
                     ))}
                   </div>
                 </div>

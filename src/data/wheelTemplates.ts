@@ -10,7 +10,7 @@ export interface WheelTemplate {
     category: 'Utility' | 'Entertainment' | 'Gaming' | 'Life' | 'Food' | 'Education' | 'Sports';
     options: string[];
     colors?: string[]; // Optional override
-    about?: { heading: string; paragraphs: string[] }[]; // Unique on-page content (avoids duplicate pages)
+    about?: { heading: string; paragraphs: string[] }[]; // Unique on-page content (avoids duplicate pages). Supports [text](/path) internal links.
     faqs?: { q: string; a: string }[]; // Page-specific FAQ (replaces the generic one)
 }
 
@@ -18,60 +18,169 @@ export const wheelTemplates: WheelTemplate[] = [
     // --- RELATIONSHIPS (New) ---
     {
         id: 'couple-activity',
-        title: 'Couple Date Night Ideas',
-        h1: 'Spin for Random Date Night Ideas',
-        seoTitle: 'Date Night Wheel | Random Couple Activity Generator',
-        description: 'Stuck in a rut? Spin the wheel to find a fun, romantic, or adventurous date night idea.',
-        definition: 'A Date Night Wheel is a random activity generator designed for couples to spontaneously choose their next romantic outing or evening plan.',
-        keywords: 'date night ideas, couple wheel, relationship activities, romantic spinner',
+        title: 'Date Night Ideas',
+        h1: 'Date Night Wheel: Spin for a Date Idea',
+        seoTitle: 'Date Night Wheel: Random Date Night Ideas | SpinWheelHub',
+        description: 'Doing the same thing every Friday? Spin the date night wheel for a new idea, from stargazing and karaoke to cooking together. Add your own date ideas too.',
+        definition: 'A Date Night Wheel is a spinner full of date ideas. Spin it and it picks what the two of you do tonight.',
+        keywords: 'date night wheel, date night ideas, random date ideas, couple activity generator, date night generator',
         category: 'Life',
-        options: ['Movie Night', 'Cook Together', 'Stargazing', 'Board Games', 'Massage Night', 'Walk in Park', 'Video Games', 'Fancy Dinner', 'Picnic', 'Karaoke']
+        options: ['Movie Night', 'Cook Together', 'Stargazing', 'Board Games', 'Massage Night', 'Walk in Park', 'Video Games', 'Fancy Dinner', 'Picnic', 'Karaoke'],
+        about: [
+            {
+                heading: 'Stop asking "what do you want to do?"',
+                paragraphs: [
+                    'Most couples don\'t run out of date ideas. They just can\'t pick one. The wheel takes the decision off your hands: spin it, and whatever it lands on is tonight\'s plan.',
+                    'It starts with ten ideas, some cheap and cozy (board games, a walk in the park) and some that take more planning (a fancy dinner, karaoke). Delete anything you don\'t enjoy and add your own favorites.'
+                ]
+            },
+            {
+                heading: 'Make it your own',
+                paragraphs: [
+                    'Each of you adds three ideas without telling the other. Spin, and one of you gets a surprise.',
+                    'Make a "stay home" wheel for rainy weeks and a "go out" wheel for paydays. Turn on "Exclude after spin" to work through every idea before repeating one.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add our own date ideas?', a: 'Yes. Type them into Manual Entry and press Enter. Remove the ideas you don\'t like from the Options list.' },
+            { q: 'What are some cheap date night ideas?', a: 'Stargazing, a picnic, cooking together, a walk in the park, board games and a movie night at home cost little or nothing.' },
+            { q: 'How do we avoid the same date twice?', a: 'Turn on "Exclude after spin". Each idea is removed once it is picked until you reset the wheel.' },
+            { q: 'Is the date night wheel free?', a: 'Yes. It\'s free, needs no account and works on your phone.' }
+        ]
     },
     {
         id: 'who-pays-dinner',
         title: 'Who Pays for Dinner?',
         h1: 'Who Pays the Bill? Spin to Decide',
-        seoTitle: 'Who Pays the Bill Wheel | Random Payment Generator',
-        description: 'The fairest way to settle the bill. Spin the wheel to decided who pays tonight!',
-        definition: 'The Who Pays for Dinner Wheel is a fair, random decision maker used by friends and couples to determine who covers the bill at a restaurant.',
-        keywords: 'who pays bill, bill splitter, random payer, relationship games',
+        seoTitle: 'Who Pays Wheel: Decide Who Pays the Bill | SpinWheelHub',
+        description: 'Can\'t agree on who pays? Spin the who pays wheel at the table. Add everyone\'s name, or use options like "split 50/50", and let the wheel settle it.',
+        definition: 'The Who Pays Wheel is a fun, random way for friends and couples to decide who covers the bill.',
+        keywords: 'who pays wheel, who pays the bill, who pays for dinner, bill roulette, random payer',
         category: 'Life',
-        options: ['You Pay', 'Partner Pays', 'Split 50/50', 'Dine and Dash (Joke)', 'Loser of Rock Paper Scissors Pays']
+        options: ['You Pay', 'Partner Pays', 'Split 50/50', 'Dine and Dash (Joke)', 'Loser of Rock Paper Scissors Pays'],
+        about: [
+            {
+                heading: 'Settle the bill with one spin',
+                paragraphs: [
+                    'The check arrives and everyone reaches for it, or nobody does. Spin the wheel and the answer is out of your hands.',
+                    'The wheel comes with couple options like "Partner Pays" and "Split 50/50". For a group, hit Clear All and type in everyone\'s name instead. That\'s a game of credit card roulette, without anyone handing over a card.'
+                ]
+            },
+            {
+                heading: 'Keep it friendly',
+                paragraphs: [
+                    'Agree before you spin that the result is final. Set a limit if one person could end up with a big bill. And if the wheel lands on "Loser of Rock Paper Scissors Pays", you can play a round of [rock paper scissors](/rock-paper-scissors) right here.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I put my friends\' names on the wheel?', a: 'Yes. Use Clear All, then add each person\'s name in Manual Entry. The wheel picks who pays.' },
+            { q: 'Is the who pays wheel fair?', a: 'Yes. Every option has the same size slice, so everyone has the same chance.' },
+            { q: 'What is credit card roulette?', a: 'A game where a random person pays the whole bill. The wheel does the same thing, but you can also add options like splitting the bill.' },
+            { q: 'Does it work at the restaurant table?', a: 'Yes. It works on any phone with no app to download.' }
+        ]
     },
 
     // --- FOOD EXPANSION (New) ---
     {
         id: 'what-for-lunch',
         title: 'What to Eat for Lunch?',
-        h1: 'Pick Your Lunch Randomly',
-        seoTitle: 'Lunch Picker Wheel | Random Lunch Generator',
-        description: 'Can\'t decide on lunch? Find a quick and delicious meal idea instantly.',
-        definition: 'A Lunch Picker Wheel is a decision tool that randomly selects a meal type to help overcome decision fatigue during lunch breaks.',
-        keywords: 'lunch picker, what for lunch, random lunch generator, food spinner',
+        h1: 'What Should I Eat for Lunch? Spin the Lunch Wheel',
+        seoTitle: 'Lunch Picker Wheel: What Should I Eat for Lunch? | SpinWheelHub',
+        description: 'Not sure what to eat for lunch? Spin the lunch picker wheel for a quick idea: sandwich, tacos, sushi, soup and more. Add the places near your work.',
+        definition: 'A Lunch Picker Wheel is a random lunch generator. Spin it and it picks what you eat today.',
+        keywords: 'lunch picker wheel, what should i eat for lunch, random lunch generator, lunch ideas wheel, lunch spinner',
         category: 'Food',
-        options: ['Sandwich', 'Salad', 'Leftovers', 'Burger', 'Tacos', 'Sushi', 'Pizza Slice', 'Soup', 'Wrap', 'Smoothie']
+        options: ['Sandwich', 'Salad', 'Leftovers', 'Burger', 'Tacos', 'Sushi', 'Pizza Slice', 'Soup', 'Wrap', 'Smoothie'],
+        about: [
+            {
+                heading: 'A quick answer for your lunch break',
+                paragraphs: [
+                    'Lunch breaks are short. Spending ten of those minutes deciding what to eat is a waste. Spin the wheel and go.',
+                    'The wheel has ten common lunches, from a sandwich or wrap to sushi or soup. Swap them for the cafes and food trucks near your office and the wheel picks where you walk to.'
+                ]
+            },
+            {
+                heading: 'Lunch for the whole team',
+                paragraphs: [
+                    'Ordering lunch for the office? Put up the wheel on a shared screen and spin once. Nobody has to be the person who chose the bad place.',
+                    'Packing lunch at home? Add the meals you can make with what\'s in the fridge, and let the wheel plan the week.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add restaurants near me?', a: 'Yes. Add any place or meal in Manual Entry, and remove what you don\'t want.' },
+            { q: 'How do I avoid eating the same lunch every day?', a: 'Turn on "Exclude after spin". Each lunch is removed once picked, so you get variety through the week.' },
+            { q: 'Is there a dinner version?', a: 'Yes. Try the What\'s for Dinner wheel, also called the random food generator.' },
+            { q: 'Is it free?', a: 'Yes. No sign-up and nothing to download.' }
+        ]
     },
     {
         id: 'dessert-picker',
         title: 'Dessert Picker',
-        h1: 'Spin for a Sweet Treat',
-        seoTitle: 'Random Dessert Generator | Sweet Treat Wheel',
-        description: 'Satisfy your sweet tooth. Spin to choose your dessert!',
-        definition: 'The Dessert Picker Wheel randomly selects a sweet treat or dessert option, perfect for solving post-dinner indecision.',
-        keywords: 'dessert picker, sweet treat wheel, cake or ice cream',
+        h1: 'Random Dessert Generator: Spin for a Sweet Treat',
+        seoTitle: 'Random Dessert Generator: Dessert Picker Wheel | SpinWheelHub',
+        description: 'Craving something sweet but can\'t choose? Spin the dessert wheel to pick ice cream, cake, cookies, brownies or pie. Add your own favorite desserts.',
+        definition: 'The Dessert Picker Wheel is a random dessert generator that picks a sweet treat for you.',
+        keywords: 'random dessert generator, dessert picker, dessert wheel, what dessert should i make, sweet treat wheel',
         category: 'Food',
-        options: ['Ice Cream', 'Chocolate Cake', 'Cookies', 'Fruit Salad', 'Donuts', 'Cheesecake', 'Brownies', 'Pie', 'Yogurt', 'Candy']
+        options: ['Ice Cream', 'Chocolate Cake', 'Cookies', 'Fruit Salad', 'Donuts', 'Cheesecake', 'Brownies', 'Pie', 'Yogurt', 'Candy'],
+        about: [
+            {
+                heading: 'Let the wheel pick dessert',
+                paragraphs: [
+                    'Dinner is done and someone says "dessert?". Spin the wheel and you have an answer before the plates are cleared.',
+                    'There are ten treats to start with, from ice cream and brownies to fruit salad and yogurt for something lighter.'
+                ]
+            },
+            {
+                heading: 'What to bake this weekend',
+                paragraphs: [
+                    'Like to bake? Fill the wheel with recipes you want to try, like lemon bars, banana bread or tiramisu, and spin when it\'s time to turn the oven on.',
+                    'Kids love this one. Let them spin for the weekend treat, and they\'re less likely to argue with the wheel than with you.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add my own desserts?', a: 'Yes. Use Manual Entry to add any dessert or recipe, and remove the ones you don\'t like.' },
+            { q: 'Can I use it to pick a recipe to bake?', a: 'Yes. Fill the wheel with recipes you want to try and spin to choose one.' },
+            { q: 'Is every dessert equally likely?', a: 'Yes. Each slice is the same size, so every dessert has the same chance.' },
+            { q: 'Is it free?', a: 'Yes. It\'s free and works on any phone or computer.' }
+        ]
     },
     {
         id: 'healthy-snack',
         title: 'Healthy Snack Generator',
-        h1: 'Choose a Healthy Snack Instantly',
-        seoTitle: 'Healthy Snack Picker | Random Nutrition Wheel',
-        description: 'Eat better with the random healthy snack generator. Good for you and fun to spin.',
-        definition: 'A Healthy Snack Generator is a wellness tool that suggests nutritious snack options randomly to encourage better eating habits.',
-        keywords: 'healthy snack picker, nutrition wheel, diet helper, healthy food generator',
+        h1: 'Healthy Snack Generator: Spin for a Snack Idea',
+        seoTitle: 'Healthy Snack Generator: Random Snack Ideas | SpinWheelHub',
+        description: 'Bored of the same snacks? Spin the healthy snack wheel for an idea like apple and peanut butter, Greek yogurt, almonds or hummus. Add your own.',
+        definition: 'A Healthy Snack Generator is a wheel of healthy snack ideas that picks one at random.',
+        keywords: 'healthy snack generator, healthy snack ideas, snack wheel, random snack generator, healthy snack picker',
         category: 'Food',
-        options: ['Apple & Peanut Butter', 'Greek Yogurt', 'Almonds', 'Carrots & Hummus', 'Protein Bar', 'Banana', 'Hard Boiled Egg', 'Edamame', 'Berries']
+        options: ['Apple & Peanut Butter', 'Greek Yogurt', 'Almonds', 'Carrots & Hummus', 'Protein Bar', 'Banana', 'Hard Boiled Egg', 'Edamame', 'Berries'],
+        about: [
+            {
+                heading: 'Break the snack rut',
+                paragraphs: [
+                    'When you\'re hungry at 3pm, the easiest choice usually wins, and it\'s rarely the healthy one. Keep this wheel open and let it choose from snacks you already have.',
+                    'The wheel starts with nine simple ideas: apple and peanut butter, Greek yogurt, almonds, carrots and hummus, a protein bar, a banana, a hard-boiled egg, edamame and berries.'
+                ]
+            },
+            {
+                heading: 'Snacks for kids and lunchboxes',
+                paragraphs: [
+                    'Let kids spin for their after-school snack. They get to choose, and every option is one you\'re happy with.',
+                    'Packing lunchboxes for the week? Turn on "Exclude after spin" and spin five times for five different snacks.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add my own snacks?', a: 'Yes. Add any snack in Manual Entry and remove the ones you don\'t have at home.' },
+            { q: 'Is this nutrition advice?', a: 'No. It\'s a list of common snack ideas to help you choose. Talk to a doctor or dietitian about your own diet.' },
+            { q: 'How do I get a different snack each day?', a: 'Turn on "Exclude after spin" so a snack is removed once it\'s picked.' },
+            { q: 'Is it free?', a: 'Yes. No account, no download.' }
+        ]
     },
 
     // --- UTILITY ---
@@ -111,7 +220,7 @@ export const wheelTemplates: WheelTemplate[] = [
             {
                 heading: 'Yes or no wheel vs. coin flip',
                 paragraphs: [
-                    'Both give a 50/50 answer. A coin flip only ever has two sides, while the yes or no wheel can be customized with extra answers, shows a history of your recent spins, and can remove an answer after it is picked. If you prefer heads or tails, try our coin flip wheel.'
+                    'Both give a 50/50 answer. A coin flip only ever has two sides, while the yes or no wheel can be customized with extra answers, shows a history of your recent spins, and can remove an answer after it is picked. If you prefer heads or tails, try our [coin flip wheel](/wheel/coin-flip).'
                 ]
             }
         ],
@@ -126,81 +235,237 @@ export const wheelTemplates: WheelTemplate[] = [
     {
         id: 'random-number-1-10',
         title: 'Random Number 1-10',
-        h1: 'Pick a Number from 1 to 10',
-        seoTitle: 'Random Number Wheel 1-10 | Number Picker | SpinWheelMaster',
-        description: 'Pick a random number between 1 and 10 instantly. Great for games, lotteries, and random selection.',
-        definition: 'The Random Number Wheel (1-10) is a digital spinner that fairly selects a single integer between 1 and 10 for games or teaching.',
-        keywords: 'number picker wheel, random number 1-10, number spinner, rng wheel',
+        h1: 'Random Number 1-10: Pick a Number from 1 to 10',
+        seoTitle: 'Random Number 1-10: Spin a Number Wheel | SpinWheelHub',
+        description: 'Pick a random number from 1 to 10 with one spin. Use it for games, turn order, guessing games and classroom activities. Free, with no sign-up.',
+        definition: 'The Random Number Wheel (1-10) is a spinner with ten equal slices that picks one whole number from 1 to 10.',
+        keywords: 'random number 1-10, pick a number 1-10, number picker wheel, random number generator 1-10, number spinner',
         category: 'Utility',
-        options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+        options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        about: [
+            {
+                heading: 'Pick a number between 1 and 10',
+                paragraphs: [
+                    'The wheel has ten equal slices numbered 1 to 10. Spin it and each number has a 1-in-10 chance. It\'s the same as a random number generator, but everyone can watch the result happen.',
+                    'Need a different range, like 1 to 100? Use the [random number wheel](/number-wheel), where you can set any minimum and maximum.'
+                ]
+            },
+            {
+                heading: 'Ways to use it',
+                paragraphs: [
+                    'Guessing games: "I\'m thinking of a number between 1 and 10." Let the wheel be the one thinking.',
+                    'Turn order and groups: number your players, spin, and the result goes first. Teachers use it to call on table numbers or pick a question from a numbered list.',
+                    'Rate it: spin for a random score in party games, or pick a number of push-ups for a workout challenge.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Is every number from 1 to 10 equally likely?', a: 'Yes. All ten slices are the same size, so each number has a 10% chance.' },
+            { q: 'Can I pick numbers in a different range?', a: 'Yes. The random number wheel lets you set any range, like 1 to 100 or 50 to 75.' },
+            { q: 'Can I stop the same number coming up twice?', a: 'Turn on "Exclude after spin" and each number is removed after it\'s picked.' },
+            { q: 'Is 0 included?', a: 'No, the wheel goes from 1 to 10. Add 0 in Manual Entry if you need it.' }
+        ]
     },
     {
         id: 'coin-flip',
         title: 'Heads or Tails (Coin Flip)',
         h1: 'Flip a Coin Online',
-        seoTitle: 'Heads or Tails Wheel | Coin Flip Simulator | SpinWheelMaster',
-        description: 'Flip a coin online with our Heads or Tails wheel. The fairest way to make binary decisions.',
-        definition: 'The Heads or Tails Wheel simulates a real coin toss, providing a 50/50 chance of landing on either side for unbiased decisions.',
-        keywords: 'coin flip, heads or tails, coin toss, flip a coin wheel',
+        seoTitle: 'Heads or Tails Wheel | Coin Flip Simulator | SpinWheelHub',
+        description: 'Flip a coin online with the heads or tails wheel. A fair 50/50 coin toss for settling bets, picking who goes first or making a quick choice.',
+        definition: 'The Heads or Tails Wheel works like a real coin toss: two equal halves, so Heads and Tails each have a 50% chance.',
+        keywords: 'coin flip, heads or tails, coin toss, flip a coin, flip a coin online, coin flip simulator',
         category: 'Utility',
-        options: ['Heads', 'Tails']
+        options: ['Heads', 'Tails'],
+        about: [
+            {
+                heading: 'Flip a coin online',
+                paragraphs: [
+                    'No coin in your pocket? Spin the wheel instead. It has two equal halves, Heads and Tails, so the result is a fair 50/50, just like a real coin toss.',
+                    'Call it before you spin. Then everyone can watch the wheel slow down, which makes it harder to argue with than a coin that rolled under the couch.'
+                ]
+            },
+            {
+                heading: 'When to flip a coin',
+                paragraphs: [
+                    'Settling who goes first in a game, who gets the front seat, or which of two movies to watch. Sports teams use a coin toss to pick ends or who kicks off.',
+                    'A useful trick: if the coin lands and you feel disappointed, you already know which option you wanted.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Is the coin flip really 50/50?', a: 'Yes. Heads and Tails each take up exactly half the wheel, so each has a 50% chance on every spin.' },
+            { q: 'Does the last result affect the next one?', a: 'No. Each spin is independent. Getting Heads three times in a row doesn\'t make Tails more likely next time.' },
+            { q: 'Can I flip for more than two options?', a: 'Yes. Add more options in Manual Entry, or use the yes or no wheel or a custom wheel.' },
+            { q: 'Is it free?', a: 'Yes. Flip as many times as you like.' }
+        ]
     },
     {
         id: 'dice-roll',
         title: 'Dice Roll (D6)',
         h1: 'Roll a Die (D6) Online',
-        seoTitle: 'Roll a Die Wheel | Virtual Dice Roller | SpinWheelMaster',
-        description: 'Roll a six-sided die online. Perfect for board games, D&D, and tabletop RPGs when you lose your dice.',
-        definition: 'A Virtual Dice Roller Wheel simulates rolling a standard six-sided die (D6), essential for board games and RPGs.',
-        keywords: 'dice roller, roll a die, d6 spinner, visual dice',
+        seoTitle: 'Roll a Die Wheel | Virtual Dice Roller | SpinWheelHub',
+        description: 'Roll a six-sided die online. Lost the dice for your board game? Spin the D6 wheel for a fair 1 to 6. Free, works on any phone or computer.',
+        definition: 'A Virtual Dice Roller Wheel works like a standard six-sided die (D6): six equal slices, so each number from 1 to 6 has the same chance.',
+        keywords: 'dice roll, roll a die, dice roller, virtual dice, d6 roller, roll dice online',
         category: 'Utility',
-        options: ['1', '2', '3', '4', '5', '6']
+        options: ['1', '2', '3', '4', '5', '6'],
+        about: [
+            {
+                heading: 'Roll a die online',
+                paragraphs: [
+                    'Board game night, and the dice have gone missing? Spin this wheel instead. It has six equal slices, so each number from 1 to 6 has a 1-in-6 chance, the same as a fair die.',
+                    'Need two dice? Spin twice and add the numbers together. For bigger ranges, try the [random number wheel](/number-wheel).'
+                ]
+            },
+            {
+                heading: 'Games you can play',
+                paragraphs: [
+                    'Board games like Monopoly, Ludo, Snakes and Ladders and Yahtzee all use six-sided dice.',
+                    'For tabletop games like D&D, this wheel works as a D6. Players who need a D20 or other dice can make one with the [custom wheel](/custom-wheel-of-names) by adding the numbers they need.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Is the online dice roll fair?', a: 'Yes. All six slices are the same size, so each number has a 1-in-6 chance, just like a real die.' },
+            { q: 'Can I roll two dice?', a: 'Spin twice and add the two results. Don\'t use a 2 to 12 number wheel instead: with real dice, 7 comes up far more often than 2 or 12.' },
+            { q: 'Can I make a D20?', a: 'Yes. Open the custom wheel or the random number wheel and set it to 1 to 20.' },
+            { q: 'Is it free?', a: 'Yes. Roll as often as you like.' }
+        ]
     },
     {
         id: 'raffle-number-1-100',
         title: 'Raffle Number (1-100)',
-        h1: 'Draw a Raffle Winner (1-100)',
-        seoTitle: 'Raffle Number Generator 1-100 | Contest Picker | SpinWheelMaster',
-        description: 'Pick a random winner from 1 to 100. Ideal for small raffles, classroom contests, and giveaways.',
-        definition: 'The Raffle Number Generator Wheel selects a random winning number between 1 and 100, used primarily for contests and giveaways.',
-        keywords: 'raffle picker, random number 1-100, number generator, contest winner',
+        h1: 'Raffle Wheel: Draw a Winning Number (1-100)',
+        seoTitle: 'Raffle Wheel: Random Raffle Number Generator 1-100 | SpinWheelHub',
+        description: 'Draw a raffle winner with the raffle wheel. Spin 100 numbered tickets and pick a winner everyone can see. Remove tickets that weren\'t sold.',
+        definition: 'The Raffle Wheel is a raffle number generator: a wheel of tickets numbered 1 to 100 that picks one winning number at random.',
+        keywords: 'raffle wheel, raffle generator, raffle number generator, random number 1-100, raffle picker',
         category: 'Utility',
-        options: Array.from({ length: 100 }, (_, i) => (i + 1).toString())
+        options: Array.from({ length: 100 }, (_, i) => (i + 1).toString()),
+        about: [
+            {
+                heading: 'Draw a raffle winner on screen',
+                paragraphs: [
+                    'Selling numbered tickets for a school fundraiser, an office party or a club night? Put the wheel up on a screen and spin. Everyone sees the draw, so nobody can say the winner was picked by hand.',
+                    'The wheel has tickets 1 to 100. If you sold fewer, delete the unsold numbers from the Options list, or use the [random number wheel](/number-wheel) and set the range to match.'
+                ]
+            },
+            {
+                heading: 'Drawing more than one prize',
+                paragraphs: [
+                    'Turn on "Exclude after spin". Each winning ticket is removed after it\'s drawn, so the same ticket can\'t win twice. Draw the smallest prize first and the grand prize last to keep people around until the end.',
+                    'Running an online giveaway instead? The [giveaway picker](/giveaway) records the winner and gives you a link to share as proof.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'How do I draw a raffle with fewer than 100 tickets?', a: 'Remove the unsold numbers from the Options list, or use the random number wheel and set the range, for example 1 to 60.' },
+            { q: 'Can the same ticket win twice?', a: 'Not if you turn on "Exclude after spin". Each winning number is removed after it\'s drawn.' },
+            { q: 'Is the raffle draw fair?', a: 'Yes. Every ticket has the same size slice, so each one has the same chance.' },
+            { q: 'Can I use names instead of numbers?', a: 'Yes. Clear the wheel and add each entrant\'s name, or use the custom wheel of names.' }
+        ]
     },
 
     // --- GAMING (Roblox/Fortnite) ---
     {
         id: 'roblox-game-picker',
         title: 'What Roblox Game to Play?',
-        h1: 'Spin for a Random Roblox Game',
-        seoTitle: 'Roblox Game Picker Wheel | Random Obby & Tycoon Selector',
-        description: 'Can\'t decide what to play on Roblox? Spin to find a popular game like Blox Fruits, Brookhaven, or Adopt Me!',
-        definition: 'A Roblox Game Picker is a fan-made tool that randomly suggests popular Roblox experiences like Blox Fruits or Brookhaven to play next.',
-        keywords: 'roblox game picker, what to play on roblox, random roblox game, roblox spinner',
+        h1: 'Random Roblox Game: Spin for Something to Play',
+        seoTitle: 'Random Roblox Game Picker Wheel | SpinWheelHub',
+        description: 'Don\'t know what to play on Roblox? Spin the wheel for a random Roblox game like Blox Fruits, Brookhaven, Adopt Me! or Doors. Add your own favorites.',
+        definition: 'The Roblox Game Picker is a fan-made wheel of popular Roblox games that picks one for you to play next.',
+        keywords: 'random roblox game, roblox game picker, what to play on roblox, roblox wheel, roblox spinner',
         category: 'Gaming',
-        options: ['Blox Fruits', 'Brookhaven RP', 'Adopt Me!', 'Tower of Hell', 'Pet Simulator 99', 'Murder Mystery 2', 'Royale High', 'BedWars', 'Doors', 'MeepCity', 'Jailbreak', 'Piggy']
+        options: ['Blox Fruits', 'Brookhaven RP', 'Adopt Me!', 'Tower of Hell', 'Pet Simulator 99', 'Murder Mystery 2', 'Royale High', 'BedWars', 'Doors', 'MeepCity', 'Jailbreak', 'Piggy'],
+        about: [
+            {
+                heading: 'Pick a random Roblox game',
+                paragraphs: [
+                    'Roblox has millions of games, which is exactly why it\'s hard to choose one. Spin the wheel and play whatever it lands on.',
+                    'The wheel starts with twelve well-known games: Blox Fruits, Brookhaven RP, Adopt Me!, Tower of Hell, Pet Simulator 99, Murder Mystery 2, Royale High, BedWars, Doors, MeepCity, Jailbreak and Piggy. Popular games change all the time, so add the ones your friends are playing right now.'
+                ]
+            },
+            {
+                heading: 'Play with friends',
+                paragraphs: [
+                    'Everyone in the group adds one game, then you spin. The wheel decides what the whole server plays next.',
+                    'Streaming? Let chat suggest games, put them on the wheel and spin live.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add my own Roblox games?', a: 'Yes. Type any game name into Manual Entry and remove games you don\'t play.' },
+            { q: 'Is this made by Roblox?', a: 'No. It\'s a free fan-made tool and isn\'t connected to Roblox Corporation.' },
+            { q: 'Does it open the game for me?', a: 'No. It only picks a name. Search for the game in Roblox to play it.' },
+            { q: 'How do we avoid playing the same game twice?', a: 'Turn on "Exclude after spin" so each game is removed once picked.' }
+        ]
     },
     {
         id: 'fortnite-drop',
         title: 'Fortnite Drop Location',
-        h1: 'Where to Land in Fortnite?',
-        seoTitle: 'Fortnite Drop Spot Picker | Where to Land Season 5',
-        description: 'Random Fortnite Drop Location generator. Spice up your match by landing somewhere random!',
-        definition: 'The Fortnite Drop Location Wheel randomly selects a landing zone on the Fortnite map to add variety and challenge to gameplay.',
-        keywords: 'fortnite drop picker, where to land fortnite, random drop spot, fortnite wheel',
+        h1: 'Fortnite Wheel: Where Should We Land?',
+        seoTitle: 'Fortnite Wheel: Random Drop Location Picker | SpinWheelHub',
+        description: 'Can\'t agree where to drop? Spin the Fortnite wheel for a random landing spot. Edit the list to match the current map and play a new spot each match.',
+        definition: 'The Fortnite Drop Location Wheel picks a random named location to land at, so every match starts somewhere different.',
+        keywords: 'fortnite wheel, where to land fortnite, fortnite drop picker, random fortnite drop, fortnite drop spot generator',
         category: 'Gaming',
-        options: ['Tilted Towers', 'Pleasant Park', 'Retail Row', 'Salty Springs', 'Lazy Lake', 'Misty Meadows', 'Risky Reels', 'Craggy Cliffs', 'Steamy Stacks', 'Holly Hedges']
+        options: ['Tilted Towers', 'Pleasant Park', 'Retail Row', 'Salty Springs', 'Lazy Lake', 'Misty Meadows', 'Risky Reels', 'Craggy Cliffs', 'Steamy Stacks', 'Holly Hedges'],
+        about: [
+            {
+                heading: 'Let the wheel pick your drop',
+                paragraphs: [
+                    'Landing at the same spot every game gets old. Spin before the bus leaves and drop wherever the wheel says, even if it\'s a hot drop.',
+                    'The wheel starts with classic named locations from Fortnite\'s history, like Tilted Towers, Pleasant Park and Retail Row. The map changes every season, so use Clear All and add the locations on the current map.'
+                ]
+            },
+            {
+                heading: 'Challenges to try',
+                paragraphs: [
+                    'Squad rule: whoever spins picks the drop, no arguing.',
+                    'Make a second wheel of loadout rules, like "grey guns only" or "no building", and spin both for a custom challenge.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Are these the current Fortnite locations?', a: 'The default list has classic named locations. Fortnite changes the map each season, so edit the list to match the map you\'re playing.' },
+            { q: 'Can I add new landing spots?', a: 'Yes. Add any location in Manual Entry and remove old ones from the Options list.' },
+            { q: 'Is this an official Fortnite tool?', a: 'No. It\'s a free fan-made tool and isn\'t connected to Epic Games.' },
+            { q: 'How do we land somewhere new every match?', a: 'Turn on "Exclude after spin" and each spot is removed after you land there.' }
+        ]
     },
     {
         id: 'pokemon-type',
         title: 'Random Pokemon Type',
-        h1: 'Generate a Random Pokemon Type',
-        seoTitle: 'Pokemon Type Picker | Random Type Generator',
-        description: 'Generate a random Pokemon type for your next Nuzlocke run or challenge.',
-        definition: 'A Pokemon Type Wheel randomly generates one of the 18 elemental types, useful for Nuzlocke challenges or team building.',
-        keywords: 'pokemon type generator, random pokemon type, nuzlocke helper',
+        h1: 'Pokemon Type Wheel: Spin a Random Type',
+        seoTitle: 'Pokemon Type Wheel: Random Type Generator (All 18) | SpinWheelHub',
+        description: 'Spin the Pokemon type wheel to get one of all 18 types, from Normal to Fairy. Use it for monotype runs, Nuzlocke rules and team-building challenges.',
+        definition: 'The Pokemon Type Wheel has all 18 Pokemon types in equal slices and picks one at random.',
+        keywords: 'pokemon type wheel, random pokemon type, pokemon type generator, monotype challenge, nuzlocke type',
         category: 'Gaming',
-        options: ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dark', 'Dragon', 'Steel', 'Fairy']
+        options: ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dark', 'Dragon', 'Steel', 'Fairy'],
+        about: [
+            {
+                heading: 'Spin one of the 18 types',
+                paragraphs: [
+                    'The wheel has all 18 types: Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dark, Dragon, Steel and Fairy. Each has an equal slice.',
+                    'Playing an older game? Dark and Steel arrived in Gen 2 and Fairy in Gen 6. Remove them from the Options list for a Gen 1 run.'
+                ]
+            },
+            {
+                heading: 'Challenges that use a random type',
+                paragraphs: [
+                    'Monotype run: spin once and beat the game using only Pokemon of that type.',
+                    'Nuzlocke twist: spin a type before each gym and only use Pokemon of that type for the fight.',
+                    'Want a random Pokemon instead of a type? Use the [random Pokemon generator](/wheel/random-pokemon), which has all 251 Pokemon from Gen 1 and Gen 2.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'How many Pokemon types are there?', a: '18 in the current games. All of them are on this wheel.' },
+            { q: 'Can I remove types for older games?', a: 'Yes. Remove Dark, Steel and Fairy from the Options list for a Gen 1 challenge.' },
+            { q: 'What is a monotype challenge?', a: 'A playthrough where every Pokemon on your team shares one type. Spin the wheel to choose which type.' },
+            { q: 'Is this an official Pokemon tool?', a: 'No. It\'s a free fan-made tool and isn\'t connected to Nintendo, Game Freak or The Pokemon Company.' }
+        ]
     },
     {
         id: 'random-pokemon',
@@ -225,7 +490,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 paragraphs: [
                     'Nuzlocke and randomizer runs: spin to choose your starter, or the one Pokemon you are allowed to use for the next gym.',
                     'Draft battles with friends: take turns spinning to build a team of six. Turn on "Exclude after spin" so nobody gets the same Pokemon.',
-                    'Drawing and trivia: spin and draw it from memory, or name its type and evolution before you look it up. Want a type instead of a Pokemon? Use the Pokemon type wheel.'
+                    'Drawing and trivia: spin and draw it from memory, or name its type and evolution before you look it up. Want a type instead of a Pokemon? Use the [Pokemon type wheel](/wheel/pokemon-type).'
                 ]
             }
         ],
@@ -241,24 +506,73 @@ export const wheelTemplates: WheelTemplate[] = [
     {
         id: 'truth-or-dare',
         title: 'Truth or Dare',
-        h1: 'Truth or Dare? Spin the Wheel',
-        seoTitle: 'Truth or Dare Wheel | Online Party Game',
-        description: 'The classic Truth or Dare game on a wheel. Spin to decide your fate!',
-        definition: 'The Truth or Dare Wheel is a digital version of the classic party game that randomly assigns "Truth" or "Dare" to players.',
-        keywords: 'truth or dare wheel, party game spinner, sleepover games',
+        h1: 'Truth or Dare Wheel: Spin for Truth or Dare',
+        seoTitle: 'Truth or Dare Wheel: Spin Truth or Dare Online | SpinWheelHub',
+        description: 'Play truth or dare with a wheel. Spin to get Truth or Dare, then use our list of clean questions and dares. Great for sleepovers and parties.',
+        definition: 'The Truth or Dare Wheel is a two-slice spinner that decides whether you answer a truth or do a dare.',
+        keywords: 'truth or dare wheel, truth or dare generator, truth or dare online, truth or dare questions, spin the wheel truth or dare',
         category: 'Entertainment',
-        options: ['Truth', 'Dare']
+        options: ['Truth', 'Dare'],
+        about: [
+            {
+                heading: 'How to play truth or dare with the wheel',
+                paragraphs: [
+                    'Sit in a circle. On your turn, spin the wheel. If it lands on Truth, answer a question honestly. If it lands on Dare, do the challenge. Then pass the phone to the next person.',
+                    'Want no choice at all? Clear the wheel and add your own list of truths and dares, then spin for the exact one you have to do.'
+                ]
+            },
+            {
+                heading: 'Clean truth questions to get started',
+                paragraphs: [
+                    'What\'s the most embarrassing thing you\'ve done at school or work? Who was your first crush? What\'s a weird food you secretly love? What\'s the last thing you searched for on your phone? If you could swap lives with someone here for a day, who would it be?'
+                ]
+            },
+            {
+                heading: 'Fun dares for any age',
+                paragraphs: [
+                    'Talk in an accent until your next turn. Do your best impression of someone in the room. Sing the chorus of a song chosen by the group. Let someone post a silly emoji in your group chat. Do ten jumping jacks while saying the alphabet.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'How do you play truth or dare?', a: 'Players take turns. Each person spins: Truth means answering a question honestly, Dare means doing a challenge chosen by the group.' },
+            { q: 'Can I add my own truths and dares?', a: 'Yes. Use Clear All, then add your own questions and dares in Manual Entry. The wheel picks one at random.' },
+            { q: 'Is this OK for kids?', a: 'Yes. The wheel only shows Truth or Dare, and the example questions and dares on this page are family-friendly.' },
+            { q: 'What if someone won\'t do a dare?', a: 'Agree on a rule before you start, like answering two truths instead, or skipping their next turn.' }
+        ]
     },
     {
         id: 'twister-moves',
         title: 'Twister Spinner',
-        h1: 'Spin for Your Next Twister Move',
-        seoTitle: 'Twister Game Spinner | Left Hand Green, Right Foot Red',
-        description: 'Lost your Twister spinner? Use this digital version to play right now.',
-        definition: 'The Twister Spinner is an online replacement for the physical game spinner, directing players to place limbs on specific colored spots.',
-        keywords: 'twister spinner, twister wheel, board game replacement',
+        h1: 'Twister Spinner Online: Spin for Your Next Move',
+        seoTitle: 'Twister Spinner Online: Free Twister Wheel | SpinWheelHub',
+        description: 'Lost the Twister spinner or the arrow broke? Use this online Twister spinner instead. Spin for left or right, hand or foot, and red, blue, yellow or green.',
+        definition: 'The Twister Spinner is an online replacement for the spinner in the game Twister. It picks a hand or foot and a color for the next move.',
+        keywords: 'twister spinner, twister spinner online, twister wheel, online twister spinner, twister game spinner',
         category: 'Entertainment',
-        options: ['Left Hand Green', 'Right Hand Green', 'Left Foot Green', 'Right Foot Green', 'Left Hand Red', 'Right Hand Red', 'Left Foot Red', 'Right Foot Red', 'Left Hand Yellow', 'Right Hand Yellow', 'Left Foot Yellow', 'Right Foot Yellow', 'Left Hand Blue', 'Right Hand Blue', 'Left Foot Blue', 'Right Foot Blue']
+        options: ['Left Hand Green', 'Right Hand Green', 'Left Foot Green', 'Right Foot Green', 'Left Hand Red', 'Right Hand Red', 'Left Foot Red', 'Right Foot Red', 'Left Hand Yellow', 'Right Hand Yellow', 'Left Foot Yellow', 'Right Foot Yellow', 'Left Hand Blue', 'Right Hand Blue', 'Left Foot Blue', 'Right Foot Blue'],
+        about: [
+            {
+                heading: 'Play Twister without the spinner',
+                paragraphs: [
+                    'The mat is out, everyone has their socks off, and the spinner is missing. Open this page and you\'re ready. The wheel has all 16 moves: left or right, hand or foot, on red, blue, yellow or green.',
+                    'Give the phone to the person not playing. They spin and call out the move, like "Right foot, red!"'
+                ]
+            },
+            {
+                heading: 'Twister rules in short',
+                paragraphs: [
+                    'Players start at opposite ends of the mat. The spinner calls a move and every player has to do it. If a hand or foot is already on that color, move it to a different circle of the same color.',
+                    'You\'re out if you fall, or if your elbow or knee touches the mat. The last player standing wins.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Does this work like the real Twister spinner?', a: 'Yes. It has the same 16 moves: left or right, hand or foot, and four colors.' },
+            { q: 'Who spins in Twister?', a: 'Usually a player who is out, or a friend who isn\'t playing. They spin and call out each move.' },
+            { q: 'Can I play Twister without a mat?', a: 'You need colored spots. Some people use colored paper taped to the floor in four rows.' },
+            { q: 'Is it free?', a: 'Yes. It works on any phone, so you can call moves from across the room.' }
+        ]
     },
 
     // --- FOOD ---
@@ -291,7 +605,7 @@ export const wheelTemplates: WheelTemplate[] = [
             {
                 heading: 'Want something more specific?',
                 paragraphs: [
-                    'Try our lunch picker, the dessert picker for something sweet, or the fast food wheel when you just want a drive-thru. Stuck on who pays the bill? There\'s a wheel for that too.'
+                    'Try our [lunch picker](/wheel/what-for-lunch), the [dessert picker](/wheel/dessert-picker) for something sweet, or the [fast food wheel](/wheel/fast-food) when you just want a drive-thru. Stuck on who pays the bill? There\'s a [who pays wheel](/wheel/who-pays-dinner) for that too.'
                 ]
             }
         ],
@@ -305,26 +619,70 @@ export const wheelTemplates: WheelTemplate[] = [
     {
         id: 'fast-food',
         title: 'Fast Food Picker',
-        h1: 'Pick a Fast Food Place Randomly',
-        seoTitle: 'Fast Food Chain Picker | Random Restaurant Generator',
-        description: 'Can\'t agree on drive-thru? Spin to decide between McDonald\'s, KFC, Subway, and others.',
-        definition: 'The Fast Food Picker Wheel randomly selects a fast food restaurant chain to solve disputes about where to eat.',
-        keywords: 'fast food picker, restaurant wheel, mcdonalds or burger king',
+        h1: 'Fast Food Wheel: Pick Where to Eat',
+        seoTitle: 'Fast Food Wheel: Random Fast Food Picker | SpinWheelHub',
+        description: 'Can\'t agree on a drive-thru? Spin the fast food wheel to pick between McDonald\'s, Taco Bell, Chick-fil-A, Wendy\'s and more. Add the places near you.',
+        definition: 'The Fast Food Wheel picks a random fast food restaurant, so the car can stop arguing and start driving.',
+        keywords: 'fast food wheel, fast food picker, random fast food generator, where should i eat, random restaurant picker',
         category: 'Food',
-        options: ['McDonald\'s', 'Burger King', 'KFC', 'Subway', 'Pizza Hut', 'Domino\'s', 'Taco Bell', 'Wendy\'s', 'Chick-fil-A', 'Popeyes', 'Chipotle', 'Starbucks']
+        options: ['McDonald\'s', 'Burger King', 'KFC', 'Subway', 'Pizza Hut', 'Domino\'s', 'Taco Bell', 'Wendy\'s', 'Chick-fil-A', 'Popeyes', 'Chipotle', 'Starbucks'],
+        about: [
+            {
+                heading: 'End the drive-thru debate',
+                paragraphs: [
+                    'Everyone is hungry, nobody will pick, and you\'ve driven past three places already. Hand the phone to whoever is in the passenger seat and spin.',
+                    'The wheel has twelve big chains, from McDonald\'s and Burger King to Chipotle and Chick-fil-A. Remove the ones that aren\'t near you and add your local spots.'
+                ]
+            },
+            {
+                heading: 'Tips',
+                paragraphs: [
+                    'Want a quick meal at home instead? Try the [What\'s for Dinner wheel](/wheel/what-for-dinner). Just need something sweet? There\'s a [dessert picker](/wheel/dessert-picker) too.',
+                    'Turn on "Exclude after spin" if you eat out often and want somewhere different each time.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add restaurants near me?', a: 'Yes. Type any restaurant into Manual Entry and remove chains you don\'t have nearby.' },
+            { q: 'Is the fast food wheel random?', a: 'Yes. Each restaurant has the same size slice, so each has the same chance.' },
+            { q: 'Does it show restaurant locations?', a: 'No. It only picks a name. Use your maps app to find the nearest one.' },
+            { q: 'Is this sponsored by any restaurant?', a: 'No. The restaurants are just popular choices. We have no connection with any of them.' }
+        ]
     },
 
     // --- LIFE DECISIONS ---
     {
         id: 'weekend-activity',
         title: 'Weekend Activity',
-        h1: 'Find Something To Do This Weekend',
-        seoTitle: 'Weekend Activity Generator | What to do this weekend?',
-        description: 'Bored? Find something fun to do this weekend with a random spin.',
-        definition: 'The Weekend Activity Wheel suggests random hobbies and events, like hiking or museums, to cure boredom.',
-        keywords: 'weekend activities, ideas for weekend, random hobby selector',
+        h1: 'Random Activity Generator: What to Do This Weekend',
+        seoTitle: 'Random Activity Generator: Things to Do Wheel | SpinWheelHub',
+        description: 'Bored and out of ideas? Spin the random activity generator for something to do this weekend: hiking, a museum, baking, a movie marathon and more.',
+        definition: 'The Weekend Activity Wheel is a random activity generator that picks something to do when you\'re bored.',
+        keywords: 'random activity generator, things to do when bored, weekend activity ideas, what to do this weekend, activity wheel',
         category: 'Life',
-        options: ['Hiking', 'Movie Marathon', 'Visit Museum', 'Try New Restaurant', 'Clean House', 'Read a Book', 'Video Games', 'Visit Friends', 'Baking', 'Nap']
+        options: ['Hiking', 'Movie Marathon', 'Visit Museum', 'Try New Restaurant', 'Clean House', 'Read a Book', 'Video Games', 'Visit Friends', 'Baking', 'Nap'],
+        about: [
+            {
+                heading: 'Bored? Spin for something to do',
+                paragraphs: [
+                    'It\'s Saturday, you have free time, and you\'ve spent an hour scrolling. Spin the wheel and do what it says.',
+                    'The wheel has ten ideas, some active (hiking, visiting friends) and some lazy (a nap, a movie marathon). Yes, "Clean House" is on there. The wheel has spoken.'
+                ]
+            },
+            {
+                heading: 'Make a better list',
+                paragraphs: [
+                    'Write down things you keep saying you\'ll do "one day": a new walking trail, a cooking class, the museum downtown. Put them on the wheel and let it hold you to it.',
+                    'Families can make a kids\' activity wheel with things like a park trip, crafts, a fort-building day and a board game afternoon.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Can I add my own activities?', a: 'Yes. Add anything in Manual Entry and remove ideas you don\'t like.' },
+            { q: 'What are some things to do when bored at home?', a: 'Bake something, read a book, start a puzzle, have a movie marathon, call a friend or reorganize one room.' },
+            { q: 'How do I avoid repeating activities?', a: 'Turn on "Exclude after spin" so each activity is removed after it\'s picked.' },
+            { q: 'Is it free?', a: 'Yes. No account or download needed.' }
+        ]
     },
 
     // --- EDUCATION ---
@@ -419,7 +777,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 paragraphs: [
                     'Geography games: spin a country, then guess its capital, flag, continent or language.',
                     'Travel and food ideas: let the wheel pick your next dream destination, or cook a dish from a random country for "world dinner night".',
-                    'Classrooms and trivia: assign each student a random country for a project, or use it as a quick quiz round.'
+                    'Classrooms and trivia: assign each student a random country for a project, or use it as a quick quiz round. For the US only, use the [random state generator](/wheel/random-state).'
                 ]
             }
         ],
@@ -453,7 +811,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 paragraphs: [
                     'Road trips and vacations: let the wheel choose your next destination, or a state whose food you will cook this weekend.',
                     'School: assign a random state for a report, quiz students on capitals and nicknames, or practice locating states on a map.',
-                    'Games: play "license plate bingo", trivia nights or "name three things from this state" with friends.'
+                    'Games: play "license plate bingo", trivia nights or "name three things from this state" with friends. Want the whole world? Spin the [random country generator](/wheel/random-country).'
                 ]
             }
         ],
@@ -481,7 +839,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 heading: 'Pick a random NBA team',
                 paragraphs: [
                     'This wheel holds all 30 NBA teams, 15 from the Eastern Conference and 15 from the Western Conference. Spin and the wheel lands on one team, with every franchise getting an equal slice.',
-                    'Playing with friends? Turn on "Exclude after spin" so two players never end up with the same team.'
+                    'Playing with friends? Turn on "Exclude after spin" so two players never end up with the same team. Football fan? Try the [random NFL team generator](/wheel/nfl-team).'
                 ]
             },
             {
@@ -515,7 +873,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 heading: 'Pick a random NFL team',
                 paragraphs: [
                     'This wheel holds all 32 NFL teams, 16 from the AFC and 16 from the NFC. Spin and the wheel lands on one team, with every franchise getting an equal slice.',
-                    'Drafting with friends? Turn on "Exclude after spin" so each team can only be picked once.'
+                    'Drafting with friends? Turn on "Exclude after spin" so each team can only be picked once. Basketball fan? Try the [random NBA team generator](/wheel/nba-team).'
                 ]
             },
             {
@@ -592,7 +950,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 heading: 'Words for every age',
                 paragraphs: [
                     'The wheel mixes easy words like Sun, Cat and House with harder ones like Lighthouse, Telescope and Hot Air Balloon, so it works for kids and adults together.',
-                    'Make it your own: add themed words for holidays, a school topic or inside jokes in Manual Entry. Teachers use it for vocabulary review, where students draw this week\'s words.'
+                    'Make it your own: add themed words for holidays, a school topic or inside jokes in Manual Entry. Teachers use it for vocabulary review, where students draw this week\'s words. Prefer acting to drawing? Try the [charades generator](/wheel/charades).'
                 ]
             }
         ],
@@ -625,7 +983,7 @@ export const wheelTemplates: WheelTemplate[] = [
                 heading: 'Charades ideas for every crowd',
                 paragraphs: [
                     'The wheel mixes everyday actions (Brushing Teeth), animals (Kangaroo), characters and jobs (Astronaut) and famous movies (Jurassic Park), so there is something easy and something tricky in every game.',
-                    'Playing with young kids? Remove the movie titles and keep actions and animals. For a themed party, clear the wheel and add your own holiday or birthday prompts.'
+                    'Playing with young kids? Remove the movie titles and keep actions and animals. For a themed party, clear the wheel and add your own holiday or birthday prompts. Prefer drawing? Try the [Pictionary word generator](/wheel/pictionary-words).'
                 ]
             }
         ],
@@ -643,10 +1001,15 @@ export const getWheelTemplate = (slug: string): WheelTemplate | undefined => {
     return wheelTemplates.find(t => t.id === slug);
 };
 
-// Helper to get related wheels
+// Helper to get related wheels: same category first, then the wheels that follow in the list.
+// Deterministic so each page always links to the same wheels (stable internal links for crawlers).
 export const getRelatedWheels = (currentSlug: string, limit: number = 6): WheelTemplate[] => {
-    return wheelTemplates
-        .filter(t => t.id !== currentSlug)
-        .sort(() => 0.5 - Math.random()) // Simple shuffle
-        .slice(0, limit);
+    const index = wheelTemplates.findIndex(t => t.id === currentSlug);
+    const current = wheelTemplates[index];
+    const rotated = index >= 0
+        ? [...wheelTemplates.slice(index + 1), ...wheelTemplates.slice(0, index)]
+        : wheelTemplates;
+    const sameCategory = rotated.filter(t => current && t.category === current.category);
+    const others = rotated.filter(t => !current || t.category !== current.category);
+    return [...sameCategory, ...others].slice(0, limit);
 };

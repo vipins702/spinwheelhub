@@ -10,7 +10,15 @@
             ],
             "destination": "https://spinwheelhub.org/:path*",
             "permanent": true
-        }
+        },
+        { "source": "/wheel/travel", "destination": "/wheel/random-country", "permanent": true },
+        { "source": "/wheel/life-decisions", "destination": "/wheel/yes-no", "permanent": true },
+        { "source": "/wheel/food-recipes", "destination": "/wheel/what-for-dinner", "permanent": true },
+        { "source": "/wheel/entertainment", "destination": "/wheel/random-movie", "permanent": true },
+        { "source": "/wheel/challenges", "destination": "/wheel/truth-or-dare", "permanent": true },
+        { "source": "/wheel/company-names", "destination": "/custom-wheel-of-names", "permanent": true },
+        { "source": "/wheel/astrology", "destination": "/hub", "permanent": true },
+        { "source": "/wheels", "destination": "/hub", "permanent": true }
     ],
     "rewrites": [
         {

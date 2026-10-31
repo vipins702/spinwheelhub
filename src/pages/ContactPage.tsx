@@ -1,7 +1,11 @@
 
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {Mail, Phone, MapPin, Clock, Send, MessageCircleDashed as MessageCircle, HelpCircle, Bug} from 'lucide-react'
+import {Mail, Clock, Send, MessageCircleDashed as MessageCircle, HelpCircle, Bug} from 'lucide-react'
+import SEOHead from '../components/SEOHead'
+
+const CONTACT_EMAIL = 'hello@spinwheelhub.org'
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,44 +22,29 @@ const ContactPage: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
+  // There is no mail backend, so the form opens the visitor's email app with the message filled in.
+  // The form is left filled so nothing is lost if no email app opens.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Simulate form submission
+    const subject = `[${formData.category}] ${formData.subject}`
+    const body = `${formData.message}\n\nFrom: ${formData.name} (${formData.email})`
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      category: 'general',
-      message: ''
-    })
   }
 
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
-      title: "Email Us",
-      details: "support@spinwheelhub.com",
-      description: "Get in touch for general inquiries"
-    },
-    {
-      icon: <Phone className="h-6 w-6" />,
-      title: "Call Us",
-      details: "+1 (555) 123-4567",
-      description: "Mon-Fri, 9AM-6PM EST"
-    },
-    {
-      icon: <MapPin className="h-6 w-6" />,
-      title: "Visit Us",
-      details: "123 Innovation Drive, Tech City, TC 12345",
-      description: "Our headquarters"
+      title: "Email",
+      details: CONTACT_EMAIL,
+      href: `mailto:${CONTACT_EMAIL}`,
+      description: "Questions, bug reports and wheel ideas all go here"
     },
     {
       icon: <Clock className="h-6 w-6" />,
-      title: "Response Time",
-      details: "Within 24 hours",
-      description: "We'll get back to you quickly"
+      title: "Replies",
+      details: "Every message is read",
+      description: "SpinWheelHub is run by one person, so replies can take a few days"
     }
   ]
 
@@ -79,6 +68,10 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
+      <SEOHead
+        title="Contact SpinWheelHub | Questions, Bugs and Wheel Ideas"
+        description="Get in touch with SpinWheelHub. Email hello@spinwheelhub.org with a question, a bug report or an idea for a new wheel. Every message is read."
+      />
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center">
         <motion.div
@@ -91,8 +84,8 @@ const ContactPage: React.FC = () => {
             Get in <span className="text-gradient">Touch</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Have questions, suggestions, or need help with our spin wheel platform? We'd love to hear from you! 
-            Our team is here to make your SpinWheelHub experience amazing.
+            Found a bug, want a new wheel, or have a question? Send a message.
+            SpinWheelHub is run by one person, and every message gets read.
           </p>
         </motion.div>
       </section>
@@ -108,16 +101,21 @@ const ContactPage: React.FC = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
               className="bg-white rounded-2xl p-8 shadow-xl"
+              id="contact-form"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-              
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Send a Message</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                This opens your email app with your message filled in. Press Send there to finish.
+              </p>
+
               {isSubmitted && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6"
+                  className="bg-blue-50 border border-blue-300 text-blue-800 px-4 py-3 rounded-lg mb-6"
                 >
-                  Thank you! Your message has been sent successfully. We'll get back to you soon!
+                  Your email app should now be open with the message ready. Remember to press Send.
+                  If nothing opened, email <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold underline">{CONTACT_EMAIL}</a> directly.
                 </motion.div>
               )}
 
@@ -213,7 +211,7 @@ const ContactPage: React.FC = () => {
                   className="w-full btn-primary py-4 text-lg font-semibold flex items-center justify-center gap-2"
                 >
                   <Send className="h-5 w-5" />
-                  Send Message
+                  Write Email
                 </motion.button>
               </form>
             </motion.div>
@@ -229,7 +227,7 @@ const ContactPage: React.FC = () => {
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Information</h2>
                 <p className="text-lg text-gray-600 mb-8">
-                  We're here to help! Reach out through any of these channels and we'll get back to you as soon as possible.
+                  Prefer your own email app? Write to the address below.
                 </p>
               </div>
 
@@ -247,7 +245,9 @@ const ContactPage: React.FC = () => {
                       <div className="text-purple-600 mt-1">{info.icon}</div>
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                        <p className="text-purple-600 font-medium mb-1">{info.details}</p>
+                        {info.href
+                          ? <a href={info.href} className="text-purple-600 font-medium mb-1 block hover:underline">{info.details}</a>
+                          : <p className="text-purple-600 font-medium mb-1">{info.details}</p>}
                         <p className="text-gray-600 text-sm">{info.description}</p>
                       </div>
                     </div>
@@ -296,27 +296,27 @@ const ContactPage: React.FC = () => {
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
             <p className="text-xl text-gray-600">
-              Quick answers to common questions about our spin wheel platform
+              Quick answers before you write
             </p>
           </motion.div>
 
           <div className="space-y-6">
             {[
               {
-                question: "How do I create a custom spin wheel?",
-                answer: "Simply click on any wheel category and use the customization options to add your own choices, adjust weights, and personalize colors."
+                question: "How do I make my own spin wheel?",
+                answer: <>Open the <Link to="/custom-wheel-of-names" className="text-purple-600 font-semibold hover:underline">custom wheel</Link>, type your options into Manual Entry, and spin. You can also start from any ready-made wheel and edit its list.</>
               },
               {
                 question: "Is SpinWheelHub free to use?",
-                answer: "Yes! SpinWheelHub is completely free to use. We offer premium features for users who want advanced customization and ad-free experience."
+                answer: "Yes. Every wheel and tool is free, with no account and no paywall."
               },
               {
-                question: "Can I save my spin wheel configurations?",
-                answer: "Absolutely! Create an account to save your custom spin wheels, track your decision history, and access your favorites across devices."
+                question: "Can I save my wheel?",
+                answer: <>Yes. On the <Link to="/custom-wheel-of-names" className="text-purple-600 font-semibold hover:underline">custom wheel</Link> page, use Save & Share to get a link to your wheel. On any wheel you can also export your list to a text file and import it later.</>
               },
               {
-                question: "How do the weighted options work?",
-                answer: "You can assign different weights to options to make some choices more likely to be selected. Higher weights increase the probability of selection."
+                question: "Can I request a new wheel?",
+                answer: <>Yes, please do. Use the form on this page, or browse the <Link to="/hub" className="text-purple-600 font-semibold hover:underline">wheel hub</Link> first to see if it already exists.</>
               }
             ].map((faq, index) => (
               <motion.div
@@ -346,7 +346,7 @@ const ContactPage: React.FC = () => {
         >
           <h2 className="text-4xl font-bold mb-6">Still have questions?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Don't hesitate to reach out! We're always happy to help you make the most of SpinWheelHub.
+            Write in with anything: a question, a bug, or an idea for a wheel you'd use.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -354,7 +354,7 @@ const ContactPage: React.FC = () => {
             className="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors"
             onClick={() => document.querySelector('#contact-form')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Contact Us Today
+            Send a Message
           </motion.button>
         </motion.div>
       </section>

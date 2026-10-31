@@ -7,7 +7,8 @@ const TermsPage: React.FC = () => {
         <>
             <Helmet>
                 <title>Terms of Service | SpinWheelHub</title>
-                <meta name="description" content="Terms and Conditions for using SpinWheelHub." />
+                <meta name="description" content="The terms of service for using SpinWheelHub, the free spin wheel and random picker site. Read the rules for using the wheels, giveaways and shared links." />
+                <link rel="canonical" href="https://spinwheelhub.org/terms" />
             </Helmet>
 
             <div className="max-w-4xl mx-auto px-4 py-12 text-gray-300">

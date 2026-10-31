@@ -7,7 +7,8 @@ const PrivacyPage: React.FC = () => {
         <>
             <Helmet>
                 <title>Privacy Policy | SpinWheelHub</title>
-                <meta name="description" content="Privacy Policy for SpinWheelHub. Learn how we handle your data and cookies." />
+                <meta name="description" content="Read the SpinWheelHub privacy policy: what information the site collects, how cookies and third-party ads are used, and how to contact us with questions." />
+                <link rel="canonical" href="https://spinwheelhub.org/privacy" />
             </Helmet>
 
             <div className="max-w-4xl mx-auto px-4 py-12 text-gray-300">
