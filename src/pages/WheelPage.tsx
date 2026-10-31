@@ -192,6 +192,13 @@ const WheelPage: React.FC = () => {
     setManualEntries([''])
   }
 
+  const faqs = (template?.faqs && template.faqs.length > 0) ? template.faqs : [
+    { q: `How do I use the ${currentCategory.title} Wheel?`, a: "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." },
+    { q: "Is this spin wheel truly random?", a: "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." },
+    { q: "Can I save my custom wheel?", a: "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" },
+    { q: "Is this tool free?", a: "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." }
+  ]
+
   const handleSpinComplete = (result: WheelOption) => {
     setLastResult(result)
     setSpinHistory([result, ...spinHistory.slice(0, 9)])
@@ -567,6 +574,24 @@ const WheelPage: React.FC = () => {
 
 
 
+        {/* Page-specific content - unique text per wheel */}
+        {template?.about && template.about.length > 0 && (
+          <section className="py-12 px-4 bg-white border-t border-purple-100">
+            <div className="max-w-3xl mx-auto space-y-10">
+              {template.about.map((block, i) => (
+                <div key={i}>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{block.heading}</h2>
+                  <div className="space-y-4">
+                    {block.paragraphs.map((p, j) => (
+                      <p key={j} className="text-gray-700 leading-relaxed">{p}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* How to Use Section - NEW */}
         <section className="py-12 px-4 bg-gradient-to-br from-white to-purple-50 border-t border-purple-100">
           <div className="max-w-4xl mx-auto">
@@ -653,12 +678,7 @@ const WheelPage: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-8 gradient-text">Frequently Asked Questions</h2>
             <div className="space-y-6">
-              {[
-                { q: `How do I use the ${currentCategory.title} Wheel?`, a: "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." },
-                { q: "Is this spin wheel truly random?", a: "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." },
-                { q: "Can I save my custom wheel?", a: "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" },
-                { q: "Is this tool free?", a: "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." }
-              ].map((faq, i) => (
+              {faqs.map((faq, i) => (
                 <div key={i} className="glass-card p-6 rounded-xl">
                   <h3 className="text-xl font-semibold text-neon-blue mb-2">{faq.q}</h3>
                   <p className="text-gray-300">{faq.a}</p>
@@ -670,12 +690,9 @@ const WheelPage: React.FC = () => {
               {JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
-                "mainEntity": [
-                  { "@type": "Question", "name": `How do I use the ${currentCategory.title} Wheel?`, "acceptedAnswer": { "@type": "Answer", "text": "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." } },
-                  { "@type": "Question", "name": "Is this spin wheel truly random?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, our algorithm uses cryptographically secure random number generation to ensure 100% fairness and unpredictability." } },
-                  { "@type": "Question", "name": "Can I save my custom wheel?", "acceptedAnswer": { "@type": "Answer", "text": "Currently, you can export your options to a text file and import them later. We are working on a cloud save feature!" } },
-                  { "@type": "Question", "name": "Is this tool free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." } }
-                ]
+                "mainEntity": faqs.map(faq => (
+                  { "@type": "Question", "name": faq.q, "acceptedAnswer": { "@type": "Answer", "text": faq.a } }
+                ))
               })}
             </script>
           </div>

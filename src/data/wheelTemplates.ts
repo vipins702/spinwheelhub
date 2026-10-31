@@ -10,6 +10,8 @@ export interface WheelTemplate {
     category: 'Utility' | 'Entertainment' | 'Gaming' | 'Life' | 'Food';
     options: string[];
     colors?: string[]; // Optional override
+    about?: { heading: string; paragraphs: string[] }[]; // Unique on-page content (avoids duplicate pages)
+    faqs?: { q: string; a: string }[]; // Page-specific FAQ (replaces the generic one)
 }
 
 export const wheelTemplates: WheelTemplate[] = [
@@ -75,14 +77,51 @@ export const wheelTemplates: WheelTemplate[] = [
     // --- UTILITY ---
     {
         id: 'yes-no',
-        title: 'Yes or No Generator',
-        h1: 'Yes or No? Spin the Wheel',
-        seoTitle: 'Yes or No Wheel | Random Yes/No Generator | SpinWheelMaster',
-        description: 'Need a quick decision? Spin the Yes or No Wheel! Perfect for random answers, settling arguments, and making fast choices. 100% random.',
-        definition: 'A Yes or No Wheel is a binary decision maker that provides a random "Yes" or "No" answer, acting as a digital coin flip.',
-        keywords: 'yes or no wheel, yes no generator, yes or no spinner, random decision, decision maker',
+        title: 'Yes or No',
+        h1: 'Yes or No Wheel – Spin for a Random Answer',
+        seoTitle: 'Yes or No Wheel: Free Yes/No Generator | SpinWheelHub',
+        description: 'Free yes or no wheel: spin for an instant random Yes or No answer. A fair 50/50 yes/no generator for quick decisions. No sign-up, works on any device.',
+        definition: 'A Yes or No Wheel is a random yes/no generator: a two-slice spinner that lands on "Yes" or "No" with an equal 50/50 chance, like a digital coin flip.',
+        keywords: 'yes or no wheel, yes no wheel, yes or no generator, yes no generator, yes or no wheel spinner, random yes or no',
         category: 'Utility',
-        options: ['Yes', 'No']
+        options: ['Yes', 'No'],
+        about: [
+            {
+                heading: 'What is a Yes or No Wheel?',
+                paragraphs: [
+                    'The yes or no wheel is the simplest decision maker there is: a spinner split into a "Yes" slice and a "No" slice. Ask your question, spin, and the wheel picks an answer for you. Because both slices are the same size, each spin has an equal 50/50 chance of landing on Yes or No.',
+                    'People use a yes no wheel when they are stuck on a small choice, want to settle a friendly argument, or just want a fun way to let chance decide. It works like flipping a coin, but it is easier to see, more fun to watch, and you can change the answers.'
+                ]
+            },
+            {
+                heading: 'How to use the yes or no generator',
+                paragraphs: [
+                    '1. Think of a yes-or-no question, such as "Should I order pizza tonight?" 2. Click Spin (or tap the wheel). 3. Wait for the wheel to stop and read your answer. That is it — no sign-up, no download, and it works on phones, tablets and computers.',
+                    'Want more than two answers? Open Manual Entry and add options like "Maybe", "Ask again later" or "Definitely". Adding Maybe turns it into a yes, no or maybe wheel, and each answer still gets an equal share of the wheel.'
+                ]
+            },
+            {
+                heading: 'Ideas for questions to ask',
+                paragraphs: [
+                    'Everyday choices: Should I go to the gym today? Should I watch one more episode? Should we eat out tonight?',
+                    'Games and parties: use the yes no spinner for truth-or-dare style challenges, classroom games, or deciding who goes first. Teachers use it as a quick random yes or no answer for class polls and warm-up activities.',
+                    'A note on big decisions: the wheel is great for small, low-stakes choices. For important decisions, use it as a fun tiebreaker — sometimes the answer you were hoping for tells you what you really want.'
+                ]
+            },
+            {
+                heading: 'Yes or no wheel vs. coin flip',
+                paragraphs: [
+                    'Both give a 50/50 answer. A coin flip only ever has two sides, while the yes or no wheel can be customized with extra answers, shows a history of your recent spins, and can remove an answer after it is picked. If you prefer heads or tails, try our coin flip wheel.'
+                ]
+            }
+        ],
+        faqs: [
+            { q: 'Is the yes or no wheel really random?', a: 'Yes. Each spin uses your browser\'s random number generator to pick a random stopping point, and the Yes and No slices are exactly the same size, so each answer has an equal 50% chance.' },
+            { q: 'Can I add "Maybe" to the yes or no wheel?', a: 'Yes. Open Manual Entry, type Maybe (or any other answer), and press Enter. The wheel updates instantly and every answer gets an equal slice.' },
+            { q: 'Is this yes no generator free?', a: 'Yes. The yes or no wheel is 100% free, needs no account, and works in any modern browser on phone, tablet or desktop.' },
+            { q: 'What is the difference between a yes or no wheel and a coin flip?', a: 'Both give a 50/50 result. The wheel lets you add more answers, keeps a history of recent results, and is easier to share on screen with a class or group.' },
+            { q: 'Can I use the yes or no spinner in a classroom?', a: 'Yes. Teachers often project the yes or no spinner for quick polls, games and random decisions. Use the size slider to make the wheel bigger on a projector.' }
+        ]
     },
     {
         id: 'random-number-1-10',
