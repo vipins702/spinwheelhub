@@ -11,7 +11,9 @@ const categoryColors: Record<string, { gradient: string; dots: string[] }> = {
   Food: { gradient: 'from-orange-500 to-amber-500', dots: ['#f97316', '#fb923c', '#fbbf24', '#fcd34d'] },
   Entertainment: { gradient: 'from-purple-500 to-indigo-500', dots: ['#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff'] },
   Gaming: { gradient: 'from-blue-500 to-cyan-500', dots: ['#3b82f6', '#60a5fa', '#93c5fd', '#cffafe'] },
-  Utility: { gradient: 'from-green-500 to-emerald-500', dots: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0'] }
+  Utility: { gradient: 'from-green-500 to-emerald-500', dots: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0'] },
+  Education: { gradient: 'from-yellow-500 to-orange-500', dots: ['#eab308', '#facc15', '#fb923c', '#fde68a'] },
+  Sports: { gradient: 'from-red-500 to-orange-600', dots: ['#ef4444', '#f87171', '#ea580c', '#fdba74'] }
 }
 
 const HubPage: React.FC = () => {
@@ -36,7 +38,7 @@ const HubPage: React.FC = () => {
             <Helmet>
                 <title>All Spin Wheels | The Ultimate Spin Wheel Collection | SpinWheelHub</title>
                 <meta name="description" content="Explore our massive collection of free spinning wheels. From food pickers and name generators to truth or dare - browse all our decision wheels here." />
-                <link rel="canonical" href="https://spinwheelhub.vercel.app/hub" />
+                <link rel="canonical" href="https://spinwheelhub.org/hub" />
             </Helmet>
 
             {/* Hero Header */}
@@ -76,6 +78,18 @@ const HubPage: React.FC = () => {
                         <Link to="/giveaway" className="group bg-gradient-to-br from-pink-600 to-rose-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
                             <h3 className="text-lg font-bold mb-1">🎁 Giveaway Picker</h3>
                             <p className="text-sm text-white/80">Pick a random winner with a verifiable proof link.</p>
+                        </Link>
+                        <Link to="/team-generator" className="group bg-gradient-to-br from-blue-600 to-cyan-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1">👥 Team Generator</h3>
+                            <p className="text-sm text-white/80">Split a list of names into random, even teams.</p>
+                        </Link>
+                        <Link to="/secret-santa" className="group bg-gradient-to-br from-red-600 to-green-700 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1">🎅 Secret Santa</h3>
+                            <p className="text-sm text-white/80">Draw names for a gift exchange. Nobody gets themselves.</p>
+                        </Link>
+                        <Link to="/rock-paper-scissors" className="group bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all hover:scale-105">
+                            <h3 className="text-lg font-bold mb-1">✊ Rock Paper Scissors</h3>
+                            <p className="text-sm text-white/80">Play against the computer. Best of 3 or best of 5.</p>
                         </Link>
                     </div>
                 )}

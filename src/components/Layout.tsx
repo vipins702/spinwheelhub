@@ -137,7 +137,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <h3 className="text-lg font-semibold mb-4 text-white">Popular Wheels</h3>
               <ul className="space-y-2">
                 <li><Link to="/wheel/yes-no" className="text-gray-400 hover:text-neon-pink transition-colors">Yes or No</Link></li>
-                <li><Link to="/wheel/roblox-game-picker" className="text-gray-400 hover:text-neon-pink transition-colors">Roblox Picker</Link></li>
+                <li><Link to="/team-generator" className="text-gray-400 hover:text-neon-pink transition-colors">Team Generator</Link></li>
+                <li><Link to="/secret-santa" className="text-gray-400 hover:text-neon-pink transition-colors">Secret Santa</Link></li>
+                <li><Link to="/rock-paper-scissors" className="text-gray-400 hover:text-neon-pink transition-colors">Rock Paper Scissors</Link></li>
+                <li><Link to="/wheel/random-letter" className="text-gray-400 hover:text-neon-pink transition-colors">Random Letter</Link></li>
+                <li><Link to="/wheel/pictionary-words" className="text-gray-400 hover:text-neon-pink transition-colors">Pictionary Words</Link></li>
+                <li><Link to="/wheel/charades" className="text-gray-400 hover:text-neon-pink transition-colors">Charades</Link></li>
                 <li><Link to="/wheel/what-for-dinner" className="text-gray-400 hover:text-neon-pink transition-colors">Dinner Idea</Link></li>
               </ul>
             </div>

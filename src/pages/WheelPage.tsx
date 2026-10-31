@@ -62,7 +62,7 @@ const WheelPage: React.FC = () => {
 
   useEffect(() => {
     // Load initial options for the category
-    const initialOptions = currentCategory.options.slice(0, 50).map((option, index) => ({
+    const initialOptions = currentCategory.options.map((option, index) => ({
       id: `${index + 1}`,
       text: option,
       color: magicalColors[index % magicalColors.length]
@@ -181,7 +181,7 @@ const WheelPage: React.FC = () => {
   }
 
   const resetToDefaults = () => {
-    const defaultOptions = currentCategory.options.slice(0, 8).map((option, index) => ({
+    const defaultOptions = currentCategory.options.map((option, index) => ({
       id: `${index + 1}`,
       text: option,
       color: magicalColors[index % magicalColors.length]
@@ -221,7 +221,7 @@ const WheelPage: React.FC = () => {
             "@type": "WebApplication",
             "name": currentCategory.title + " Wheel",
             "description": currentCategory.description,
-            "url": `https://spinwheelhub.vercel.app/wheel/${category}`,
+            "url": `https://spinwheelhub.org/wheel/${category}`,
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
             "offers": {

@@ -1,6 +1,6 @@
 
 import { SitemapStream, streamToPromise } from 'sitemap';
-import { createWriteStream } from 'fs';
+import { createWriteStream, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -18,7 +18,7 @@ const __dirname = dirname(__filename);
 // we will rely on a shared JSON or just define the static list here for the script to stay simple.
 // BETTER APPROACH for avoiding duplication: We will make this script robust.
 
-const BASE_URL = 'https://spinwheelhub.vercel.app';
+const BASE_URL = 'https://spinwheelhub.org';
 
 // Static Routes
 const links = [
@@ -29,35 +29,30 @@ const links = [
     { url: '/custom-wheel-of-names', changefreq: 'weekly', priority: 0.9 },
     { url: '/wheel-of-names', changefreq: 'weekly', priority: 0.9 },
     { url: '/number-wheel', changefreq: 'weekly', priority: 0.9 },
+    { url: '/team-generator', changefreq: 'weekly', priority: 0.9 },
+    { url: '/secret-santa', changefreq: 'weekly', priority: 0.9 },
+    { url: '/rock-paper-scissors', changefreq: 'weekly', priority: 0.8 },
     { url: '/giveaway', changefreq: 'weekly', priority: 0.9 },
     { url: '/hub', changefreq: 'daily', priority: 1.0 },
 ];
 
-// Add Wheel Categories (Mocking the data we just created in TS)
-// In a full build pipeline, we would import the compiled JS from dist.
-const wheelCategories = [
-    'yes-no', 'random-number-1-10', 'coin-flip', 'dice-roll', 'raffle-number-1-100',
-    'roblox-game-picker', 'fortnite-drop', 'pokemon-type',
-    'truth-or-dare', 'twister-moves',
-    'what-for-dinner', 'fast-food',
-    'weekend-activity',
-    'couple-activity', 'who-pays-dinner',
-    'what-for-lunch', 'dessert-picker', 'healthy-snack'
-];
+// Read slugs straight from the TS data files so new wheels and posts are never missed.
+// Matches lines like `id: 'yes-no',` or `slug: "my-post",` at the start of an object field.
+const readSlugs = (relPath, field) => {
+    const source = readFileSync(resolve(__dirname, relPath), 'utf8');
+    const pattern = new RegExp(`^\\s*${field}:\\s*['"]([a-z0-9-]+)['"]`, 'gm');
+    const slugs = [...source.matchAll(pattern)].map(m => m[1]);
+    if (slugs.length === 0) throw new Error(`No ${field} values found in ${relPath}`);
+    return slugs;
+};
+
+const wheelCategories = readSlugs('../src/data/wheelTemplates.ts', 'id');
 
 wheelCategories.forEach(slug => {
     links.push({ url: `/wheel/${slug}`, changefreq: 'weekly', priority: 0.8 });
 });
 
-// Blog Posts (Mocking data)
-const blogPosts = [
-    'ultimate-name-finder-guide',
-    'creative-classroom-name-pickers',
-    'host-viral-giveaway-spin-wheel',
-    'instagram-giveaway-picker-guide',
-    'decision-fatigue-cure',
-    'student-engagement-activities'
-];
+const blogPosts = readSlugs('../src/data/blogPosts.ts', 'slug');
 
 blogPosts.forEach(slug => {
     links.push({ url: `/blog/${slug}`, changefreq: 'monthly', priority: 0.7 });
