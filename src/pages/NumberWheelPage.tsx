@@ -63,7 +63,7 @@ const NumberWheelPage: React.FC = () => {
                     "@type": "WebApplication",
                     "name": "Random Number Wheel - SpinWheelHub",
                     "description": "Spin a wheel to pick a random number in any custom range.",
-                    "url": "https://spinwheelhub.vercel.app/number-wheel",
+                    "url": "https://spinwheelhub.org/number-wheel",
                     "applicationCategory": "UtilityApplication",
                     "operatingSystem": "Any",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }

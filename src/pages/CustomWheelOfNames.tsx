@@ -301,12 +301,12 @@ const CustomWheelOfNames: React.FC = () => {
         <meta name="keywords" content="spin wheel, wheel of names, custom wheel, random picker, decision maker, name picker, team selector, random generator, spinning wheel, choice maker, custom spinner, random name picker, decision wheel, name selector, team picker, random chooser" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
-        <link rel="canonical" href="https://spinwheelhub.vercel.app/custom-wheel-of-names" />
+        <link rel="canonical" href="https://spinwheelhub.org/custom-wheel-of-names" />
 
         {/* Open Graph */}
         <meta property="og:title" content="Custom Spin Wheel — Make Your Own Customizable Wheel Spinner" />
         <meta property="og:description" content="Create your personalized spin wheel! Perfect for team selection, decision making, name drawing, and any random picking needs." />
-        <meta property="og:url" content="https://spinwheelhub.vercel.app/custom-wheel-of-names" />
+        <meta property="og:url" content="https://spinwheelhub.org/custom-wheel-of-names" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
 
@@ -323,7 +323,7 @@ const CustomWheelOfNames: React.FC = () => {
             "@type": "WebApplication",
             "name": "Custom Wheel of Names - SpinWheelHub",
             "description": "Create personalized spinning wheels for any purpose. Free random picker and decision maker with customizable options.",
-            "url": "https://spinwheelhub.vercel.app/custom-wheel-of-names",
+            "url": "https://spinwheelhub.org/custom-wheel-of-names",
             "applicationCategory": "UtilityApplication",
             "operatingSystem": "Any",
             "offers": {

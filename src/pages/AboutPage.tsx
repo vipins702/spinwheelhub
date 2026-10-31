@@ -49,8 +49,8 @@ const AboutPage: React.FC = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "SpinWheelHub",
-            "url": "https://spinwheelhub.vercel.app",
-            "logo": "https://spinwheelhub.vercel.app/logo.png",
+            "url": "https://spinwheelhub.org",
+            "logo": "https://spinwheelhub.org/logo.png",
             "founder": {
               "@type": "Person",
               "name": "Vipin S.",
@@ -60,7 +60,7 @@ const AboutPage: React.FC = () => {
             },
             "contactPoint": {
               "@type": "ContactPoint",
-              "email": "hello@spinwheelhub.vercel.app",
+              "email": "hello@spinwheelhub.org",
               "contactType": "customer service"
             }
           })}

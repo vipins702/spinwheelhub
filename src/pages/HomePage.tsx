@@ -189,7 +189,7 @@ const HomePage: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "SpinWheelHub",
-    "url": "https://spinwheelhub.vercel.app",
+    "url": "https://spinwheelhub.org",
     "description": "The ultimate random decision maker. Create custom spin wheels, pick random names, and choose winners for contests instantly.",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Any",

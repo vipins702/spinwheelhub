@@ -24,9 +24,9 @@ const BlogPostPage: React.FC = () => {
                 <meta property="og:description" content={post.seoDescription} />
                 <meta property="og:image" content={post.image} />
                 <meta property="og:type" content="article" />
-                <meta property="og:url" content={`https://spinwheelhub.vercel.app/blog/${post.slug}`} />
+                <meta property="og:url" content={`https://spinwheelhub.org/blog/${post.slug}`} />
 
-                <link rel="canonical" href={`https://spinwheelhub.vercel.app/blog/${post.slug}`} />
+                <link rel="canonical" href={`https://spinwheelhub.org/blog/${post.slug}`} />
             </Helmet>
 
             <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

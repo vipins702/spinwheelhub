@@ -11,5 +11,5 @@ Allow: /
 User-agent: GPTBot
 Allow: /
 
-Sitemap: https://spinwheelhub.vercel.app/sitemap.xml
-Host: https://spinwheelhub.vercel.app
+Sitemap: https://spinwheelhub.org/sitemap.xml
+Host: https://spinwheelhub.org

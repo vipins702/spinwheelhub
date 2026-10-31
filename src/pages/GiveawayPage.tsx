@@ -116,7 +116,7 @@ const GiveawayHost: React.FC = () => {
                     "@context": "https://schema.org", "@type": "WebApplication",
                     "name": "Giveaway Winner Picker - SpinWheelHub",
                     "description": "Spin a wheel to pick a random giveaway winner and record a verifiable result.",
-                    "url": "https://spinwheelhub.vercel.app/giveaway",
+                    "url": "https://spinwheelhub.org/giveaway",
                     "applicationCategory": "UtilityApplication", "operatingSystem": "Any",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
                 }}

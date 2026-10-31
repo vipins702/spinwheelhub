@@ -50,7 +50,7 @@ const PrivacyPage: React.FC = () => {
                         <h2 className="text-2xl font-semibold text-white mb-3">4. Contact Us</h2>
                         <p>
                             If you have any questions about this privacy policy or our privacy practices, please contact us at:
-                            <a href="mailto:hello@spinwheelhub.vercel.app" className="text-neon-blue hover:underline ml-1">hello@spinwheelhub.vercel.app</a>
+                            <a href="mailto:hello@spinwheelhub.org" className="text-neon-blue hover:underline ml-1">hello@spinwheelhub.org</a>
                         </p>
                     </section>
                 </div>
