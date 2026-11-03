@@ -4,12 +4,13 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from 'react-hot-toast'
+import { Analytics } from '@vercel/analytics/react'
 import App from './App.tsx'
 import VisitTracker from './components/VisitTracker'
 import InstallPrompt from './components/InstallPrompt'
 import './index.css'
 
-// Wheels embedded on other sites skip the install prompt, visit tracking and service worker
+// Wheels embedded on other sites skip the install prompt, analytics, visit tracking and service worker
 const isEmbed = window.location.pathname.startsWith('/embed/')
 
 // Register the service worker (enables install / add-to-home-screen)
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         {!isEmbed && <VisitTracker />}
         <App />
         {!isEmbed && <InstallPrompt />}
+        {!isEmbed && <Analytics />}
         <Toaster 
           position="top-right"
           toastOptions={{
