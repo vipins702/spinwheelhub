@@ -15,6 +15,7 @@ import NumberWheelPage from './pages/NumberWheelPage'
 import TeamGeneratorPage from './pages/TeamGeneratorPage'
 import SecretSantaPage from './pages/SecretSantaPage'
 import RockPaperScissorsPage from './pages/RockPaperScissorsPage'
+import EmbedWheelPage from './pages/EmbedWheelPage'
 import GiveawayPage from './pages/GiveawayPage'
 import HubPage from './pages/HubPage'
 import PrivacyPage from './pages/PrivacyPage'
@@ -22,6 +23,16 @@ import TermsPage from './pages/TermsPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
+  return (
+    <Routes>
+      {/* Embedded wheels have no site header or footer */}
+      <Route path="/embed/:category" element={<EmbedWheelPage />} />
+      <Route path="*" element={<SiteRoutes />} />
+    </Routes>
+  )
+}
+
+function SiteRoutes() {
   return (
     <Layout>
       <Routes>

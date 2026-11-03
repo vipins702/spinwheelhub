@@ -9,8 +9,11 @@ import VisitTracker from './components/VisitTracker'
 import InstallPrompt from './components/InstallPrompt'
 import './index.css'
 
+// Wheels embedded on other sites skip the install prompt, visit tracking and service worker
+const isEmbed = window.location.pathname.startsWith('/embed/')
+
 // Register the service worker (enables install / add-to-home-screen)
-if ('serviceWorker' in navigator) {
+if (!isEmbed && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(() => { })
   })
@@ -20,9 +23,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <VisitTracker />
+        {!isEmbed && <VisitTracker />}
         <App />
-        <InstallPrompt />
+        {!isEmbed && <InstallPrompt />}
         <Toaster 
           position="top-right"
           toastOptions={{

@@ -22,7 +22,8 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'G-ZKCB7XZZGL');
+    // Only the real domain reports to GA, so previews and local testing don't pollute the numbers
+    if (location.hostname === 'spinwheelhub.org') gtag('config', 'G-ZKCB7XZZGL');
   </script>
   <link rel="icon" type="image/svg+xml" href="/src/assets/wheel-icon.svg" />
   <link rel="apple-touch-icon" href="/wheel-icon.svg" />
@@ -32,58 +33,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="z59ZxT3BwJ9I0DoLHTjiDgGeLuv6Oi2m-4VkQ-Tw7mE" />
 
-  <!-- SEO Meta Tags - Optimized for SpinWheelHub -->
-  <title>Spin the Wheel — Free Online Wheel Spinner & Random Picker | SpinWheelHub</title>
-  <meta name="description"
-    content="Spin the wheel to make decisions instantly. Free online wheel spinner for picking names, winners and choices — perfect for classrooms, giveaways, games and presentations." />
+  <!-- Title, description, canonical, Open Graph and schema are set per page by SEOHead/Helmet.
+       scripts/prerender.js writes them into each page's HTML at build time. Do not hard-code them here:
+       this file is also the fallback for dynamic routes. -->
+  <title>SpinWheelHub</title>
   <meta name="author" content="SpinWheelHub" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Spin the Wheel — Free Online Wheel Spinner & Random Picker" />
-  <meta property="og:description"
-    content="Free online wheel spinner for names, decisions, and choices. Create custom spin wheels, spin to decide, and share with others." />
-  <meta property="og:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SpinWheelHub — Free Spin Wheel Generator" />
-  <meta name="twitter:description"
-    content="Professional spin wheel generator for classrooms, giveaways and decision making." />
-  <meta name="twitter:image" content="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SpinWheelHub",
-      "url": "https://spinwheelhub.org/",
-      "description": "Free and professional spin wheel generator for random name picking, decision making, giveaways, classroom activities and presentations.",
-      "applicationCategory": "Utilities",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": [
-        "Spin wheel generator",
-        "Spinning wheel generator",
-        "Random name picker",
-        "Decision maker wheel",
-        "Classroom name picker",
-        "Giveaway wheel",
-        "Raffle spinner",
-        "Custom wheel maker",
-        "Professional spin wheel tool"
-      ]
-    }
-    </script>
-
-  <!-- Canonical URL is set per page by SEOHead/Helmet. Do not hard-code it here:
-       every route serves this file, so a static canonical would point all pages at the homepage. -->
   <meta name="theme-color" content="#9333ea" />
 </head>
 

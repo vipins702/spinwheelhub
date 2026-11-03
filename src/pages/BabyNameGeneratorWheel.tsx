@@ -686,7 +686,7 @@ const BabyNameGeneratorWheel: React.FC = () => {
               <div className="bg-white rounded-xl p-1 md:p-2 shadow-xl border border-gray-100">
                 <SpinningWheel
                   options={options}
-                  size={Math.min(wheelSize, window.innerWidth - 100)}
+                  size={Math.min(wheelSize, typeof window !== 'undefined' ? window.innerWidth - 100 : wheelSize)}
                   excludeAfterSpin={excludeAfterSpin}
                   onSpinComplete={handleSpinComplete}
                   onOptionExcluded={handleOptionExcluded}

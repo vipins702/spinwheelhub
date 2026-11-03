@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Gift, Shuffle, Eye, EyeOff, Check, Copy, RotateCcw } from 'lucide-react'
+import { ArrowLeft, Gift, Shuffle, Eye, EyeOff, Check, Copy, RotateCcw, Download, X, Plus } from 'lucide-react'
 import SEOHead from '../components/SEOHead'
+import NameListInput from '../components/NameListInput'
+import { csvCell, downloadFile } from '../utils/names'
 import { shuffle } from '../utils/random'
 
 interface Pair {
@@ -28,16 +30,19 @@ const drawNames = (names: string[], blocked: Set<string>): Pair[] | null => {
 
 const faqs = [
     { q: 'How does the Secret Santa generator work?', a: 'Type everyone\'s name, one per line, and press Draw Names. Each person is matched with someone to buy a gift for. Nobody can draw their own name, and everyone gives and receives exactly one gift.' },
-    { q: 'Can I stop couples from drawing each other?', a: 'Yes. In the "Don\'t pair these people" box, write two names on a line, like "Alex, Sam". Those two will never be matched with each other in either direction.' },
+    { q: 'Can I stop couples from drawing each other?', a: 'Yes. Under "Keep people apart", choose two names and press Add. Those two will never be matched with each other in either direction.' },
     { q: 'How do people see who they got without the organizer seeing?', a: 'After the draw, pass your phone or laptop around. Each person taps their own name, reads who they are buying for, then taps "Hide" before handing it on. Only the person tapping sees their match.' },
     { q: 'Can the organizer see all the matches?', a: 'Yes, but only if they choose to. Press "Show all matches" and confirm. Use this if you are running the exchange for children or need a record of who has who.' },
     { q: 'What is the minimum number of people?', a: 'Three. With only two people, each would always get the other, so there is no secret.' },
-    { q: 'Are the names saved or sent anywhere?', a: 'No. The draw happens in your browser and nothing is uploaded or stored. If you close or refresh the page, the results are gone, so make sure everyone has seen their match first.' }
+    { q: 'Are the names saved or sent anywhere?', a: 'Nothing is uploaded. The draw happens in your browser. Your name list is remembered in this browser for next time, but the matches are not saved. If you close or refresh the page, the matches are gone, so make sure everyone has seen theirs first.' },
+    { q: 'Can I import a list of names?', a: 'Yes. Press Import and choose a .txt file with one name per line, or a .csv file exported from a spreadsheet. You can also paste names separated by commas and press Tidy.' }
 ]
 
 const SecretSantaPage: React.FC = () => {
     const [namesInput, setNamesInput] = useState(sampleNames.join('\n'))
-    const [exclusionsInput, setExclusionsInput] = useState('')
+    const [exclusions, setExclusions] = useState<[string, string][]>([])
+    const [pairA, setPairA] = useState('')
+    const [pairB, setPairB] = useState('')
     const [budget, setBudget] = useState('')
     const [exchangeDate, setExchangeDate] = useState('')
     const [pairs, setPairs] = useState<Pair[]>([])
@@ -55,21 +60,16 @@ const SecretSantaPage: React.FC = () => {
     const lowerNames = names.map(n => n.toLowerCase())
     const duplicate = names.find((n, i) => lowerNames.indexOf(n.toLowerCase()) !== i)
 
-    // Each exclusion line is two names separated by a comma, "&" or "and"
-    const { blocked, unknownNames } = useMemo(() => {
-        const set = new Set<string>()
-        const unknown: string[] = []
-        const known = new Set(names.map(n => n.toLowerCase()))
-        exclusionsInput.split('\n').forEach(line => {
-            const parts = line.split(/,|&|\band\b/i).map(p => p.trim()).filter(Boolean)
-            if (parts.length !== 2) return
-            const [a, b] = parts
-            ;[a, b].forEach(p => { if (!known.has(p.toLowerCase())) unknown.push(p) })
-            set.add(pairKey(a, b))
-            set.add(pairKey(b, a))
-        })
-        return { blocked: set, unknownNames: unknown }
-    }, [exclusionsInput, names])
+    // Pairs whose names were later removed from the list no longer apply
+    const activeExclusions = exclusions.filter(([a, b]) => names.includes(a) && names.includes(b))
+    const blocked = new Set(activeExclusions.flatMap(([a, b]) => [pairKey(a, b), pairKey(b, a)]))
+
+    const addExclusion = () => {
+        if (!pairA || !pairB || pairA === pairB || blocked.has(pairKey(pairA, pairB))) return
+        setExclusions(prev => [...prev, [pairA, pairB]])
+        setPairA('')
+        setPairB('')
+    }
 
     let inputError = ''
     if (names.length < 3) inputError = 'Add at least 3 names, one per line.'
@@ -80,7 +80,7 @@ const SecretSantaPage: React.FC = () => {
         const result = drawNames(names, blocked)
         if (!result) {
             setPairs([])
-            setDrawError('No draw works with these rules. Remove some of the "don\'t pair" lines and try again.')
+            setDrawError('No draw works with these rules. Remove some of the "keep apart" pairs and try again.')
             return
         }
         setPairs(result)
@@ -121,7 +121,14 @@ const SecretSantaPage: React.FC = () => {
         }
     }
 
+    const downloadCsv = () => {
+        const rows = [['Giver', 'Buys for'].map(csvCell).join(',')]
+        pairs.forEach(p => rows.push([p.giver, p.receiver].map(csvCell).join(',')))
+        downloadFile('secret-santa.csv', rows.join('\n'), 'text/csv')
+    }
+
     const viewingPair = pairs.find(p => p.giver === viewing)
+    const step = pairs.length === 0 ? 1 : seen.size < pairs.length ? 2 : 3
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-green-50">
@@ -165,49 +172,75 @@ const SecretSantaPage: React.FC = () => {
                     </p>
                 </div>
 
+                <ol className="flex items-center justify-center gap-2 sm:gap-4 mb-6 text-xs sm:text-sm" aria-label="Progress">
+                    {['Add names', 'Draw and reveal', 'All done'].map((label, i) => (
+                        <li key={label} aria-current={step === i + 1 ? 'step' : undefined} className={`flex items-center gap-1.5 font-medium ${step >= i + 1 ? 'text-red-700' : 'text-gray-400'}`}>
+                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs text-white ${step > i + 1 ? 'bg-green-600' : step === i + 1 ? 'bg-red-600' : 'bg-gray-300'}`}>
+                                {step > i + 1 ? <Check className="w-3.5 h-3.5" /> : i + 1}
+                            </span>
+                            {label}
+                        </li>
+                    ))}
+                </ol>
+
                 {pairs.length === 0 ? (
                     /* Step 1: set up */
                     <div className="bg-white rounded-xl p-5 shadow-lg border border-gray-100 max-w-2xl mx-auto space-y-5">
-                        <div>
-                            <label htmlFor="santa-names" className="text-sm font-bold text-gray-900 mb-2 flex items-center justify-between">
-                                <span>1. Who is taking part? (one name per line)</span>
-                                <span className="text-xs font-medium text-gray-500">{names.length} people</span>
-                            </label>
-                            <textarea
-                                id="santa-names"
-                                value={namesInput}
-                                onChange={(e) => setNamesInput(e.target.value)}
-                                rows={8}
-                                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
-                            />
-                            <button onClick={() => setNamesInput('')} className="mt-1 text-xs text-gray-500 hover:text-red-600">
-                                Clear list
-                            </button>
-                        </div>
+                        <NameListInput
+                            id="santa-names"
+                            label="1. Who is taking part? (one name per line)"
+                            value={namesInput}
+                            onChange={setNamesInput}
+                            storageKey="swh_santa_names"
+                            exportName="secret-santa-names.txt"
+                            rows={8}
+                        />
 
                         <div>
-                            <label htmlFor="santa-exclusions" className="block text-sm font-bold text-gray-900 mb-1">
-                                2. Don't pair these people (optional)
-                            </label>
-                            <p className="text-xs text-gray-500 mb-2">One pair per line, like "Alex, Sam". Good for couples and people who live together.</p>
-                            <textarea
-                                id="santa-exclusions"
-                                value={exclusionsInput}
-                                onChange={(e) => setExclusionsInput(e.target.value)}
-                                rows={3}
-                                placeholder="Alex, Sam"
-                                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-sm text-gray-900 bg-white"
-                            />
-                            {unknownNames.length > 0 && (
-                                <p className="text-xs text-amber-600 mt-1">
-                                    Not on the list: {unknownNames.join(', ')}. Check the spelling.
-                                </p>
+                            <h3 className="text-sm font-bold text-gray-900 mb-1">2. Keep people apart (optional)</h3>
+                            <p className="text-xs text-gray-500 mb-2">Good for couples and people who live together. They won't draw each other.</p>
+                            <div className="flex flex-col sm:flex-row gap-2">
+                                {([[pairA, setPairA, pairB, 'First person'], [pairB, setPairB, pairA, 'Second person']] as const).map(([value, setValue, other, label]) => (
+                                    <select
+                                        key={label}
+                                        value={value}
+                                        aria-label={label}
+                                        onChange={(e) => setValue(e.target.value)}
+                                        className="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white focus:ring-2 focus:ring-red-500 outline-none"
+                                    >
+                                        <option value="">{label}</option>
+                                        {names.filter(n => n !== other).map(n => <option key={n} value={n}>{n}</option>)}
+                                    </select>
+                                ))}
+                                <button
+                                    onClick={addExclusion}
+                                    disabled={!pairA || !pairB}
+                                    className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                                >
+                                    <Plus className="w-4 h-4" /> Add
+                                </button>
+                            </div>
+                            {activeExclusions.length > 0 && (
+                                <ul className="flex flex-wrap gap-2 mt-3">
+                                    {activeExclusions.map(([a, b]) => (
+                                        <li key={`${a}|${b}`} className="inline-flex items-center gap-1 pl-3 pr-1 py-1 rounded-full bg-red-50 text-red-800 text-xs font-medium">
+                                            {a} and {b}
+                                            <button
+                                                onClick={() => setExclusions(prev => prev.filter(([x, y]) => !(x === a && y === b)))}
+                                                aria-label={`Remove ${a} and ${b}`}
+                                                className="p-1 rounded-full hover:bg-red-100"
+                                            >
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
                             )}
                         </div>
 
                         <div className="grid sm:grid-cols-2 gap-3">
                             <label className="block">
-                                <span className="block text-sm font-bold text-gray-900 mb-1">Budget (optional)</span>
+                                <span className="block text-sm font-bold text-gray-900 mb-1">3. Budget (optional)</span>
                                 <input
                                     type="text"
                                     value={budget}
@@ -265,8 +298,16 @@ const SecretSantaPage: React.FC = () => {
                                 <h2 className="text-lg font-bold text-gray-900 mb-1">Names drawn. Now pass the screen around.</h2>
                                 <p className="text-sm text-gray-600 mb-4">
                                     Each person taps their own name, reads who they got, then taps "Hide".
-                                    {' '}{seen.size} of {pairs.length} have looked.
                                 </p>
+                                <div className="mb-4">
+                                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                                        <span>{seen.size} of {pairs.length} have looked</span>
+                                        {seen.size === pairs.length && <span className="text-green-700">Everyone has their match!</span>}
+                                    </div>
+                                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden" role="progressbar" aria-valuemin={0} aria-valuemax={pairs.length} aria-valuenow={seen.size} aria-label="People who have seen their match">
+                                        <div className="h-full bg-green-500 transition-all duration-300" style={{ width: `${(seen.size / pairs.length) * 100}%` }} />
+                                    </div>
+                                </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {pairs.map(p => (
                                         <button
@@ -311,6 +352,9 @@ const SecretSantaPage: React.FC = () => {
                                             {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                                             {copied ? 'Copied' : 'Copy list'}
                                         </button>
+                                        <button onClick={downloadCsv} className="mt-3 ml-2 inline-flex items-center gap-1 px-3 py-2 text-sm rounded-lg bg-white shadow text-gray-700 font-medium hover:text-red-700">
+                                            <Download className="w-4 h-4" /> Download CSV
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -323,7 +367,7 @@ const SecretSantaPage: React.FC = () => {
                     <section>
                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">How to draw names for Secret Santa</h2>
                         <div className="space-y-4 text-gray-700 leading-relaxed">
-                            <p>1. Type the name of everyone joining the gift exchange, one per line. 2. If two people shouldn't get each other, like a married couple, add them to the "Don't pair" box. 3. Set a budget and date if you want them shown with each match. 4. Press Draw Names.</p>
+                            <p>1. Type the name of everyone joining the gift exchange, one per line, or press Import to load a list. 2. If two people shouldn't get each other, like a married couple, add them under "Keep people apart". 3. Set a budget and date if you want them shown with each match. 4. Press Draw Names.</p>
                             <p>Then pass your phone or laptop around the room. Each person taps their name, sees who they are buying for, and taps "Hide" before handing it to the next person. The names turn green once someone has looked, so you know who is still left.</p>
                         </div>
                     </section>

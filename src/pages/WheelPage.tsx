@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
 import NotFoundPage from './NotFoundPage'
+import EmbedCode from '../components/EmbedCode'
 
 interface WheelOption {
   id: string
@@ -505,7 +506,7 @@ const WheelPage: React.FC = () => {
               <div className="bg-white rounded-xl p-1 md:p-2 shadow-xl border border-gray-100">
                 <SpinningWheel
                   options={options}
-                  size={Math.min(wheelSize, window.innerWidth - 32)}
+                  size={Math.min(wheelSize, typeof window !== 'undefined' ? window.innerWidth - 32 : wheelSize)}
                   excludeAfterSpin={excludeAfterSpin}
                   onSpinComplete={handleSpinComplete}
                   onOptionExcluded={handleOptionExcluded}
@@ -655,6 +656,8 @@ const WheelPage: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {template && <EmbedCode slug={template.id} title={template.title} />}
 
         {/* Related Wheels - Internal Linking for SEO */}
         <section className="py-8 md:py-12 bg-white mt-8 border-t border-gray-100">
