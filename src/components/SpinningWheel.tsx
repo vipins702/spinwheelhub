@@ -629,36 +629,28 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                 'Z'
               ].join(' ')
 
-              // Smart Text Positioning
-              // > 10 options: Radial (from center out)
-              // <= 10 options: Tangential (perpendicular to radius)
-              const isRadial = visibleCount > 10
+              // Labels run along the slice, reading left to right on both halves when the wheel is at rest.
+              // Small wheels center the label in its slice; bigger wheels align it to the rim, where there is most room.
+              const alignToRim = visibleCount > 10
               const midAngle = angle + (nextAngle - angle) / 2
               const midAngleRad = (midAngle - 90) * (Math.PI / 180)
+              const isRightHalf = midAngle <= 180
+              const rotation = midAngle + (isRightHalf ? -90 : 90)
 
-              // Radial settings
-              const radialRadius = radius * 0.65
-              const radialX = centerX + radialRadius * Math.cos(midAngleRad)
-              const radialY = centerY + radialRadius * Math.sin(midAngleRad)
-              // Flip text on left side so it's readable
-              const isLeftSide = midAngle > 90 && midAngle < 270
-              const radialRotation = midAngle + (isLeftSide ? 180 : 0)
+              const outerRadius = radius * 0.9
+              const hubRadius = radius * 0.2
+              const anchorRadius = alignToRim ? outerRadius : (outerRadius + hubRadius) / 2
+              const textX = centerX + anchorRadius * Math.cos(midAngleRad)
+              const textY = centerY + anchorRadius * Math.sin(midAngleRad)
+              const textAnchor = !alignToRim ? 'middle' : isRightHalf ? 'end' : 'start'
 
-              // Tangential settings
-              const tangentRadius = radius * 0.65
-              const tangentX = centerX + tangentRadius * Math.cos(midAngleRad)
-              const tangentY = centerY + tangentRadius * Math.sin(midAngleRad)
-              const tangentRotation = midAngle + 90
-
-              // Final values
-              const textX = isRadial ? radialX : tangentX
-              const textY = isRadial ? radialY : tangentY
-              const rotation = isRadial ? radialRotation : tangentRotation
-
-              // Truncate based on mode
-              const maxChars = isRadial ? 18 : 14
+              // Shrink text to fit the slice width, and stop the label where neighbouring slices get too narrow
+              const sliceWidthAt = (r: number) => (2 * Math.PI * r) / visibleCount
+              const fontSize = Math.min(getTextSize(), sliceWidthAt(anchorRadius) * 0.75)
+              const innerRadius = Math.max(hubRadius, (fontSize * 0.8 * visibleCount) / (2 * Math.PI))
+              const maxChars = Math.max(4, Math.floor((outerRadius - innerRadius) / (fontSize * 0.58)))
               const displayText = option.text.length > maxChars
-                ? option.text.substring(0, maxChars) + '...'
+                ? option.text.substring(0, maxChars - 1) + '…'
                 : option.text
 
               return (
@@ -679,11 +671,11 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
                     y={textY}
                     fill="white"
                     stroke="rgba(0,0,0,0.6)"
-                    strokeWidth="3"
+                    strokeWidth={Math.min(3, fontSize * 0.14)}
                     paintOrder="stroke"
-                    fontSize={getTextSize()}
+                    fontSize={fontSize}
                     fontWeight="800"
-                    textAnchor="middle"
+                    textAnchor={textAnchor}
                     dominantBaseline="middle"
                     transform={`rotate(${rotation}, ${textX}, ${textY})`}
                     style={{
