@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
       </div>
       <h2>Why You Need a Reliable Name Finder</h2>
 
-      <p>Whether you are a teacher looking for a <strong>fair student selector</strong>, a streamer picking a giveaway winner, or just a group of friends trying to decide who pays for dinner, a random <a href="/wheel-of-names" class="text-purple-600 font-bold hover:underline">Name Finder</a> is your best friend. Human beings are terrible at being truly random—we have biases. A digital spin wheel eliminates that bias completely.</p>
+      <p>Whether you are a teacher looking for a <strong>fair student selector</strong>, a streamer picking a giveaway winner, or just a group of friends trying to decide who pays for dinner, a random <a href="/wheel-of-names" class="text-purple-600 font-bold hover:underline">Name Finder</a> is your best friend. Human beings are terrible at being truly random—we have biases. A digital spin wheel takes your own bias out of the choice.</p>
 
       <h3>Top Uses for Our Name Finder Wheel</h3>
       <ul class="list-disc pl-6 space-y-2 my-4">

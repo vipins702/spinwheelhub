@@ -220,7 +220,7 @@ const HomePage: React.FC = () => {
         "name": "Is the wheel selection truly random?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Every slice on the wheel is the same size, and the wheel stops at a random point picked by your browser's random number generator. Nobody, including us, can choose or predict the result."
+          "text": "Yes. Every slice on the wheel is the same size, and the wheel stops at a random point picked by your browser's random number generator. Nobody, including us, can choose or predict the result. That is fine for games and everyday decisions, but not for anything that needs certified randomness, such as a regulated lottery."
         }
       },
       {

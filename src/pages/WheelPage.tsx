@@ -205,7 +205,7 @@ const WheelPage: React.FC = () => {
 
   const faqs = (template?.faqs && template.faqs.length > 0) ? template.faqs : [
     { q: `How do I use the ${currentCategory.title} Wheel?`, a: "Simply enter your options or use our preset list, then click the 'Spin' button. The wheel will spin and randomly select a winner." },
-    { q: "Is this spin wheel truly random?", a: "Yes. Every slice is the same size and the wheel stops at a random point picked by your browser's random number generator, so each option has the same chance." },
+    { q: "Is this spin wheel truly random?", a: "Yes. Every slice is the same size and the wheel stops at a random point picked by your browser's random number generator, so each option has the same chance. That is fine for games, classrooms and everyday decisions, but not for anything that needs certified randomness, such as a regulated lottery." },
     { q: "Can I save my custom wheel?", a: "Yes. Export your options to a text file and import them later, or use the custom wheel page to save your wheel and share it with a link." },
     { q: "Is this tool free?", a: "Yes, SpinWheelHub is 100% free to use for classrooms, stream giveaways, and personal decisions." }
   ]
@@ -630,17 +630,17 @@ const WheelPage: React.FC = () => {
                   Spin & Reveal
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Click the center of the wheel or the <strong>Spin</strong> button. Our advanced physics engine ensures a truly random and fair result every time.
+                  Click the center of the wheel or the <strong>Spin</strong> button. Each spin stops at a random point picked by your browser, and every slice is the same size.
                 </p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-md">
                 <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
                   <span className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">3</span>
-                  Fairness Guaranteed
+                  Equal Chances
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  This tool helps eliminate bias. Use the <strong>Exclude after spin</strong> toggle to remove winners so everyone gets a turn.
+                  Every option has the same chance on every spin. Use the <strong>Exclude after spin</strong> toggle to remove winners so everyone gets a turn.
                 </p>
               </div>
 

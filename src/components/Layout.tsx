@@ -114,11 +114,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 Free and easy-to-use spinner for random name picking, classroom activities,
                 giveaways and presentations. Customize, save and share wheels!
               </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-neon-blue transition-colors">Facebook</a>
-                <a href="#" className="text-gray-400 hover:text-neon-blue transition-colors">Twitter</a>
-                <a href="#" className="text-gray-400 hover:text-neon-blue transition-colors">Instagram</a>
-              </div>
+              <p className="text-sm text-gray-500">
+                Built and run by <Link to="/about" className="text-gray-400 hover:text-neon-blue transition-colors underline">Vipin S.</Link>
+              </p>
             </div>
 
             <div>
@@ -126,6 +124,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <ul className="space-y-2">
                 <li><Link to="/" className="text-gray-400 hover:text-neon-purple transition-colors">Home</Link></li>
                 <li><Link to="/hub" className="text-gray-400 hover:text-neon-purple transition-colors">All Wheels</Link></li>
+                <li><Link to="/blog" className="text-gray-400 hover:text-neon-purple transition-colors">Blog</Link></li>
                 <li><Link to="/about" className="text-gray-400 hover:text-neon-purple transition-colors">About</Link></li>
                 <li><Link to="/contact" className="text-gray-400 hover:text-neon-purple transition-colors">Contact</Link></li>
                 <li><Link to="/privacy" className="text-gray-400 hover:text-neon-purple transition-colors">Privacy Policy</Link></li>
@@ -136,6 +135,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-white">Popular Wheels</h3>
               <ul className="space-y-2">
+                <li><Link to="/custom-wheel-of-names" className="text-gray-400 hover:text-neon-pink transition-colors">Custom Wheel</Link></li>
+                <li><Link to="/giveaway" className="text-gray-400 hover:text-neon-pink transition-colors">Giveaway Picker</Link></li>
+                <li><Link to="/number-wheel" className="text-gray-400 hover:text-neon-pink transition-colors">Number Wheel</Link></li>
                 <li><Link to="/wheel/yes-no" className="text-gray-400 hover:text-neon-pink transition-colors">Yes or No</Link></li>
                 <li><Link to="/team-generator" className="text-gray-400 hover:text-neon-pink transition-colors">Team Generator</Link></li>
                 <li><Link to="/secret-santa" className="text-gray-400 hover:text-neon-pink transition-colors">Secret Santa</Link></li>
@@ -150,10 +152,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <div className="border-t border-white/5 mt-8 pt-8 text-center text-gray-500">
             <div className="mt-8 text-center">
-              <p>&copy; 2024 SpinWheelHub. All rights reserved.</p>
-              <p className="mt-2 text-xs">
-                Creating fun and fair decisions since 2024
-              </p>
+              <p>&copy; {new Date().getFullYear()} SpinWheelHub. All rights reserved.</p>
             </div>
           </div>
         </div>
