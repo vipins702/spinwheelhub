@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
+import SEOHead from '../components/SEOHead'
 import { Search, Grid, Tag, Sparkles, FolderOpen, Play } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { wheelTemplates } from '../data/wheelTemplates'
@@ -35,11 +35,10 @@ const HubPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 pb-20">
-            <Helmet>
-                <title>All Spin Wheels | The Ultimate Spin Wheel Collection | SpinWheelHub</title>
-                <meta name="description" content="Explore our massive collection of free spinning wheels. From food pickers and name generators to truth or dare - browse all our decision wheels here." />
-                <link rel="canonical" href="https://spinwheelhub.org/hub" />
-            </Helmet>
+            <SEOHead
+                title="All Spin Wheels: Free Picker Wheels by Category | SpinWheelHub"
+                description="Browse every free spin wheel on SpinWheelHub: food pickers, name pickers, party games, trivia and decision wheels. Pick one, spin it, or add your own options."
+            />
 
             {/* Hero Header */}
             <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white py-16 px-4 text-center">

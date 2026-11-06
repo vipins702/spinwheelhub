@@ -4,7 +4,58 @@ import { ArrowLeft, Gift, Copy, Trophy, ShieldCheck, Loader2 } from 'lucide-reac
 import toast from 'react-hot-toast'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
+import PageGuide from '../components/PageGuide'
 import { trackEvent } from '../utils/track'
+import { randomInt } from '../utils/random'
+
+// A wheel with more slices than this is too crowded to read, so longer lists are drawn without the wheel
+const MAX_WHEEL_ENTRIES = 200
+
+const guideSections = [
+    {
+        heading: 'How to pick a giveaway winner',
+        paragraphs: [
+            'Paste your entries into the box, one per line. For a social media giveaway, copy the usernames from the comments into the list first, because this tool does not read comments from Instagram or any other site. Then spin the wheel. When it stops, press Record & Get Proof Link to save the result.',
+            'Each line is one slice. If a person should only count once, remove their extra lines before you spin, since a name that appears twice gets two chances.'
+        ]
+    },
+    {
+        heading: 'What the proof link shows',
+        paragraphs: [
+            'The proof page shows the name of your giveaway, the winner, how many entries were in the draw, and the date and time the result was saved. It does not list every entry. Think of it as a saved record you can share with your followers, not an independent audit. The page is kept out of search results, so only people with the link will see it.'
+        ]
+    },
+    {
+        heading: 'How the winner is chosen',
+        paragraphs: [
+            `Up to ${MAX_WHEEL_ENTRIES} entries go on the wheel, and every slice is the same size. The browser picks a random stopping point, so every entry has the same chance. With more than ${MAX_WHEEL_ENTRIES} entries the wheel would be too crowded to read, so the page shows a Pick a winner button instead. It uses your browser's secure random generator to choose one line from the full list, so no entry is left out.`,
+            'Read the rules of the platform where you run your giveaway before you start. Each one has its own rules for promotions.'
+        ]
+    }
+]
+
+const guideFaqs = [
+    {
+        q: 'Is the giveaway picker free?',
+        a: 'Yes. There is no sign-up. You paste your entries, spin, and save the result if you want a proof link.'
+    },
+    {
+        q: 'Can I pick more than one winner?',
+        a: "Yes. Delete the first winner's line from the list and spin again, so the same person cannot win twice. Record each draw separately if you want a proof link for each winner."
+    },
+    {
+        q: 'Does it pull comments from Instagram or YouTube?',
+        a: 'No. You copy the usernames or comments into the box yourself.'
+    },
+    {
+        q: 'Who can see my proof link?',
+        a: 'Anyone who has the link. It is not listed on the site or in search results.'
+    },
+    {
+        q: 'Is a random spin fair enough for a prize?',
+        a: "Every entry has the same chance, and the proof link records the winner and the time. For a big prize, also show the spin live or record your screen, and follow the rules of the platform you are using. For a plain number draw, try the [number wheel](/number-wheel)."
+    }
+]
 
 interface WheelOption {
     id: string
@@ -47,13 +98,13 @@ const GiveawayProof: React.FC<{ id: string }> = ({ id }) => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-4">
-            <SEOHead title={`Giveaway Winner: ${draw.winner} | SpinWheelHub`} description={`Verified giveaway result for "${draw.title}".`} noIndex />
+            <SEOHead title={`Giveaway Winner: ${draw.winner} | SpinWheelHub`} description={`Recorded giveaway result for "${draw.title}".`} noIndex />
             <div className="bg-white rounded-2xl shadow-xl border border-purple-100 max-w-md w-full p-8 text-center">
                 <div className="flex justify-center mb-3"><Trophy className="w-14 h-14 text-yellow-500" /></div>
                 <p className="text-sm text-gray-500 uppercase tracking-wide">{draw.title}</p>
                 <h1 className="text-4xl font-bold text-purple-700 my-3 break-words">{draw.winner}</h1>
                 <div className="flex items-center justify-center gap-2 text-green-600 text-sm font-medium mb-4">
-                    <ShieldCheck className="w-4 h-4" /> Verified random draw
+                    <ShieldCheck className="w-4 h-4" /> Draw recorded on SpinWheelHub
                 </div>
                 <div className="text-sm text-gray-500 space-y-1">
                     <p>Drawn from <strong>{draw.entry_count}</strong> entries</p>
@@ -80,10 +131,17 @@ const GiveawayHost: React.FC = () => {
         [raw]
     )
 
+    const tooManyForWheel = entries.length > MAX_WHEEL_ENTRIES
     const options: WheelOption[] = useMemo(() =>
-        entries.slice(0, 200).map((text, i) => ({
+        tooManyForWheel ? [] : entries.map((text, i) => ({
             id: `${i}`, text, color: magicalColors[i % magicalColors.length]
-        })), [entries])
+        })), [entries, tooManyForWheel])
+
+    // Long lists skip the wheel and draw from every entry, so nobody past entry 200 is left out
+    const pickFromAll = () => {
+        setWinner({ id: 'pick', text: entries[randomInt(entries.length)] })
+        setProofUrl(null)
+    }
 
     const recordWinner = async () => {
         if (!winner) return
@@ -111,8 +169,8 @@ const GiveawayHost: React.FC = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
             <SEOHead
-                title="Giveaway Winner Picker — Spin to Pick a Random Winner | SpinWheelHub"
-                description="Free giveaway winner picker. Paste your entries or comments, spin the wheel to choose a random winner, and get a verifiable proof link with a timestamp."
+                title="Giveaway Winner Picker: Spin to Pick a Random Winner | SpinWheelHub"
+                description="Free giveaway winner picker. Paste your entries or comments, spin the wheel to choose a random winner, and save a proof link with a time stamp."
                 keywords="giveaway winner picker, random winner generator, comment picker, raffle picker, instagram giveaway picker"
                 schema={{
                     "@context": "https://schema.org", "@type": "WebApplication",
@@ -133,7 +191,7 @@ const GiveawayHost: React.FC = () => {
                     </h1>
                     <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
                         Paste your entries or comments, spin to pick a random winner, then save a
-                        verifiable proof link so everyone can see the draw was fair.
+                        proof link with the time of the draw that you can share with your followers.
                     </p>
                 </div>
 
@@ -157,7 +215,7 @@ const GiveawayHost: React.FC = () => {
                                 className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none font-mono text-sm"
                             />
                         </label>
-                        <p className="text-xs text-gray-500">{entries.length} entries{entries.length > 200 ? ' (showing first 200 on the wheel)' : ''}</p>
+                        <p className="text-xs text-gray-500">{entries.length} entries{tooManyForWheel ? ` (more than ${MAX_WHEEL_ENTRIES}, so use Pick a winner instead of the wheel)` : ''}</p>
 
                         {winner && (
                             <div className="bg-purple-50 rounded-xl p-3 border border-purple-100 text-center">
@@ -185,7 +243,20 @@ const GiveawayHost: React.FC = () => {
                     </div>
 
                     <div className="flex justify-center">
-                        {options.length >= 2 ? (
+                        {tooManyForWheel ? (
+                            <div className="text-center bg-white rounded-xl border border-dashed border-gray-300 px-8 py-16 max-w-md">
+                                <Gift className="w-12 h-12 mx-auto mb-3 text-pink-300" />
+                                <p className="text-gray-600 mb-4">
+                                    {entries.length.toLocaleString()} entries is too many for a readable wheel. The button below picks one line from the whole list.
+                                </p>
+                                <button
+                                    onClick={pickFromAll}
+                                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold"
+                                >
+                                    Pick a winner
+                                </button>
+                            </div>
+                        ) : options.length >= 2 ? (
                             <SpinningWheel
                                 options={options}
                                 size={Math.min(520, typeof window !== 'undefined' ? window.innerWidth - 60 : 520)}
@@ -200,6 +271,8 @@ const GiveawayHost: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            <PageGuide sections={guideSections} faqs={guideFaqs} />
         </div>
     )
 }

@@ -1,21 +1,20 @@
 
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
+import SEOHead from '../components/SEOHead'
 
 const PrivacyPage: React.FC = () => {
     return (
         <>
-            <Helmet>
-                <title>Privacy Policy | SpinWheelHub</title>
-                <meta name="description" content="Read the SpinWheelHub privacy policy: what information the site collects, how cookies and third-party ads are used, and how to contact us with questions." />
-                <link rel="canonical" href="https://spinwheelhub.org/privacy" />
-            </Helmet>
+            <SEOHead
+                title="Privacy Policy | SpinWheelHub"
+                description="Read the SpinWheelHub privacy policy: what information the site collects, how cookies and third-party ads are used, and how to contact us with questions."
+            />
 
             <div className="max-w-4xl mx-auto px-4 py-12 text-gray-300">
                 <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
 
                 <div className="space-y-6 glass-card p-8 rounded-xl">
-                    <p className="text-sm text-gray-400">Last updated: {new Date().toLocaleDateString()}</p>
+                    <p className="text-sm text-gray-400">Last updated: October 31, 2026</p>
 
                     <section>
                         <h2 className="text-2xl font-semibold text-white mb-3">1. Introduction</h2>

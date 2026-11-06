@@ -1,25 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
-import { Calendar, User, ArrowRight, Play, Tag } from 'lucide-react'
+import SEOHead from '../components/SEOHead'
+import { Calendar, User, ArrowRight, Tag } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { blogPosts } from '../data/blogPosts'
 
 const BlogPage: React.FC = () => {
   return (
     <>
-      <Helmet>
-        <title>Blog & Vlog - SpinWheelHub | Name Finder Tips & Tricks</title>
-        <meta name="description" content="Read the latest articles about name finders, classroom activities, party games, and updates from SpinWheelHub. Improve your spinning experience!" />
-        <meta name="keywords" content="spin wheel blog, name finder tips, random picker guide, classroom games, decision making articles" />
-        <link rel="canonical" href="https://spinwheelhub.org/blog" />
-      </Helmet>
+      <SEOHead
+        title="Blog: Name Pickers, Giveaways and Classroom Games | SpinWheelHub"
+        description="Articles on picking random names, running fair giveaways, classroom activities and making decisions."
+        keywords="spin wheel blog, name finder tips, random picker guide, classroom games, decision making articles"
+      />
 
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              SpinWheelHub <span className="text-purple-600">Blog & Vlog</span>
+              SpinWheelHub <span className="text-purple-600">Blog</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Tips, tricks, and inspiration for finding the perfect name.
@@ -80,46 +79,6 @@ const BlogPage: React.FC = () => {
                 </div>
               </motion.article>
             ))}
-          </div>
-
-          {/* Vlog Section Placeholder */}
-          <div className="mt-20">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Latest Vlogs</h2>
-              <button className="text-purple-600 font-semibold hover:text-purple-700">View All Videos</button>
-            </div>
-
-            <div className="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-3xl overflow-hidden shadow-2xl">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <div className="inline-block bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-6 w-max">
-                    FEATURED VIDEO
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                    Top 5 Ways Teachers Are Using Wheel Assigners
-                  </h3>
-                  <p className="text-purple-100 text-lg mb-8">
-                    Watch how classrooms around the world are transforming participation and engagement with simple digital tools.
-                  </p>
-                  <button className="bg-white text-purple-900 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors inline-flex items-center w-max">
-                    <Play className="w-5 h-5 mr-2 fill-current" />
-                    Watch Now
-                  </button>
-                </div>
-                <div className="relative h-64 lg:h-auto bg-gray-800">
-                  <img
-                    src="https://images.pexels.com/photos/8471799/pexels-photo-8471799.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                    alt="Video Thumbnail"
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8 text-white fill-current ml-1" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

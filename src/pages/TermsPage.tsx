@@ -1,21 +1,20 @@
 
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
+import SEOHead from '../components/SEOHead'
 
 const TermsPage: React.FC = () => {
     return (
         <>
-            <Helmet>
-                <title>Terms of Service | SpinWheelHub</title>
-                <meta name="description" content="The terms of service for using SpinWheelHub, the free spin wheel and random picker site. Read the rules for using the wheels, giveaways and shared links." />
-                <link rel="canonical" href="https://spinwheelhub.org/terms" />
-            </Helmet>
+            <SEOHead
+                title="Terms of Service | SpinWheelHub"
+                description="The terms of service for using SpinWheelHub, the free spin wheel and random picker site. Read the rules for using the wheels, giveaways and shared links."
+            />
 
             <div className="max-w-4xl mx-auto px-4 py-12 text-gray-300">
                 <h1 className="text-4xl font-bold text-white mb-8">Terms of Service</h1>
 
                 <div className="space-y-6 glass-card p-8 rounded-xl">
-                    <p className="text-sm text-gray-400">Last updated: {new Date().toLocaleDateString()}</p>
+                    <p className="text-sm text-gray-400">Last updated: October 31, 2026</p>
 
                     <section>
                         <h2 className="text-2xl font-semibold text-white mb-3">1. Agreement to Terms</h2>

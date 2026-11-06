@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
+import SEOHead from '../components/SEOHead'
 import { Target, Users, Award, Heart, Zap, Shield } from 'lucide-react'
 import { wheelTemplates } from '../data/wheelTemplates'
 
@@ -47,32 +47,29 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
-      <Helmet>
-        <title>About SpinWheelHub | Free Spin Wheel Tools</title>
-        <meta name="description" content="SpinWheelHub is a free collection of spin wheels and random pickers, built and run by Vipin S. Learn who makes it and how the wheels work." />
-        <link rel="canonical" href="https://spinwheelhub.org/about" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "SpinWheelHub",
-            "url": "https://spinwheelhub.org",
-            "logo": "https://spinwheelhub.org/logo.png",
-            "founder": {
-              "@type": "Person",
-              "name": "Vipin S.",
-              "jobTitle": "Manager at MNC & Technologist",
-              "url": "https://www.linkedin.com/in/vipin-s-1132182b",
-              "sameAs": ["https://www.linkedin.com/in/vipin-s-1132182b"]
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "email": "hello@spinwheelhub.org",
-              "contactType": "customer service"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="About SpinWheelHub | Free Spin Wheel Tools"
+        description="SpinWheelHub is a free collection of spin wheels and random pickers, built and run by Vipin S. Learn who makes it and how the wheels work."
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "SpinWheelHub",
+          "url": "https://spinwheelhub.org",
+          "logo": "https://spinwheelhub.org/logo.png",
+          "founder": {
+            "@type": "Person",
+            "name": "Vipin S.",
+            "jobTitle": "Manager at MNC & Technologist",
+            "url": "https://www.linkedin.com/in/vipin-s-1132182b",
+            "sameAs": ["https://www.linkedin.com/in/vipin-s-1132182b"]
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@spinwheelhub.org",
+            "contactType": "customer service"
+          }
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center">
         <motion.div

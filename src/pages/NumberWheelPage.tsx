@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, Hash, Shuffle } from 'lucide-react'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
+import PageGuide from '../components/PageGuide'
+import { randomInt } from '../utils/random'
 
 interface WheelOption {
     id: string
@@ -23,40 +25,81 @@ const presets = [
     { label: '1–50', min: 1, max: 50 },
 ]
 
+// A wheel with more slices than this is too crowded to read. Bigger ranges are drawn without the wheel.
+const MAX_SLICES = 200
+const MAX_RANGE = 1_000_000_000
+
+const guideSections = [
+    {
+        heading: 'How the random number wheel works',
+        paragraphs: [
+            'Pick one of the quick ranges (1 to 10, 1 to 100, 1 to 6 for a dice, 0 to 9, or 1 to 50), or type your own minimum and maximum. The wheel gets one slice for every number in the range. Click Spin and it stops on one of them. Every slice is the same size, so every number has the same chance. Each spin is separate from the last one, so a number can come up twice in a row.',
+            'A wheel can show up to 200 numbers and still be readable. If your range is bigger than that, the page hides the wheel and gives you a Pick a number button that draws one number from the whole range.'
+        ]
+    },
+    {
+        heading: 'What people use it for',
+        paragraphs: [
+            'The most common use is raffle tickets: spin 1 to 100 and read out the winning ticket number. There is also a ready-made [raffle wheel](/wheel/raffle-number-1-100). Teachers use number wheels for turn order and for calling on question numbers. A range of 1 to 6 works as a [dice roll](/wheel/dice-roll), and 0 to 1 works like a [coin flip](/wheel/coin-flip). Some people just use it to pick a lucky number.'
+        ]
+    },
+    {
+        heading: 'Wheel or plain number generator?',
+        paragraphs: [
+            'A wheel is slower than a plain generator, and that is the point when people are watching. Everyone sees the spin land, which makes a draw easier to trust at a party, in a classroom or on a stream. If you only need a number quickly for yourself, a plain generator is faster.'
+        ]
+    }
+]
+
+const guideFaqs = [
+    {
+        q: 'Can the same number come up twice?',
+        a: 'Yes. Every spin is separate, so a number can repeat. If you need numbers without repeats, use the [custom wheel](/custom-wheel-of-names) with the Exclude switch turned on, or write each result down and spin again.'
+    },
+    {
+        q: 'Is it random enough for a raffle?',
+        a: "It uses your browser's random number function, which is fine for games, classrooms and raffles among friends. Do not use it for anything that needs certified randomness, such as a regulated lottery. If you want a saved record of a draw, the [giveaway picker](/giveaway) stores the winner with a time stamp."
+    },
+    {
+        q: 'What is the biggest range I can use?',
+        a: 'The wheel works up to 200 numbers. Above that, the Pick a number button draws from the whole range, up to one billion numbers.'
+    },
+    {
+        q: 'Can I use negative numbers, or a range that does not start at 1?',
+        a: 'Yes. Set any minimum and maximum, such as -5 to 5 or 100 to 150.'
+    }
+]
+
 const NumberWheelPage: React.FC = () => {
     const [min, setMin] = useState(1)
     const [max, setMax] = useState(10)
     const [lastResult, setLastResult] = useState<WheelOption | null>(null)
 
+    const lo = Math.round(Math.min(min, max))
+    const hi = Math.round(Math.max(min, max))
+    const count = hi - lo + 1
+    const bigRange = count > MAX_SLICES
+    const rangeTooHuge = count > MAX_RANGE
+
     const options: WheelOption[] = useMemo(() => {
-        const lo = Math.min(min, max)
-        const hi = Math.max(min, max)
-        // Cap the number of slices so huge ranges stay spinnable/legible.
-        const count = hi - lo + 1
-        const maxSlices = 60
-        let values: number[]
-        if (count <= maxSlices) {
-            values = Array.from({ length: count }, (_, i) => lo + i)
-        } else {
-            // Sample evenly across the range when it's very large
-            values = Array.from({ length: maxSlices }, (_, i) =>
-                Math.round(lo + (i * (hi - lo)) / (maxSlices - 1))
-            )
-        }
-        return values.map((n, i) => ({
+        if (count > MAX_SLICES) return []
+        return Array.from({ length: count }, (_, i) => ({
             id: `${i}`,
-            text: String(n),
+            text: String(lo + i),
             color: magicalColors[i % magicalColors.length],
         }))
-    }, [min, max])
+    }, [lo, count])
 
-    const rangeTooLarge = Math.abs(max - min) + 1 > 60
+    const pickFromRange = () => {
+        if (rangeTooHuge) return
+        setLastResult({ id: 'pick', text: String(lo + randomInt(count)) })
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
             <SEOHead
-                title="Random Number Wheel — Spin a Number Generator (1–100 & Custom) | SpinWheelHub"
-                description="Free random number wheel. Pick a random number by spinning — choose 1–10, 1–100, dice rolls, or set any custom range. Fair, visual, and instant."
+                title="Random Number Wheel: Spin a Number from 1 to 100 | SpinWheelHub"
+                description="Free random number wheel. Spin to pick a number from 1 to 10, 1 to 100, a dice roll, or any custom range. Fair, visual and instant."
                 keywords="random number wheel, number picker wheel, random number generator, spin a number, 1 to 100 wheel, number spinner"
                 schema={{
                     "@context": "https://schema.org",
@@ -127,9 +170,14 @@ const NumberWheelPage: React.FC = () => {
                                     />
                                 </label>
                             </div>
-                            {rangeTooLarge && (
+                            {bigRange && !rangeTooHuge && (
                                 <p className="text-[11px] text-amber-600 mt-2">
-                                    Large range — showing 60 evenly-sampled numbers so the wheel stays readable.
+                                    That is more than {MAX_SLICES} numbers, so there is no wheel. Use Pick a number to draw from the whole range.
+                                </p>
+                            )}
+                            {rangeTooHuge && (
+                                <p className="text-[11px] text-red-600 mt-2">
+                                    Use a range of one billion numbers or fewer.
                                 </p>
                             )}
                         </div>
@@ -142,33 +190,34 @@ const NumberWheelPage: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Wheel */}
+                    {/* Wheel, or a plain draw when the range is too big for a readable wheel */}
                     <div className="flex justify-center">
-                        <SpinningWheel
-                            options={options}
-                            size={Math.min(520, typeof window !== 'undefined' ? window.innerWidth - 60 : 520)}
-                            onSpinComplete={(r) => setLastResult(r)}
-                        />
+                        {bigRange ? (
+                            <div className="text-center bg-white rounded-xl border border-dashed border-gray-300 px-8 py-16 max-w-md">
+                                <Hash className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                                <p className="text-gray-600 mb-4">
+                                    This range has {count.toLocaleString()} numbers, which is too many for a readable wheel.
+                                </p>
+                                <button
+                                    onClick={pickFromRange}
+                                    disabled={rangeTooHuge}
+                                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Pick a number
+                                </button>
+                            </div>
+                        ) : (
+                            <SpinningWheel
+                                options={options}
+                                size={Math.min(520, typeof window !== 'undefined' ? window.innerWidth - 60 : 520)}
+                                onSpinComplete={(r) => setLastResult(r)}
+                            />
+                        )}
                     </div>
                 </div>
-
-                {/* SEO content */}
-                <div className="mt-16 max-w-3xl mx-auto prose prose-lg text-gray-600">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">How the Random Number Wheel Works</h2>
-                    <p>
-                        Set a minimum and maximum, then spin. The wheel picks a truly random number from your
-                        range — every number has an equal chance. Use it as a fair alternative to a plain
-                        random number generator when you want a visual, shareable spin instead of just a digit.
-                    </p>
-                    <h3 className="text-xl font-bold text-gray-900 mt-8 mb-3">Popular Uses</h3>
-                    <ul className="space-y-2">
-                        <li>Raffle and giveaway winner numbers (e.g. 1–100)</li>
-                        <li>Classroom games and randomly numbered turns</li>
-                        <li>Dice replacement (1–6) or coin-style picks (0–1)</li>
-                        <li>Picking lottery-style or lucky numbers for fun</li>
-                    </ul>
-                </div>
             </div>
+
+            <PageGuide sections={guideSections} faqs={guideFaqs} />
         </div>
     )
 }

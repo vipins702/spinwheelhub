@@ -33,7 +33,7 @@ const links = [
     { url: '/secret-santa', changefreq: 'weekly', priority: 0.9 },
     { url: '/rock-paper-scissors', changefreq: 'weekly', priority: 0.8 },
     { url: '/giveaway', changefreq: 'weekly', priority: 0.9 },
-    { url: '/hub', changefreq: 'daily', priority: 1.0 },
+    { url: '/hub', changefreq: 'daily', priority: 0.9 },
     { url: '/privacy', changefreq: 'yearly', priority: 0.3 },
     { url: '/terms', changefreq: 'yearly', priority: 0.3 },
 ];
@@ -61,7 +61,8 @@ blogPosts.forEach(slug => {
 });
 
 async function generateSitemap() {
-    const sitemap = new SitemapStream({ hostname: BASE_URL });
+    // Plain URL list: leave out the news, video, image and hreflang namespaces we never use
+    const sitemap = new SitemapStream({ hostname: BASE_URL, xmlns: { news: false, xhtml: false, image: false, video: false } });
     const path = resolve(__dirname, '../public/sitemap.xml');
     const writeStream = createWriteStream(path);
 

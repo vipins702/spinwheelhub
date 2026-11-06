@@ -1,8 +1,14 @@
 import React from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
-import { Calendar, User, ArrowLeft, Share2, Clock } from 'lucide-react'
+import { Calendar, ArrowLeft, Share2, Clock } from 'lucide-react'
+import SEOHead from '../components/SEOHead'
 import { blogPosts } from '../data/blogPosts'
+
+// "Jan 28, 2024" -> "2024-01-28". Read as UTC so the day never shifts with the reader's timezone.
+const toIsoDate = (text: string): string | undefined => {
+    const date = new Date(`${text} UTC`)
+    return isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10)
+}
 
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>()
@@ -12,22 +18,41 @@ const BlogPostPage: React.FC = () => {
         return <Navigate to="/blog" replace />
     }
 
+    const url = `https://spinwheelhub.org/blog/${post.slug}`
+    const published = toIsoDate(post.date)
+    const otherPosts = blogPosts.filter(p => p.slug !== post.slug)
+
     return (
         <>
-            <Helmet>
-                <title>{post.seoTitle}</title>
-                <meta name="description" content={post.seoDescription} />
-                <meta name="keywords" content={post.keywords} />
-
-                {/* Open Graph */}
-                <meta property="og:title" content={post.seoTitle} />
-                <meta property="og:description" content={post.seoDescription} />
-                <meta property="og:image" content={post.image} />
-                <meta property="og:type" content="article" />
-                <meta property="og:url" content={`https://spinwheelhub.org/blog/${post.slug}`} />
-
-                <link rel="canonical" href={`https://spinwheelhub.org/blog/${post.slug}`} />
-            </Helmet>
+            <SEOHead
+                title={post.seoTitle}
+                description={post.seoDescription}
+                keywords={post.keywords}
+                image={post.image}
+                type="article"
+                schema={[
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        "headline": post.title,
+                        "description": post.seoDescription,
+                        "image": post.image,
+                        ...(published ? { "datePublished": published } : {}),
+                        "author": { "@type": "Person", "name": post.author },
+                        "publisher": { "@type": "Organization", "name": "SpinWheelHub", "url": "https://spinwheelhub.org" },
+                        "mainEntityOfPage": url
+                    },
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://spinwheelhub.org/" },
+                            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://spinwheelhub.org/blog" },
+                            { "@type": "ListItem", "position": 3, "name": post.title, "item": url }
+                        ]
+                    }
+                ]}
+            />
 
             <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
                 <article className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -100,6 +125,24 @@ const BlogPostPage: React.FC = () => {
                         >
                             Try {post.relatedWheelTitle || 'Custom Wheel'}
                         </Link>
+                    </div>
+
+                    {/* More reading and tools: gives every post links in and out */}
+                    <div className="p-8 md:p-12 border-t border-gray-100">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">More from the blog</h2>
+                        <ul className="space-y-2">
+                            {otherPosts.map(p => (
+                                <li key={p.slug}>
+                                    <Link to={`/blog/${p.slug}`} className="text-purple-700 font-semibold hover:underline">{p.title}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="mt-6 text-gray-600">
+                            Want to try the tools? Open the <Link to="/custom-wheel-of-names" className="text-purple-700 font-semibold hover:underline">custom wheel</Link>,
+                            the <Link to="/giveaway" className="text-purple-700 font-semibold hover:underline">giveaway picker</Link>,
+                            the <Link to="/team-generator" className="text-purple-700 font-semibold hover:underline">team generator</Link>,
+                            or browse <Link to="/hub" className="text-purple-700 font-semibold hover:underline">all wheels</Link>.
+                        </p>
                     </div>
                 </article>
             </div>

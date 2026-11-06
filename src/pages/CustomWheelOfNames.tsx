@@ -5,7 +5,60 @@ import toast from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SpinningWheel from '../components/SpinningWheel'
+import PageGuide from '../components/PageGuide'
 import { trackEvent } from '../utils/track'
+
+const guideSections = [
+  {
+    heading: 'How to make your own wheel',
+    paragraphs: [
+      'Type an option into the box on the left and press Enter. Repeat for every choice you want on the wheel, then click the wheel or the Spin button. If you would rather start with a ready-made list, open the Template menu at the top and pick General Decision, Food Choices, Activities, Team Selection, Numbers or Colors. You can change any of the options afterward.',
+      'Already have your list in a file? Import Options loads a .txt file with one entry per line and replaces the options on the wheel. Export Options saves the current list as a .txt file you can load again next time. Entries you type by hand can be up to 25 characters, so short names and phrases fit best.'
+    ]
+  },
+  {
+    heading: 'Make it look the way you want',
+    paragraphs: [
+      'Click the title above the wheel to rename it. The Wheel Colors panel has six color sets: Vibrant, Pastel, Neon, Casino, Ocean and Sunset. To change a single slice, click the small colored dot next to that option. The slider at the top makes the wheel bigger or smaller.',
+      'Turn on the Exclude switch if you want each winner taken off the wheel after the result shows. That way nobody wins twice, which is what you want when everyone needs a turn. The Recent Results box keeps your last ten spins.'
+    ]
+  },
+  {
+    heading: 'Share the wheel with other people',
+    paragraphs: [
+      'Save & Share Link stores your wheel and copies a link. Anyone who opens that link sees the same options and can spin it on their own device. Use it for a class or a group chat where everyone should see the same wheel.'
+    ]
+  },
+  {
+    heading: 'What people use it for',
+    paragraphs: [
+      'Teachers use a name wheel to pick who answers next, and groups use one to settle who goes first in a game or who pays for dinner. Every slice is the same size, so every option has the same chance on every spin. If your list is people, the [random team generator](/team-generator) can split them into groups, and the [giveaway picker](/giveaway) saves a record of the draw. For numbers there is the [number wheel](/number-wheel), and if you are choosing a baby name you can try the [baby name wheel](/wheel-of-names). You can also read how teachers use name pickers in our [classroom ideas post](/blog/creative-classroom-name-pickers).'
+    ]
+  }
+]
+
+const guideFaqs = [
+  {
+    q: 'Is the custom spin wheel free?',
+    a: 'Yes. You do not need an account to make a wheel, spin it or share it.'
+  },
+  {
+    q: 'Is every spin random?',
+    a: 'Each spin stops at a random point chosen by your browser. All slices are the same size, so every option has the same chance.'
+  },
+  {
+    q: 'Can I remove a winner after they are picked?',
+    a: 'Yes. Turn on the Exclude switch at the top of the page. The winner comes off the wheel a few seconds after the result appears.'
+  },
+  {
+    q: 'How do I save my list for later?',
+    a: 'Use Export Options to download it as a .txt file, or Save & Share Link to get a link back to the wheel. Import Options loads a saved .txt file.'
+  },
+  {
+    q: 'Does it work on a phone?',
+    a: 'Yes. It works in current browsers on phones, tablets and computers.'
+  }
+]
 
 interface WheelOption {
   id: string
@@ -298,15 +351,15 @@ const CustomWheelOfNames: React.FC = () => {
     <>
       {/* Enhanced SEO Head */}
       <Helmet>
-        <title>Custom Spin Wheel — Make Your Own Customizable Wheel Spinner | SpinWheelHub</title>
-        <meta name="description" content="Make your own custom spin wheel in seconds. Add your entries, customize colors, and spin — a free customizable wheel spinner for teams, giveaways, classrooms and decisions." />
+        <title>Custom Spin Wheel: Make Your Own Wheel Spinner | SpinWheelHub</title>
+        <meta name="description" content="Make your own custom spin wheel in seconds. Add entries, change colors and spin. A free wheel for teams, giveaways, classrooms and decisions." />
         <meta name="keywords" content="spin wheel, wheel of names, custom wheel, random picker, decision maker, name picker, team selector, random generator, spinning wheel, choice maker, custom spinner, random name picker, decision wheel, name selector, team picker, random chooser" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SpinWheelHub" />
         <link rel="canonical" href="https://spinwheelhub.org/custom-wheel-of-names" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Custom Spin Wheel — Make Your Own Customizable Wheel Spinner" />
+        <meta property="og:title" content="Custom Spin Wheel: Make Your Own Wheel Spinner" />
         <meta property="og:description" content="Create your personalized spin wheel! Perfect for team selection, decision making, name drawing, and any random picking needs." />
         <meta property="og:url" content="https://spinwheelhub.org/custom-wheel-of-names" />
         <meta property="og:type" content="website" />
@@ -709,6 +762,8 @@ const CustomWheelOfNames: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <PageGuide sections={guideSections} faqs={guideFaqs} />
 
         {/* Custom scrollbar styles */}
         <style dangerouslySetInnerHTML={{

@@ -134,7 +134,7 @@ const SecretSantaPage: React.FC = () => {
         <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-green-50">
             <SEOHead
                 title="Secret Santa Generator: Free Name Draw Online | SpinWheelHub"
-                description="Free Secret Santa generator. Enter names, block couples from drawing each other, then pass the phone around so each person sees only their own match. No sign-up, no emails."
+                description="Free Secret Santa generator. Enter names, block couples from drawing each other, then pass the phone around so each person sees only their match. No sign-up."
                 keywords="secret santa generator, secret santa name drawer, secret santa picker, draw names online, gift exchange generator, secret santa"
                 schema={[
                     {

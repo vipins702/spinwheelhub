@@ -92,7 +92,7 @@ const TeamGeneratorPage: React.FC = () => {
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
             <SEOHead
                 title="Random Team Generator: Split Names into Groups | SpinWheelHub"
-                description="Free random team generator and random group generator. Paste a list of names, choose the number of teams or people per team, and get fair, balanced groups instantly."
+                description="Free random team generator. Paste a list of names, pick the number of teams or people per team, and get fair, balanced groups instantly."
                 keywords="random team generator, random group generator, team picker, group maker, split into teams, random teams"
                 schema={[
                     {

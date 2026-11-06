@@ -58,7 +58,11 @@
             "destination": "/embed.html"
         },
         {
-            "source": "/(.*)",
+            "source": "/w/:id",
+            "destination": "/shell.html"
+        },
+        {
+            "source": "/giveaway/:id",
             "destination": "/shell.html"
         }
     ],

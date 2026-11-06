@@ -65,6 +65,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
   const [spinTime, setSpinTime] = useState(20)
   const [maxVisibleNames, setMaxVisibleNames] = useState(1000)
   const [showResultPopup, setShowResultPopup] = useState(false)
+  const [shareNote, setShareNote] = useState('')
 
   const controls = useAnimation()
   const wheelRef = useRef<HTMLDivElement>(null)
@@ -440,6 +441,25 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
       console.error('Animation error', err)
     } finally {
       setIsSpinning(false)
+    }
+  }
+
+  // Share the winner: the phone's share sheet where there is one, otherwise copy a link back to this wheel
+  const shareResult = async () => {
+    if (!result) return
+    const url = `${window.location.origin}${window.location.pathname}?utm_source=share&utm_medium=result`
+    const text = `I spun "${result.text}" on SpinWheelHub`
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'SpinWheelHub', text, url })
+      } else {
+        await navigator.clipboard.writeText(`${text}. Try it: ${url}`)
+        setShareNote('Link copied')
+        setTimeout(() => setShareNote(''), 2000)
+      }
+      trackEvent('result_share', { page: window.location.pathname })
+    } catch {
+      // Closing the share sheet counts as cancelling, not an error
     }
   }
 
@@ -969,6 +989,14 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
               >
                 🎯 Spin Again
               </button>
+              {!window.location.pathname.startsWith('/embed/') && (
+                <button
+                  onClick={shareResult}
+                  className="w-full px-6 py-3 bg-white hover:bg-purple-50 text-purple-700 rounded-lg transition-colors font-medium border border-purple-300"
+                >
+                  {shareNote || 'Share this result'}
+                </button>
+              )}
               <button
                 onClick={() => setShowResultPopup(false)}
                 className="w-full px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium border border-gray-300"
