@@ -37,7 +37,7 @@ const EmbedWheelPage: React.FC = () => {
             <h1 className="text-lg font-bold text-gray-900 mb-1 text-center">{template.title}</h1>
             <SpinningWheel options={options} size={size} />
             <a
-                href={`https://spinwheelhub.org/wheel/${template.id}`}
+                href={`https://spinwheelhub.org/wheel/${template.id}?utm_source=embed&utm_medium=iframe&utm_campaign=powered_by`}
                 target="_blank"
                 rel="noopener"
                 className="mt-1 text-xs text-gray-500 hover:text-purple-700 underline"

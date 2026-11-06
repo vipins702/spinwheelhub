@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Download, Trash2, Upload, Wand2 } from 'lucide-react'
 import { downloadFile, namesFromFile, tidyNames } from '../utils/names'
+import { trackEvent } from '../utils/track'
 
 interface NameListInputProps {
     id: string
@@ -59,6 +60,7 @@ const NameListInput: React.FC<NameListInputProps> = ({ id, label, value, onChang
             return
         }
         update(names.join('\n'), `Imported ${names.length} names from ${file.name}.`)
+        trackEvent('list_import', { page: window.location.pathname, names: names.length })
     }
 
     const tidy = () => {

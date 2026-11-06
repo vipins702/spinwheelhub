@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Settings, X, Play, Square, Volume2, Maximize, Minimize } from 'lucide-react'
+import { trackEvent } from '../utils/track'
 
 interface WheelOption {
   id: string
@@ -430,6 +431,7 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({
       }, 300)
 
       onSpinComplete?.(chosenOption)
+      trackEvent('wheel_spin', { page: window.location.pathname, slices: segmentCount })
 
       if (excludeAfterSpin && onOptionExcluded) {
         setTimeout(() => onOptionExcluded(chosenOption.id), 2500)

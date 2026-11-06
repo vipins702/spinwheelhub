@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SpinningWheel from '../components/SpinningWheel'
+import { trackEvent } from '../utils/track'
 
 interface WheelOption {
   id: string
@@ -262,6 +263,7 @@ const CustomWheelOfNames: React.FC = () => {
       const { url } = await res.json()
       const fullUrl = `${window.location.origin}${url}`
       await navigator.clipboard.writeText(fullUrl)
+      trackEvent('wheel_share', { slices: options.length })
       toast.success('Wheel saved! Share link copied to clipboard')
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not share wheel')

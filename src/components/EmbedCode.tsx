@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Check, Code2, Copy } from 'lucide-react'
+import { trackEvent } from '../utils/track'
 
 interface EmbedCodeProps {
     slug: string
@@ -11,11 +12,12 @@ interface EmbedCodeProps {
 const EmbedCode: React.FC<EmbedCodeProps> = ({ slug, title }) => {
     const [copied, setCopied] = useState(false)
     const code = `<iframe src="https://spinwheelhub.org/embed/${slug}" title="${title} wheel" width="100%" height="680" style="border:0;max-width:600px" loading="lazy" allow="fullscreen"></iframe>
-<p>Wheel by <a href="https://spinwheelhub.org/wheel/${slug}">SpinWheelHub</a></p>`
+<p>Wheel by <a href="https://spinwheelhub.org/wheel/${slug}?utm_source=embed&utm_medium=referral&utm_campaign=credit_link">SpinWheelHub</a></p>`
 
     const copy = async () => {
         try {
             await navigator.clipboard.writeText(code)
+            trackEvent('embed_copy', { wheel: slug })
             setCopied(true)
             setTimeout(() => setCopied(false), 2000)
         } catch {

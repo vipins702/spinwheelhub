@@ -4,6 +4,7 @@ import { ArrowLeft, Gift, Copy, Trophy, ShieldCheck, Loader2 } from 'lucide-reac
 import toast from 'react-hot-toast'
 import SpinningWheel from '../components/SpinningWheel'
 import SEOHead from '../components/SEOHead'
+import { trackEvent } from '../utils/track'
 
 interface WheelOption {
     id: string
@@ -98,6 +99,7 @@ const GiveawayHost: React.FC = () => {
             const full = `${window.location.origin}${url}`
             setProofUrl(full)
             await navigator.clipboard.writeText(full)
+            trackEvent('giveaway_proof', { entries: entries.length })
             toast.success('Winner recorded! Proof link copied.')
         } catch (e) {
             toast.error(e instanceof Error ? e.message : 'Could not record winner')
